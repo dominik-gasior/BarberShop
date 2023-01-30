@@ -13,8 +13,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features" />
-      <Folder Include="ServiceManager" />
+      <Folder Include="Features\Client\Exceptions" />
+      <Folder Include="Features\SystemReservation\FreeTime" />
+      <Folder Include="Features\SystemReservation\Role" />
+      <Folder Include="Features\SystemReservation\ServiceIndustry" />
+      <Folder Include="Features\SystemReservation\Visit" />
+      <Folder Include="Features\SystemReservation\VisitTime" />
+      <Folder Include="Features\Warehouse\OrderItem" />
+      <Folder Include="Features\Warehouse\Order" />
+      <Folder Include="Features\Warehouse\PriceProduct" />
+      <Folder Include="Features\Warehouse\Product" />
+      <Folder Include="Features\Warehouse\StockStatus" />
     </ItemGroup>
 
 </Project>

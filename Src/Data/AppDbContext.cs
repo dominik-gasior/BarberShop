@@ -19,5 +19,8 @@ public class AppDbContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<PriceProduct> PriceProducts { get; set; }
     public DbSet<StockStatus> StockStatus { get; set; }
-    
+    //TODO Change format datetime in Database. 
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 }
