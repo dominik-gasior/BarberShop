@@ -11,5 +11,10 @@ public class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndu
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.Price).IsRequired();
         builder.Property(p => p.Time).IsRequired();
+
+        builder.HasMany(p => p.Visits)
+            .WithOne(p => p.ServiceIndustry)
+            .HasForeignKey(p => p.ServiceIndustryId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

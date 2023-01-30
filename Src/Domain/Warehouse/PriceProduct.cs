@@ -6,5 +6,5 @@ public class PriceProduct
     public decimal Price { get; set; }
     public decimal LastPrice { get; set; }
 
-    public List<Product> Product { get; set; }
+    public Product Product { get; set; }
 }

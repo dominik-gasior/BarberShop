@@ -9,5 +9,9 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
     public void Configure(EntityTypeBuilder<Role> builder)
     {
         builder.Property(p => p.Name).IsRequired();
+
+        builder.HasMany(p => p.Employees)
+            .WithOne(p => p.Role)
+            .HasForeignKey(p => p.RoleId);
     }
 }

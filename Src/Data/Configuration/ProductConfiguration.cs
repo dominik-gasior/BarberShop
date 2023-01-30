@@ -12,5 +12,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Description).IsRequired();
         builder.Property(p => p.PriceProductId).IsRequired();
         builder.Property(p => p.StockStatusId).IsRequired();
+
+        builder.HasMany(p => p.Orders)
+            .WithMany(p => p.Products);
     }
 }

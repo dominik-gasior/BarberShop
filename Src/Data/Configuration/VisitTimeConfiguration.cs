@@ -9,5 +9,8 @@ public class VisitTimeConfiguration : IEntityTypeConfiguration<VisitTime>
     public void Configure(EntityTypeBuilder<VisitTime> builder)
     {
         builder.Property(p => p.Date).IsRequired();
+
+        builder.HasMany(p => p.Visits)
+            .WithMany(p => p.VisitTimes);
     }
 }

@@ -9,5 +9,10 @@ public class StockStatusConfiguration : IEntityTypeConfiguration<StockStatus>
     public void Configure(EntityTypeBuilder<StockStatus> builder)
     {
         builder.Property(p => p.Amount).IsRequired();
+
+        builder.HasOne(p => p.Product)
+            .WithOne(p => p.StockStatus)
+            .HasForeignKey<Product>(p => p.StockStatusId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
