@@ -3,11 +3,12 @@ using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Src.Data;
 using Src.Manager.RepositoryManager;
-using Src.ServiceManager;
+using Src.Manager.ServiceManager;
 
 var builder = WebApplication.CreateBuilder();
 
 var connString = builder.Configuration.GetConnectionString("dbConnString");
+
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseSqlServer(connString)
 );

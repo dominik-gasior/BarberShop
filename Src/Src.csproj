@@ -19,6 +19,7 @@
 
     <ItemGroup>
       <Folder Include="Data\Migrations" />
+      <Folder Include="Features\ClientFeatures\Command" />
       <Folder Include="Features\SystemReservation\RoleFeatures" />
       <Folder Include="Features\SystemReservation\ServiceIndustryFeatures" />
       <Folder Include="Features\SystemReservation\VisitFeatures" />

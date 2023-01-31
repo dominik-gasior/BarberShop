@@ -6,17 +6,17 @@ namespace Src.Manager.RepositoryManager;
 
 public interface IRepositoryManager
 {
-    IClientService ClientService { get; }
+    IClientRepository ClientRepository { get; }
 }
 
 public class RepositoryManager : IRepositoryManager
 {
-    private readonly Lazy<IClientService> _lazyClientServices;
+    private readonly Lazy<IClientRepository> _lazyClientRepository;
 
     public RepositoryManager(AppDbContext dbContext)
     {
-        _lazyClientServices = new Lazy<IClientService>(() => new ClientRepository(dbContext));
+        _lazyClientRepository= new Lazy<IClientRepository>(() => new ClientRepository(dbContext));
     }
 
-    public IClientService ClientService => _lazyClientServices.Value;
+    public IClientRepository ClientRepository => _lazyClientRepository.Value;
 }

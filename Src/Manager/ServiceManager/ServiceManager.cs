@@ -1,8 +1,8 @@
 using Src.Data;
-using Src.Data.Repositories;
 using Src.Features.ClientFeatures;
+using Src.Manager.RepositoryManager;
 
-namespace Src.ServiceManager;
+namespace Src.Manager.ServiceManager;
 
 public interface IServiceManager
 {
@@ -11,9 +11,9 @@ public interface IServiceManager
 public class ServiceManager : IServiceManager
 {
     private readonly Lazy<IClientService> _lazyClientService;
-    public ServiceManager(AppDbContext dbContext)
+    public ServiceManager(IRepositoryManager repositoryManager)
     {
-        _lazyClientService = new Lazy<IClientService>(()=> new ClientRepository(dbContext));
+        _lazyClientService = new Lazy<IClientService>(()=> new ClientService(repositoryManager));
     }
     public IClientService ClientService => _lazyClientService.Value;
 }

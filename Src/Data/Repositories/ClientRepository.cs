@@ -1,15 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Src.Domain;
 using Src.Features.ClientFeatures;
+using Src.Features.ClientFeatures.Exceptions;
 
 namespace Src.Data.Repositories;
 
 public interface IClientRepository
 {
-    Task<IEnumerable<Client>> GetAllClients();
+    Task<IEnumerable<Client>> GetAllClients(CancellationToken ct);
+    Task<Client> GetClientById(int id, CancellationToken ct);
 }
 
-public class ClientRepository : IClientService
+public class ClientRepository : IClientRepository
 {
     private readonly AppDbContext _dbContext;
 
@@ -18,4 +20,11 @@ public class ClientRepository : IClientService
 
     public async Task<IEnumerable<Client>> GetAllClients(CancellationToken ct)
         => await _dbContext.Clients.ToListAsync(ct);
+
+    public async Task<Client> GetClientById(int id, CancellationToken ct)
+    {
+        var client = await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == id, cancellationToken: ct);
+        if (client is null) throw new NotFoundExceptions("Not fount client in database!");
+        return client;
+    }
 }

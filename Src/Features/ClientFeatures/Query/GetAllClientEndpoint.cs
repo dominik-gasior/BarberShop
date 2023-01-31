@@ -1,10 +1,10 @@
 using Src.Domain;
-using Src.ServiceManager;
+using Src.Manager.ServiceManager;
 
 namespace Src.Features.ClientFeatures;
 
 public record struct GetAllClientsResponse(int Id, string FirstName, string LastName, string Email, string NumberPhone);
-public record struct GetAllClientsRequest();
+public record struct GetAllClientsRequest;
 public class GetAllClientsMapperProfile : Mapper<GetAllClientsRequest, IEnumerable<GetAllClientsResponse>, IEnumerable<Client>>, IResponseMapper
 {
     public override IEnumerable<GetAllClientsResponse> FromEntity(IEnumerable<Client> c)
@@ -21,10 +21,7 @@ public class GetAllClientsMapperProfile : Mapper<GetAllClientsRequest, IEnumerab
 public class GetAllClientsEndpoint : EndpointWithoutRequest<IEnumerable<GetAllClientsResponse>,GetAllClientsMapperProfile>
 {
     private readonly IServiceManager _serviceManager;
-
-    public GetAllClientsEndpoint(IServiceManager serviceManager)
-        => _serviceManager = serviceManager;
-
+    public GetAllClientsEndpoint(IServiceManager serviceManager) => _serviceManager = serviceManager;
     public override void Configure()
     {
         Get("/api/client");
