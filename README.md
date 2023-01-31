@@ -13,6 +13,5 @@
 * [REST API](https://www.ibm.com/pl-pl/cloud/learn/rest-apis)
 * [Microsoft Azure](https://azure.microsoft.com/pl-pl)
 * [Docker](https://www.docker.com/)
-* [CQRS](https://learn.microsoft.com/pl-pl/azure/architecture/patterns/cqrs)
-* [MediatR](https://cezarywalenciuk.pl/blog/programing/mediatr-cqrs-i-wzorzec-projektowy-mediator-w-aspnet-core)
+* [Bogus](https://github.com/bchavez/Bogus)
 
