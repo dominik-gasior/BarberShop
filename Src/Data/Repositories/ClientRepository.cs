@@ -23,8 +23,14 @@ public class ClientRepository : IClientRepository
 
     public async Task<Client> GetClientById(int id, CancellationToken ct)
     {
-        var client = await _dbContext.Clients.FirstOrDefaultAsync(c => c.Id == id, cancellationToken: ct);
-        if (client is null) throw new NotFoundExceptions("Not fount client in database!");
+        var client = await _dbContext
+            .Clients
+            .Include(c => c.Orders)
+            .Include(c=> c.Visits)
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken: ct);
+        
+        if (client is null) throw new NotFoundExceptions("Not found client in database!");
+        
         return client;
     }
 }

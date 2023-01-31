@@ -1,8 +1,4 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Src.Data;
 using Src.Domain;
-using Src.Features.ClientFeatures.Exceptions;
 using Src.Manager.RepositoryManager;
 
 namespace Src.Features.ClientFeatures;
@@ -10,6 +6,7 @@ namespace Src.Features.ClientFeatures;
 public interface IClientService
 {
     Task<IEnumerable<Client>> GetAllClients(CancellationToken ct);
+    Task<Client> GetClientById(int id, CancellationToken ct);
 }
 public class ClientService : IClientService
 {
@@ -20,5 +17,7 @@ public class ClientService : IClientService
 
     public async Task<IEnumerable<Client>> GetAllClients(CancellationToken ct)
         =>  await _repositoryManager.ClientRepository.GetAllClients(ct);
-    
-    }
+
+    public async Task<Client> GetClientById(int id, CancellationToken ct)
+        => await _repositoryManager.ClientRepository.GetClientById(id, ct);
+}
