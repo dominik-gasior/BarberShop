@@ -4,13 +4,13 @@ using Src.Domain;
 
 namespace Src.Data;
 
-public static class Seeder 
+public static class Seeder
 {
     public static void Seed(AppDbContext dbContext)
     {
         var locale = "pl";
-        Randomizer.Seed = new Random(100);
-        var serviceindustry = new List<ServiceIndustry>()
+        Randomizer.Seed = new Random(StaticVariables.Seed);
+        var serviceIndustries = new List<ServiceIndustry>()
         {
             new ServiceIndustry
             {
@@ -31,10 +31,12 @@ public static class Seeder
                 Time = 60,
             }
         };
-        if(dbContext.ServiceIndustries.IsNullOrEmpty()) dbContext.AddRange(serviceindustry);
-        dbContext.SaveChanges();
-        
-        var role = new List<Role>()
+        if (!dbContext.ServiceIndustries.Any())
+        {
+            dbContext.AddRangeAsync(serviceIndustries);
+            dbContext.SaveChangesAsync();
+        }
+        var roles = new List<Role>()
         {
             new Role
             {
@@ -49,24 +51,27 @@ public static class Seeder
                 Name = "Pracownik"
             }
         };
+
+        if (!dbContext.Roles.Any())
+        {
+            dbContext.AddRangeAsync(roles);
+            dbContext.SaveChangesAsync();
+        }
         
-        if(dbContext.Roles.IsNullOrEmpty()) dbContext.AddRange(role);
-        dbContext.SaveChanges();
-        
-        var employeeGenerator = new Faker<Employee>(locale)
+        var employeesGenerator = new Faker<Employee>(locale)
             .RuleFor(p => p.FirstName, f => f.Name.FirstName())
             .RuleFor(p => p.LastName, f => f.Name.LastName())
             .RuleFor(p => p.Email, f => f.Internet.Email())
-            .RuleFor(p => p.NumberPhone, f => f.Random.Number(0, 999999999).ToString())
+            .RuleFor(p => p.NumberPhone, f => f.Random.Number(100000000, 999999999).ToString())
             .RuleFor(p => p.RoleId, 1);
 
-        var clientGenerator = new Faker<Client>(locale)
+        var clientsGenerator = new Faker<Client>(locale)
             .RuleFor(p => p.FirstName, f => f.Name.FirstName())
             .RuleFor(p => p.LastName, f => f.Name.LastName())
             .RuleFor(p => p.Email, f => f.Internet.Email())
-            .RuleFor(p => p.NumberPhone, f => f.Random.Number(0, 999999999).ToString());
+            .RuleFor(p => p.NumberPhone, f => f.Random.Number(100000000, 999999999).ToString());
 
-        var priceProduct = new List<PriceProduct>
+        var pricesProducts = new List<PriceProduct>
         {
             new PriceProduct
             {
@@ -89,11 +94,15 @@ public static class Seeder
                 LastPrice = 74.99m
             },
         };
-        
-        if(dbContext.PriceProducts.IsNullOrEmpty()) dbContext.AddRange(priceProduct);
-        dbContext.SaveChanges();
 
-        var amountProduct = new List<AmountProduct>
+        if (!dbContext.PriceProducts.Any())
+        {
+            dbContext.AddRangeAsync(pricesProducts);
+            dbContext.SaveChangesAsync();
+        }
+        
+
+        var amountsProducts = new List<AmountProduct>
         {
             new AmountProduct
             {
@@ -112,11 +121,15 @@ public static class Seeder
                 Amount = 100,
             },
         };
+
+        if (!dbContext.AmountProducts.Any())
+        {
+            dbContext.AddRangeAsync(amountsProducts);
+            dbContext.SaveChangesAsync();
+        }
         
-        if(dbContext.AmountProducts.IsNullOrEmpty()) dbContext.AddRange(amountProduct);
-        dbContext.SaveChanges();
         
-        var product = new List<Product>()
+        var products = new List<Product>()
         {
             new Product
             {
@@ -147,16 +160,29 @@ public static class Seeder
                 AmountProductId = 4,
             }
         };
-        
-        if(dbContext.Products.IsNullOrEmpty()) dbContext.AddRange(product);
-        dbContext.SaveChanges();
-        
-        var employee = employeeGenerator.Generate(3);
-        var client = clientGenerator.Generate(15);
 
-        if(dbContext.Clients.IsNullOrEmpty()) dbContext.AddRange(client);
-        if(dbContext.Employees.IsNullOrEmpty()) dbContext.AddRange(employee);
+        if (!dbContext.Products.Any())
+        {
+            dbContext.AddRangeAsync(products);
+            dbContext.SaveChangesAsync();
+        }
+        
+        
+        var employees = employeesGenerator.Generate(StaticVariables.EmployeesGeneratorCount);
+        var clients = clientsGenerator.Generate(StaticVariables.ClientsGeneratorCount);
 
-        dbContext.SaveChanges();
+        if (!dbContext.Clients.Any())
+        {
+            dbContext.AddRangeAsync(clients);
+            dbContext.SaveChangesAsync();
+        }
+
+        if (!dbContext.Employees.Any())
+        {
+            dbContext.AddRangeAsync(employees);
+            dbContext.SaveChangesAsync();
+        }
+
+        
     }
 }
