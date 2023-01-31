@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Src.Domain;
+using Order = Src.Domain.Order;
 
 namespace Src.Data;
 
