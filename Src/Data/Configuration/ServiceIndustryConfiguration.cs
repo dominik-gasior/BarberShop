@@ -8,6 +8,8 @@ public class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndu
 {
     public void Configure(EntityTypeBuilder<ServiceIndustry> builder)
     {
+        builder.HasKey(p => p.Id);
+        
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.Price).IsRequired();
         builder.Property(p => p.Time).IsRequired();

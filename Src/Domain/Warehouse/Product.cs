@@ -6,9 +6,9 @@ public class Product
     public string Name { get; set; }
     public string Description { get; set; }
     public int PriceProductId { get; set; }
-    public int StockStatusId { get; set; }
+    public int AmountProductId { get; set; }
 
     public PriceProduct PriceProduct { get; set; }
-    public StockStatus StockStatus { get; set; }
+    public AmountProduct AmountProduct { get; set; }
     public List<Order> Orders { get; set; }
 }

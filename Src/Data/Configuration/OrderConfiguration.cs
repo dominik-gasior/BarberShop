@@ -8,6 +8,9 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {
+        builder.HasKey(p => p.Id);
+        builder.HasIndex(p => p.ClientId);
+        
         builder.Property(p => p.Cost).IsRequired();
         builder.Property(p => p.DeliveryTime).IsRequired();
         builder.Property(p => p.ClientId).IsRequired();

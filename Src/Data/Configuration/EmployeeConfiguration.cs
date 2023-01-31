@@ -8,6 +8,9 @@ public class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
 {
     public void Configure(EntityTypeBuilder<Employee> builder)
     {
+        builder.HasKey(p => p.Id);
+        builder.HasIndex(p => p.RoleId);
+
         builder.Property(p => p.FirstName).IsRequired();
         builder.Property(p => p.LastName).IsRequired();
         builder.Property(p => p.Email).IsRequired();

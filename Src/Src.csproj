@@ -7,6 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Bogus" Version="34.0.2" />
+        <PackageReference Include="MediatR" Version="11.1.0" />
+        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
           <PrivateAssets>all</PrivateAssets>
@@ -17,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\Client\Command" />
       <Folder Include="Features\Client\Exceptions" />
       <Folder Include="Features\SystemReservation\Role" />
       <Folder Include="Features\SystemReservation\ServiceIndustry" />
@@ -25,7 +29,7 @@
       <Folder Include="Features\Warehouse\Order" />
       <Folder Include="Features\Warehouse\PriceProduct" />
       <Folder Include="Features\Warehouse\Product" />
-      <Folder Include="Features\Warehouse\StockStatus" />
+      <Folder Include="Features\Warehouse\AmountProduct" />
     </ItemGroup>
 
 </Project>

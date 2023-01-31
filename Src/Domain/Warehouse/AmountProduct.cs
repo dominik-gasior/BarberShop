@@ -1,6 +1,6 @@
 namespace Src.Domain;
 
-public class StockStatus
+public class AmountProduct
 {
     public int Id { get; set; }
     public int Amount { get; set; }

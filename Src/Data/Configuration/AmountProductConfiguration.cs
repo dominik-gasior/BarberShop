@@ -4,15 +4,17 @@ using Src.Domain;
 
 namespace Src.Data.Configuration;
 
-public class StockStatusConfiguration : IEntityTypeConfiguration<StockStatus>
+public class AmountProductConfiguration : IEntityTypeConfiguration<AmountProduct>
 {
-    public void Configure(EntityTypeBuilder<StockStatus> builder)
+    public void Configure(EntityTypeBuilder<AmountProduct> builder)
     {
+        builder.HasKey(p => p.Id);
+
         builder.Property(p => p.Amount).IsRequired();
 
         builder.HasOne(p => p.Product)
-            .WithOne(p => p.StockStatus)
-            .HasForeignKey<Product>(p => p.StockStatusId)
+            .WithOne(p => p.AmountProduct)
+            .HasForeignKey<Product>(p => p.AmountProductId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
