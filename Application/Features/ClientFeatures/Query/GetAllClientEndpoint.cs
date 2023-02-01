@@ -2,7 +2,7 @@ using FastEndpoints;
 using Src.Domain;
 using Src.Manager.ServiceManager;
 
-namespace Src.Features.ClientFeatures;
+namespace Application.Features.ClientFeatures.Query;
 
 public record struct GetAllClientsResponse(int Id, string FirstName, string LastName, string Email, string NumberPhone);
 public record struct GetAllClientsRequest;

@@ -25,11 +25,11 @@ public class
             Visits = e.Visits
         };
 }
-public class GetClientByNumberPhone : Endpoint<GetClientByNumberPhoneRequest, GetClientByNumberPhoneResponse, GetClientByNumberPhoneMapperProfile>
+public class GetClientByNumberPhoneEndpoint : Endpoint<GetClientByNumberPhoneRequest, GetClientByNumberPhoneResponse, GetClientByNumberPhoneMapperProfile>
 {
     private readonly IServiceManager _serviceManager;
 
-    public GetClientByNumberPhone(IServiceManager serviceManager) => _serviceManager = serviceManager;
+    public GetClientByNumberPhoneEndpoint(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
     public override void Configure()
     {

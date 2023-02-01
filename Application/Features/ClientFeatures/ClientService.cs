@@ -1,3 +1,4 @@
+using Application.Features.ClientFeatures.Command;
 using Src.Domain;
 using Src.Manager.RepositoryManager;
 
@@ -22,6 +23,6 @@ internal class ClientService : IClientService
     public async Task<Client> GetClientById(int id, CancellationToken ct)
         => await _repositoryManager.ClientRepository.GetClientById(id, ct);
 
-    public Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct)
-        => _repositoryManager.ClientRepository.GetClientByNumberPhone(numberPhone, ct);
+    public async Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct)
+        => await _repositoryManager.ClientRepository.GetClientByNumberPhone(numberPhone, ct);
 }

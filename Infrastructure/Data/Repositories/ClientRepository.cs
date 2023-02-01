@@ -1,6 +1,6 @@
+using Application.Features.ClientFeatures.Command;
 using Infrastructure.Data.Repositories.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Src.Domain;
 
 namespace Infrastructure.Data.Repositories;
@@ -10,6 +10,7 @@ public interface IClientRepository
     Task<IEnumerable<Client>> GetAllClients(CancellationToken ct);
     Task<Client> GetClientById(int id, CancellationToken ct);
     Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
+    Task Insert(Client client, CancellationToken ct);
 }
 
 internal class ClientRepository : IClientRepository
@@ -45,5 +46,10 @@ internal class ClientRepository : IClientRepository
 
         if (client is null) throw new NotFoundExceptions("Not found client in database");
         return client;
+    }
+
+    public async Task Insert(Client client, CancellationToken ct)
+    {
+        await _dbContext.Clients.AddAsync(client, ct);
     }
 }
