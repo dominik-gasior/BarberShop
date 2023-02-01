@@ -3,6 +3,7 @@ using Application.ServiceManager;
 using FastEndpoints.Swagger;
 using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
+using Infrastructure.Data.Seeders;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
