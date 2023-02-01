@@ -1,5 +1,6 @@
 using Infrastructure.Data.Repositories.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Src.Domain;
 
 namespace Infrastructure.Data.Repositories;
@@ -8,6 +9,7 @@ public interface IClientRepository
 {
     Task<IEnumerable<Client>> GetAllClients(CancellationToken ct);
     Task<Client> GetClientById(int id, CancellationToken ct);
+    Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
 }
 
 internal class ClientRepository : IClientRepository
@@ -30,6 +32,18 @@ internal class ClientRepository : IClientRepository
         
         if (client is null) throw new NotFoundExceptions("Not found client in database!");
         
+        return client;
+    }
+
+    public async Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct)
+    {
+        var client = await _dbContext
+            .Clients
+            .Include(c => c.Orders)
+            .Include(c => c.Visits)
+            .FirstOrDefaultAsync(c => c.NumberPhone == numberPhone, cancellationToken: ct);
+
+        if (client is null) throw new NotFoundExceptions("Not found client in database");
         return client;
     }
 }

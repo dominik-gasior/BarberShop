@@ -1,12 +1,13 @@
 using Src.Domain;
 using Src.Manager.RepositoryManager;
 
-namespace Src.Features.ClientFeatures;
+namespace Application.Features.ClientFeatures;
 
 public interface IClientService
 {
     Task<IEnumerable<Client>> GetAllClients(CancellationToken ct);
     Task<Client> GetClientById(int id, CancellationToken ct);
+    Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
 }
 internal class ClientService : IClientService
 {
@@ -20,4 +21,7 @@ internal class ClientService : IClientService
 
     public async Task<Client> GetClientById(int id, CancellationToken ct)
         => await _repositoryManager.ClientRepository.GetClientById(id, ct);
+
+    public Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct)
+        => _repositoryManager.ClientRepository.GetClientByNumberPhone(numberPhone, ct);
 }

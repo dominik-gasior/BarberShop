@@ -3,7 +3,7 @@ using Src.Domain;
 using Src.Manager.ServiceManager;
 using Order = Src.Domain.Order;
 
-namespace Src.Features.ClientFeatures;
+namespace Application.Features.ClientFeatures.Query;
 
 public record GetClientByIdRequest { public int Id { get; init; } }
 public record struct GetClientByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email, IEnumerable<Visit> Visits, IEnumerable<Order> Orders);
