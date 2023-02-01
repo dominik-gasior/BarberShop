@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Src.Domain;
 
-namespace Infrastructure.Data.Configuration;
+namespace Src.Data.Configuration;
 
 internal class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndustry>
 {

@@ -4,23 +4,19 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>Src</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.7.0" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="FastEndpoints" Version="5.7.0.1-beta" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0.1-beta" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Data\Migrations\20230131151009_Add in configuration primary key and index.cs" />
-      <Compile Remove="Data\Migrations\20230131151009_Add in configuration primary key and index.Designer.cs" />
-      <Compile Remove="Data\Migrations\20230131143934_Start.Designer.cs" />
+      <None Include="appsettings.Development.json" />
+      <None Include="appsettings.json" />
     </ItemGroup>
 
     <ItemGroup>
