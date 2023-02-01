@@ -1,6 +1,6 @@
+using Application.ServiceManager;
 using FastEndpoints;
 using Src.Domain;
-using Src.Manager.ServiceManager;
 using Order = Src.Domain.Order;
 
 namespace Application.Features.ClientFeatures.Query;

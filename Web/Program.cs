@@ -1,9 +1,9 @@
 global using FastEndpoints;
+using Application.ServiceManager;
 using FastEndpoints.Swagger;
 using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Src.Manager.RepositoryManager;
-using Src.Manager.ServiceManager;
 
 var builder = WebApplication.CreateBuilder();
 

@@ -1,7 +1,7 @@
 using Application.Features.ClientFeatures;
-using Src.Manager.RepositoryManager;
+using Infrastructure.Data.Repositories;
 
-namespace Src.Manager.ServiceManager;
+namespace Application.ServiceManager;
 
 public interface IServiceManager
 {

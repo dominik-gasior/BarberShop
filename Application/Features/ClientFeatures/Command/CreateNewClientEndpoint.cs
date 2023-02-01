@@ -1,7 +1,7 @@
 using Application.Features.ClientFeatures.Query;
+using Application.ServiceManager;
 using FastEndpoints;
 using Src.Domain;
-using Src.Manager.ServiceManager;
 
 namespace Application.Features.ClientFeatures.Command;
 
@@ -34,19 +34,12 @@ public class CreateNewClientMapperProfile : Mapper<CreateNewClientRequest, Creat
 public class CreateNewClientEndpoint : Endpoint<CreateNewClientRequest,CreateNewClientResponse, CreateNewClientMapperProfile>
 {
     private readonly IServiceManager _serviceManager;
-
     public CreateNewClientEndpoint(IServiceManager serviceManager) => _serviceManager = serviceManager;
-
     public override void Configure()
     {
         Post("/api/client");
         AllowAnonymous();
     }
-
     public override async Task HandleAsync(CreateNewClientRequest req, CancellationToken ct)
-    {
-        // var result = await _serviceManager.ClientService.CreateNewClient(Map.ToEntity(req), ct);
-
-        // await SendAsync(Map.FromEntity(result), cancellation:ct);
-    }
+        => await SendAsync(Map.FromEntity(await _serviceManager.ClientService.CreateNewClient(Map.ToEntity(req), ct)), cancellation: ct);
 }

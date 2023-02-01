@@ -1,5 +1,3 @@
-using Application.Features.ClientFeatures.Command;
-using Infrastructure.Data.Repositories.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Src.Domain;
 
@@ -24,32 +22,22 @@ internal class ClientRepository : IClientRepository
         => await _dbContext.Clients.ToListAsync(ct);
 
     public async Task<Client> GetClientById(int id, CancellationToken ct)
-    {
-        var client = await _dbContext
+        => (await _dbContext
             .Clients
             .Include(c => c.Orders)
             .Include(c=> c.Visits)
-            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken: ct);
-        
-        if (client is null) throw new NotFoundExceptions("Not found client in database!");
-        
-        return client;
-    }
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken: ct))!;
 
-    public async Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct)
-    {
-        var client = await _dbContext
+    
+
+    public async Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct) 
+        =>  (await _dbContext
             .Clients
             .Include(c => c.Orders)
             .Include(c => c.Visits)
-            .FirstOrDefaultAsync(c => c.NumberPhone == numberPhone, cancellationToken: ct);
-
-        if (client is null) throw new NotFoundExceptions("Not found client in database");
-        return client;
-    }
+            .FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone), cancellationToken: ct))!;
+    
 
     public async Task Insert(Client client, CancellationToken ct)
-    {
-        await _dbContext.Clients.AddAsync(client, ct);
+        => await _dbContext.Clients.AddAsync(client, ct);
     }
-}
