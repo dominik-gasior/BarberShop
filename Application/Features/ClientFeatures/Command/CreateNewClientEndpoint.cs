@@ -37,7 +37,7 @@ public class CreateNewClientEndpoint : Endpoint<CreateNewClientRequest,CreateNew
     public CreateNewClientEndpoint(IServiceManager serviceManager) => _serviceManager = serviceManager;
     public override void Configure()
     {
-        Post("/api/client");
+        Post("/api/createNewClient");
         AllowAnonymous();
     }
     public override async Task HandleAsync(CreateNewClientRequest req, CancellationToken ct)

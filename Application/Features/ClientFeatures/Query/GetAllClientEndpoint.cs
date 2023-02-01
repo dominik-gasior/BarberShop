@@ -24,7 +24,7 @@ public class GetAllClientsEndpoint : EndpointWithoutRequest<IEnumerable<GetAllCl
     public GetAllClientsEndpoint(IServiceManager serviceManager) => _serviceManager = serviceManager;
     public override void Configure()
     {
-        Get("/api/client");
+        Get("/api/getAllClients");
         AllowAnonymous();
     }
     
