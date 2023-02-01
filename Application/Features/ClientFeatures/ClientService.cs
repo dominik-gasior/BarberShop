@@ -40,7 +40,7 @@ internal class ClientService : IClientService
 
     public async Task<Client> CreateNewClient(Client client, CancellationToken ct)
     {
-        var isClient = await _repositoryManager.ClientRepository.GetClientByNumberPhone(client.NumberPhone, ct);
+        var isClient = await _repositoryManager.ClientRepository.GetClientByNumberPhone(client.NumberPhone, ct, false);
         if (isClient is not null) throw new BadRequestException($"Client #{client.Id} is exist in database");
 
         await _repositoryManager.ClientRepository.Insert(client,ct);
@@ -50,7 +50,7 @@ internal class ClientService : IClientService
 
     public async Task<string> DeleteClient(int id, CancellationToken ct)
     {
-        var client = await _repositoryManager.ClientRepository.GetClientById(id, ct);
+        var client = await _repositoryManager.ClientRepository.GetClientById(id, ct, false);
         
         if (client is null) throw new BadRequestException("Not found client in database");
 
@@ -64,7 +64,7 @@ internal class ClientService : IClientService
     {
         if (client.NumberPhone.Equals("") && client.Email!.Equals("")) throw new BadRequestException("Email or number phone are empty!");
         
-        var updateClient = await _repositoryManager.ClientRepository.GetClientById(client.Id, ct);
+        var updateClient = await _repositoryManager.ClientRepository.GetClientById(client.Id, ct, false);
         if (updateClient is null) throw new NotFoundExceptions("Not found client in database");
 
         if(!client.NumberPhone.Equals("")) updateClient.NumberPhone = client.NumberPhone;
