@@ -1,3 +1,4 @@
+using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using Src.Domain;
 
@@ -9,6 +10,7 @@ public interface IClientRepository
     Task<Client> GetClientById(int id, CancellationToken ct);
     Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
     Task Insert(Client client, CancellationToken ct);
+    Task Delete(Client client, CancellationToken ct);
 }
 
 internal class ClientRepository : IClientRepository
@@ -40,4 +42,7 @@ internal class ClientRepository : IClientRepository
 
     public async Task Insert(Client client, CancellationToken ct)
         => await _dbContext.Clients.AddAsync(client, ct);
-    }
+
+    public async Task Delete(Client client, CancellationToken ct)
+        => await Task.FromResult(_dbContext.Clients.Remove(client));
+}

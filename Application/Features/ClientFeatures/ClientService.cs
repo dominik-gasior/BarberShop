@@ -1,3 +1,4 @@
+using System.Formats.Asn1;
 using Application.Features.ClientFeatures.Command;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Data.Repositories.Exceptions;
@@ -11,6 +12,7 @@ public interface IClientService
     Task<Client> GetClientById(int id, CancellationToken ct);
     Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
     Task<Client> CreateNewClient(Client client, CancellationToken ct);
+    Task<string> DeleteClient(int id, CancellationToken ct);
 }
 internal class ClientService : IClientService
 {
@@ -38,10 +40,22 @@ internal class ClientService : IClientService
     public async Task<Client> CreateNewClient(Client client, CancellationToken ct)
     {
         var isClient = await _repositoryManager.ClientRepository.GetClientByNumberPhone(client.NumberPhone, ct);
-        if (isClient is not null) throw new BadRequestException("Client is exist in database");
+        if (isClient is not null) throw new BadRequestException($"Client #{client.Id} is exist in database");
 
         await _repositoryManager.ClientRepository.Insert(client,ct);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
         return await _repositoryManager.ClientRepository.GetClientByNumberPhone(client.NumberPhone,ct);
+    }
+
+    public async Task<string> DeleteClient(int id, CancellationToken ct)
+    {
+        var client = await _repositoryManager.ClientRepository.GetClientById(id, ct);
+        
+        if (client is null) throw new BadRequestException("Not found client in database");
+
+        await _repositoryManager.ClientRepository.Delete(client,ct);
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+
+        return $"Client #{id} was removed in database!";
     }
 }
