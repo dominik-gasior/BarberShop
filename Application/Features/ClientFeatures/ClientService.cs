@@ -13,6 +13,7 @@ public interface IClientService
     Task<Client> GetClientByNumberPhone(string numberPhone, CancellationToken ct);
     Task<Client> CreateNewClient(Client client, CancellationToken ct);
     Task<string> DeleteClient(int id, CancellationToken ct);
+    Task<string> UpdateClient(Client client, CancellationToken ct);
 }
 internal class ClientService : IClientService
 {
@@ -53,9 +54,23 @@ internal class ClientService : IClientService
         
         if (client is null) throw new BadRequestException("Not found client in database");
 
-        await _repositoryManager.ClientRepository.Delete(client,ct);
+        await _repositoryManager.ClientRepository.Delete(client);
         await _repositoryManager.UnitOfWork.SaveChangesAsync();
 
         return $"Client #{id} was removed in database!";
+    }
+
+    public async Task<string> UpdateClient(Client client, CancellationToken ct)
+    {
+        if (client.NumberPhone.Equals("") && client.Email!.Equals("")) throw new BadRequestException("Email or number phone are empty!");
+        
+        var updateClient = await _repositoryManager.ClientRepository.GetClientById(client.Id, ct);
+        if (updateClient is null) throw new NotFoundExceptions("Not found client in database");
+
+        if(!client.NumberPhone.Equals("")) updateClient.NumberPhone = client.NumberPhone;
+        if(!client.Email!.Equals("")) updateClient.Email = client.Email;
+        
+        await _repositoryManager.UnitOfWork.SaveChangesAsync();
+        return $"Client #{client.Id} was updated in database";
     }
 }
