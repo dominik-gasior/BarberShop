@@ -1,6 +1,5 @@
 using Application.ServiceManager;
 using FastEndpoints;
-using Src.Domain;
 
 namespace Application.Features.ClientFeatures.Command;
 

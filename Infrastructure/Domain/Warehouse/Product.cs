@@ -1,4 +1,4 @@
-namespace Src.Domain;
+namespace Infrastructure.Domain.Warehouse;
 
 public class Product
 {

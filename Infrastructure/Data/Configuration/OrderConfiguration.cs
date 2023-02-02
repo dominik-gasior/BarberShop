@@ -1,12 +1,12 @@
+using Infrastructure.Domain.Warehouse;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Src.Domain;
 
-namespace Src.Data.Configuration;
+namespace Infrastructure.Data.Configuration;
 
 internal class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
-    public void Configure(EntityTypeBuilder<Src.Domain.Order> builder)
+    public void Configure(EntityTypeBuilder<Order> builder)
     {
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.ClientId);

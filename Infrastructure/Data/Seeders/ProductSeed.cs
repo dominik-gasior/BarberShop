@@ -1,4 +1,4 @@
-using Src.Domain;
+using Infrastructure.Domain.Warehouse;
 
 namespace Infrastructure.Data.Seeders;
 

@@ -1,6 +1,6 @@
+using Infrastructure.Domain.SystemReservation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Src.Domain;
 
 namespace Infrastructure.Data.Configuration;
 

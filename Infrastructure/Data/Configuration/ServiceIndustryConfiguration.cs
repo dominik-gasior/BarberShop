@@ -1,8 +1,8 @@
+using Infrastructure.Domain.SystemReservation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Src.Domain;
 
-namespace Src.Data.Configuration;
+namespace Infrastructure.Data.Configuration;
 
 internal class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndustry>
 {

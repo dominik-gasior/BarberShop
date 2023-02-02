@@ -1,7 +1,7 @@
 using System.Net;
 using Infrastructure.Data.Shared;
 
-namespace Infrastructure.Data.Repositories.Exceptions;
+namespace Application.Features.Exceptions;
 
 internal class NotFoundExceptions : BarberShopException
 {

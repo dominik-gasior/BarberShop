@@ -1,4 +1,7 @@
-namespace Src.Domain;
+using Infrastructure.Domain.SystemReservation;
+using Infrastructure.Domain.Warehouse;
+
+namespace Infrastructure.Domain;
 
 public class Client
 {

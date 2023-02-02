@@ -1,4 +1,4 @@
-namespace Src.Domain;
+namespace Infrastructure.Domain.SystemReservation;
 
 public class ServiceIndustry
 {

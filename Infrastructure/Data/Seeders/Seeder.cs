@@ -1,5 +1,4 @@
 using Bogus;
-using Src.Domain;
 
 namespace Infrastructure.Data.Seeders;
 

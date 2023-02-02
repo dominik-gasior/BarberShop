@@ -1,7 +1,8 @@
 using Application.ServiceManager;
 using FastEndpoints;
-using Src.Domain;
-using Order = Src.Domain.Order;
+using Infrastructure.Domain;
+using Infrastructure.Domain.SystemReservation;
+using Order = Infrastructure.Domain.Warehouse.Order;
 
 namespace Application.Features.ClientFeatures.Query;
 

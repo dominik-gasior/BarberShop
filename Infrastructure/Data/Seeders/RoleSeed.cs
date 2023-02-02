@@ -1,4 +1,4 @@
-using Src.Domain;
+using Infrastructure.Domain.SystemReservation;
 
 namespace Infrastructure.Data.Seeders;
 

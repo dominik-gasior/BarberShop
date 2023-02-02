@@ -1,6 +1,6 @@
 using Application.ServiceManager;
 using FastEndpoints;
-using Src.Domain;
+using Infrastructure.Domain;
 
 namespace Application.Features.ClientFeatures.Query;
 

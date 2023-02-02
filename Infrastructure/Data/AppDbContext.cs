@@ -1,6 +1,8 @@
+using Infrastructure.Domain;
+using Infrastructure.Domain.SystemReservation;
+using Infrastructure.Domain.Warehouse;
 using Microsoft.EntityFrameworkCore;
-using Src.Domain;
-using Order = Src.Domain.Order;
+using Order = Infrastructure.Domain.Warehouse.Order;
 
 namespace Infrastructure.Data;
 
