@@ -21,7 +21,6 @@ public class AppDbContext : DbContext
     public DbSet<PriceProduct> PriceProducts { get; set; }
     public DbSet<AmountProduct> AmountProducts { get; set; }
     //TODO Change format datetime in Database. 
-    //TODO End configuration (primary key etc.)
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
