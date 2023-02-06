@@ -19,7 +19,7 @@ internal class SystemReservationService : ISystemReservationService
 
     public SystemReservationService(ISystemReservationRepository systemReservationRepository) =>
         _systemReservationRepository = systemReservationRepository;
-
+ 
     public async Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct)
         => await _systemReservationRepository.GetAllVisits(ct);
 
