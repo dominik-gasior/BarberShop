@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Exceptions" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Bogus" Version="34.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
         <PrivateAssets>all</PrivateAssets>

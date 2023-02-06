@@ -30,8 +30,8 @@ internal class SystemReservationRepository : ISystemReservationRepository
     public async Task Insert(Visit visit, CancellationToken ct)
         => await _dbContext.Visits.AddAsync(visit, ct);
 
-    public async Task Delete(Visit visit)
-        => await Task.FromResult(_dbContext.Visits.Remove(visit));
+    public Task Delete(Visit visit)
+        =>  Task.FromResult(_dbContext.Visits.Remove(visit));
 
     public async Task SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();

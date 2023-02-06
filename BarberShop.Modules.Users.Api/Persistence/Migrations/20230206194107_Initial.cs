@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace BarberShop.Modules.Users.Api.Migrations
+namespace BarberShop.Modules.Users.Api.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -23,7 +23,9 @@ namespace BarberShop.Modules.Users.Api.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberPhone = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

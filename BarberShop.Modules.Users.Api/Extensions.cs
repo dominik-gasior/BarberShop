@@ -13,8 +13,8 @@ public static class Extensions
     {
         services.AddDbContext<UsersDbContext>(
             options => options.UseSqlServer(ConnectionString.ConnString));
-        services.AddTransient<IUserService, UserService>();
-        services.AddTransient<IUserRepository, UserRepository>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

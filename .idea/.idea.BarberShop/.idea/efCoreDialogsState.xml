@@ -9,7 +9,7 @@
         <entry key="Common:buildConfiguration" value="Debug" />
         <entry key="Common:c8ffe050-9b76-4608-86ab-b426a1eb6f0c:dbContext" value="BarberShop.Modules.Users.Api.Persistence.UsersDbContext" />
         <entry key="Common:noBuild" value="false" />
-        <entry key="Common:outputFolder" value="Migrations" />
+        <entry key="Common:outputFolder" value="Persistence/Migrations" />
         <entry key="Common:useDefaultConnection" value="true" />
       </map>
     </option>
