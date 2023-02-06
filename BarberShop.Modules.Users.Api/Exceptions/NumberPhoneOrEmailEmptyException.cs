@@ -3,8 +3,8 @@ using BarberShop.Shared;
 
 namespace BarberShop.Modules.Users.Api.Exceptions;
 
-internal class BadRequestException : BarberShopExceptions
+public class NumberPhoneOrEmailEmptyException : BarberShopExceptions
 {
-    public BadRequestException(string message) : base(message){}
+    public NumberPhoneOrEmailEmptyException() : base("Email or number phone are empty"){}
     public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
 }
