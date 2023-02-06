@@ -12,6 +12,11 @@ public class WarehouseDbContext : DbContext
     public DbSet<AmountProduct> AmountProducts { get; set; }
     
     public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options){}
-    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasDefaultSchema("BarberShop.Warehouse");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(WarehouseDbContext).Assembly);
+    }
+        
 }

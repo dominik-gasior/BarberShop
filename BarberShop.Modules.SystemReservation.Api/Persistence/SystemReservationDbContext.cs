@@ -13,7 +13,11 @@ public class SystemReservationDbContext : DbContext
     public DbSet<Role> Roles { get; set; }
     
     public SystemReservationDbContext(DbContextOptions<SystemReservationDbContext> options) : base(options){}
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasDefaultSchema("BarberShop.SystemReservation");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(SystemReservationDbContext).Assembly);
+    }
+        
 }

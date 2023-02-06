@@ -9,7 +9,7 @@ internal class ClientConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(p => p.Id);
-
+        
         builder.Property(c => c.FirstName).IsRequired();
         builder.Property(c => c.LastName).IsRequired();
         builder.Property(c => c.NumberPhone).IsRequired();

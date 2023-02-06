@@ -10,7 +10,12 @@ public static class Extensions
     public static IServiceCollection AddSystemReservationModule(this IServiceCollection services)
     {
         services.AddDbContext<SystemReservationDbContext>(
-            options => options.UseSqlServer(ConnectionString.ConnString));
+            options =>
+                options
+                    .UseSqlServer(
+                        ConnectionString.ConnString
+                    ));
+        
 
         return services;
     }
