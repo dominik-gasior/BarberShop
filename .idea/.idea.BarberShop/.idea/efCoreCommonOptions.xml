@@ -5,12 +5,13 @@
       <map>
         <entry key="0c5efb70-bfd3-4b8e-92e8-732a8d7c4247" value="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" />
         <entry key="2ffff736-d267-40cb-bcf1-f136daa00147" value="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" />
+        <entry key="9af142ee-0877-4cba-b601-e15588ae8c84" value="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" />
         <entry key="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" value="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" />
       </map>
     </option>
     <option name="startupToMigrationsProjects">
       <map>
-        <entry key="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" value="2ffff736-d267-40cb-bcf1-f136daa00147" />
+        <entry key="c8ffe050-9b76-4608-86ab-b426a1eb6f0c" value="9af142ee-0877-4cba-b601-e15588ae8c84" />
       </map>
     </option>
   </component>

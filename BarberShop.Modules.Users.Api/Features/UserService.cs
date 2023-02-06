@@ -12,7 +12,7 @@ public interface IUserService
     Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct);
     Task<string> CreateNewUser(User user, CancellationToken ct);
     Task<string> DeleteUser(int id, CancellationToken ct);
-    Task<string> UpdateUser(UpdateClientRequest user, CancellationToken ct);
+    Task<string> UpdateUser(UpdateUserRequest user, CancellationToken ct);
 }
 internal class UserService : IUserService
 {
@@ -59,7 +59,7 @@ internal class UserService : IUserService
         return $"User #{id} was removed in database!";
     }
 
-    public async Task<string> UpdateUser(UpdateClientRequest user, CancellationToken ct)
+    public async Task<string> UpdateUser(UpdateUserRequest user, CancellationToken ct)
     {
         if (user.NumberPhone.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
         

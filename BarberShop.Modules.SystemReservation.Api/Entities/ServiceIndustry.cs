@@ -1,6 +1,4 @@
-using BarberShop.Modules.SystemReservation.Api.Entities;
-
-namespace Infrastructure.Domain.SystemReservation;
+namespace BarberShop.Modules.SystemReservation.Api.Entities;
 
 public class ServiceIndustry
 {

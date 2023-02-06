@@ -15,7 +15,6 @@ public static class Extensions
             options => options.UseSqlServer(ConnectionString.ConnString));
         services.AddTransient<IUserService, UserService>();
         services.AddTransient<IUserRepository, UserRepository>();
-        
 
         return services;
     }

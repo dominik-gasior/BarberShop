@@ -1,7 +1,6 @@
-using BarberShop.Modules.SystemReservation.Api.Persistence;
-using Infrastructure.Domain.SystemReservation;
+using BarberShop.Modules.SystemReservation.Api.Entities;
 
-namespace Infrastructure.Data.Seeders;
+namespace BarberShop.Modules.SystemReservation.Api.Persistence.Seeder;
 
 internal static class ServiceIndustrySeed
 {

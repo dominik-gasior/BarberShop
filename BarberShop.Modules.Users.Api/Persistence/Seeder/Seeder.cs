@@ -8,6 +8,6 @@ internal static class Seeder
     internal static async Task Seed(this UsersDbContext dbContext)
     {
         Randomizer.Seed = new Random(StaticVariables.Seed);
-        ClientSeed.SeedClients(dbContext, StaticVariables.Locale);
+        UserSeed.SeedUsers(dbContext, StaticVariables.Locale);
     }
 }

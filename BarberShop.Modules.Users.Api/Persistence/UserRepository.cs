@@ -27,11 +27,11 @@ internal class UserRepository : IUserRepository
             .FirstOrDefaultAsync(c => c.Id == id, ct))!;
     public async Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct)
         => (await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone), ct))!;
-    public async Task Insert(User client, CancellationToken ct)
-        => await _dbContext.Users.AddAsync(client, ct);
+    public async Task Insert(User user, CancellationToken ct)
+        => await _dbContext.Users.AddAsync(user, ct);
 
-    public async Task Delete(User client)
-        => await Task.FromResult(_dbContext.Users.Remove(client));
+    public async Task Delete(User user)
+        => await Task.FromResult(_dbContext.Users.Remove(user));
 
     public async Task SaveChangesAsync()
         => await _dbContext.SaveChangesAsync();

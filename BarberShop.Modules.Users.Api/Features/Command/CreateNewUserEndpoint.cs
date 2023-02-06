@@ -10,17 +10,17 @@ public record CreateNewUserRequest
     public string NumberPhone { get; init; }
     public string? Email { get; init; }
 }
-public class CreateNewClientMapperProfile : RequestMapper<CreateNewUserRequest, User>
+public class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRequest, User>
 {
-    public override User ToEntity(CreateNewUserRequest r) => new(0, r.FirstName, r.LastName, r.NumberPhone, r.Email);
+    public override User ToEntity(CreateNewUserRequest r) => new(0, r.FirstName, r.LastName, r.NumberPhone, r.Email, (int)Role.Klient);
 }
-public class CreateNewClientEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewClientMapperProfile>
+public class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewUserMapperProfile>
 {
     private readonly IUserService _userService;
-    public CreateNewClientEndpoint(IUserService userService) => _userService = userService;
+    public CreateNewUserEndpoint(IUserService userService) => _userService = userService;
     public override void Configure()
     {
-        Post("/api/createNewClient");
+        Post("/api/createNewUser");
         AllowAnonymous();
     }
     public override async Task HandleAsync(CreateNewUserRequest req, CancellationToken ct)

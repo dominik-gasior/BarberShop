@@ -15,8 +15,6 @@ public static class Extensions
                     .UseSqlServer(
                         ConnectionString.ConnString
                     ));
-        
-
         return services;
     }
 }

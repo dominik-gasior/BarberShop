@@ -1,8 +1,8 @@
-using Infrastructure.Domain.SystemReservation;
+using BarberShop.Modules.SystemReservation.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configuration;
+namespace BarberShop.Modules.SystemReservation.Api.Persistence.Configurations;
 
 internal class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndustry>
 {
