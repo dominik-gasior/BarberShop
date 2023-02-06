@@ -7,9 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FastEndpoints" Version="5.7.0.1-beta" />
-        <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0.1-beta" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
+        <PackageReference Include="FastEndpoints" Version="5.7.0.2-beta" />
+        <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0.2-beta" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>
@@ -17,6 +21,12 @@
     <ItemGroup>
       <None Include="appsettings.Development.json" />
       <None Include="appsettings.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BarberShop.Modules.SystemReservation.Api\BarberShop.Modules.SystemReservation.Api.csproj" />
+      <ProjectReference Include="..\BarberShop.Modules.Users.Api\BarberShop.Modules.Users.Api.csproj" />
+      <ProjectReference Include="..\BarberShop.Modules.Warehouse.Api\BarberShop.Modules.Warehouse.Api.csproj" />
     </ItemGroup>
 
 </Project>

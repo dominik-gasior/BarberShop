@@ -1,18 +1,20 @@
 global using FastEndpoints;
+using BarberShop.Modules.SystemReservation.Api;
+using BarberShop.Modules.Users.Api;
+using BarberShop.Modules.Warehouse.Api;
 using FastEndpoints.Swagger;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder();
 
-var connString = builder.Configuration.GetConnectionString("dbConnString");
-
 builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDoc();
+builder.Services.AddUsersModule();
+builder.Services.AddWarehouseModule();
+builder.Services.AddSystemReservationModule();
 
 var app = builder.Build();
 
 app.UseAuthorization();
-
 
 app.UseFastEndpoints();
 
