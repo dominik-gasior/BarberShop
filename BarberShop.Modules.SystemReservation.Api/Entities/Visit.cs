@@ -6,6 +6,6 @@ public class Visit
     public int UserId { get; set; }
     public int EmployeeId { get; set; }
     public int ServiceIndustryId { get; set; }
-    public DateTime Time { get; set; }
+    public DateTime Date { get; set; }
     public ServiceIndustry ServiceIndustry { get; set; }
 }

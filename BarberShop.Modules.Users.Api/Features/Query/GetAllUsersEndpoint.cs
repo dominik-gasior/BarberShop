@@ -3,19 +3,18 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-public record struct GetAllUsersResponse(int Id, string FirstName, string LastName, string Email, string NumberPhone);
-public record struct GetAllUsersRequest;
+public record GetAllUsersResponse(int Id, string FirstName, string LastName, string Email, string NumberPhone);
+public record GetAllUsersRequest;
 public class GetAllUsersMapperProfile : Mapper<GetAllUsersRequest, IEnumerable<GetAllUsersResponse>, IEnumerable<User>>, IResponseMapper
 {
     public override IEnumerable<GetAllUsersResponse> FromEntity(IEnumerable<User> c)
-        => c.Select(r => new GetAllUsersResponse
-        {
-            Id = r.Id,
-            FirstName = r.FirstName,
-            LastName = r.LastName,
-            Email = r.Email,
-            NumberPhone = r.NumberPhone
-        });
+        => c.Select(r => new GetAllUsersResponse(
+            r.Id,
+            r.FirstName,
+            r.LastName,
+            r.Email,
+            r.NumberPhone
+        ));
 }
 public class GetAllUsersEndpoint : EndpointWithoutRequest<IEnumerable<GetAllUsersResponse>,GetAllUsersMapperProfile>
 {

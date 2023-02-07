@@ -1,23 +1,18 @@
 using BarberShop.Modules.Users.Api.Entities;
 using FastEndpoints;
-using Microsoft.Identity.Client;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-public record GetUserByIdRequest { public int Id { get; init; } }
-public record struct GetUserByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email);
+public record GetUserByIdRequest
+{
+    public int Id { get;}
+}
+public record GetUserByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email);
 
 public class GetUserByIdMapperProfile : Mapper<GetUserByIdRequest, GetUserByIdResponse, User>
 {
     public override GetUserByIdResponse FromEntity(User e)
-        => new()
-        {
-            Id = e.Id,
-            FirstName = e.FirstName,
-            LastName = e.LastName,
-            Email = e.Email,
-            NumberPhone = e.NumberPhone,
-        };
+        => new GetUserByIdResponse(e.Id, e.FirstName, e.LastName, e.NumberPhone, e.Email);
 }
 public class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUserByIdResponse, GetUserByIdMapperProfile>
 {

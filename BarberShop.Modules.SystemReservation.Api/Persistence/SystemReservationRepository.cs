@@ -5,10 +5,10 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence;
 
 public interface ISystemReservationRepository
 {
-    Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct);
-    Task<Visit> GetVisitById(int id, CancellationToken ct);
-    Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct);
-    Task Insert(Visit visit, CancellationToken ct);
+    Task<IEnumerable<Visit>> GetAllVisits();
+    Task<Visit> GetVisitById(int id);
+    Task<Visit> IsFreeEmployee(Visit visit);
+    Task Insert(Visit visit);
     Task Delete(Visit visit);
     Task SaveChangesAsync();
 }
@@ -20,21 +20,21 @@ internal class SystemReservationRepository : ISystemReservationRepository
     public SystemReservationRepository(SystemReservationDbContext dbContext)
         => _dbContext = dbContext;
     
-    public async Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct)
-        => await _dbContext.Visits.ToListAsync(ct);
+    public async Task<IEnumerable<Visit>> GetAllVisits()
+        => await _dbContext.Visits.ToListAsync();
     
-    public async Task<Visit> GetVisitById(int id, CancellationToken ct)
+    public async Task<Visit> GetVisitById(int id)
         => (await _dbContext
             .Visits
-            .FirstOrDefaultAsync(c => c.Id == id, ct))!;
+            .FirstOrDefaultAsync(c => c.Id == id))!;
 
-    public Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task Insert(Visit visit, CancellationToken ct)
-        => await _dbContext.Visits.AddAsync(visit, ct);
+    public async Task<Visit> IsFreeEmployee(Visit visit)
+        => (await _dbContext
+            .Visits
+            .FirstOrDefaultAsync(v => v.Date == visit.Date && v.EmployeeId == visit.EmployeeId))!;
+    
+    public async Task Insert(Visit visit)
+        => await _dbContext.Visits.AddAsync(visit);
 
     public Task Delete(Visit visit)
         =>  Task.FromResult(_dbContext.Visits.Remove(visit));

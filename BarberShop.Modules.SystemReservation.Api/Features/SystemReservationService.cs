@@ -7,10 +7,10 @@ namespace BarberShop.Modules.SystemReservation.Api.Features;
 
 public interface ISystemReservationService
 {
-    Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct);
-    Task<Visit> GetVisitById(int id, CancellationToken ct);
-    Task<string> CreateNewVisit(Visit visit, DateTime date,CancellationToken ct);
-    Task<string> DeleteVisit(int id, CancellationToken ct);
+    Task<IEnumerable<Visit>> GetAllVisits();
+    Task<Visit> GetVisitById(int id);
+    Task<string> CreateNewVisit(Visit visit);
+    Task<string> DeleteVisit(int id);
 }
 
 internal class SystemReservationService : ISystemReservationService
@@ -20,25 +20,30 @@ internal class SystemReservationService : ISystemReservationService
     public SystemReservationService(ISystemReservationRepository systemReservationRepository) =>
         _systemReservationRepository = systemReservationRepository;
  
-    public async Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct)
-        => await _systemReservationRepository.GetAllVisits(ct);
+    public async Task<IEnumerable<Visit>> GetAllVisits()
+        => await _systemReservationRepository.GetAllVisits();
 
-    public async Task<Visit> GetVisitById(int id, CancellationToken ct)
+    public async Task<Visit> GetVisitById(int id)
     {
-        var visit = await _systemReservationRepository.GetVisitById(id, ct);
+        var visit = await _systemReservationRepository.GetVisitById(id);
         if (visit is null) throw new NotFoundVisitByIdException(id);
 
         return visit;
     }
 
-    public Task<string> CreateNewVisit(Visit visit, DateTime date, CancellationToken ct)
+    public async Task<string> CreateNewVisit(Visit visit)
     {
-        throw new NotImplementedException();
+        var isFree = await _systemReservationRepository.IsFreeEmployee(visit);
+        if (isFree is not null) throw new Exception();
+
+        await _systemReservationRepository.Insert(visit);
+        await _systemReservationRepository.SaveChangesAsync();
+        return $"Visit #{visit.Id}was created in database!";
     }
 
-    public async Task<string> DeleteVisit(int id, CancellationToken ct)
+    public async Task<string> DeleteVisit(int id)
     {
-        var visit = await GetVisitById(id, ct);
+        var visit = await GetVisitById(id);
         await _systemReservationRepository.Delete(visit);
         await _systemReservationRepository.SaveChangesAsync();
         return $"Visit #{id} was removed in database!";

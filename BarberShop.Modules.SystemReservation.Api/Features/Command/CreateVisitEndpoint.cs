@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
-public class CreateVisitRequest
+public record CreateVisitRequest
 {
     public int UserId { get; set; }
     public int EmployeeId { get; set; }
@@ -19,6 +19,7 @@ public class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
             EmployeeId = r.EmployeeId,
             UserId = r.UserId,
             ServiceIndustryId = r.ServiceIndustryId,
+            Date = r.Date
         };
 }
 
@@ -35,5 +36,5 @@ public class CreateVisitEndpoint : EndpointWithMapper<CreateVisitRequest,CreateV
     }
 
     public override async Task HandleAsync(CreateVisitRequest req, CancellationToken ct)
-        => await _systemReservationService.CreateNewVisit(Map.ToEntity(req), req.Date, ct);
+        => await _systemReservationService.CreateNewVisit(Map.ToEntity(req));
 }

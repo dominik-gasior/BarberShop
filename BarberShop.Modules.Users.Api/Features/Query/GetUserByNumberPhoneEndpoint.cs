@@ -3,22 +3,25 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-public record GetUserByNumberPhoneRequest{public string NumberPhone { get; init; }}
+public record GetUserByNumberPhoneRequest
+{
+    public string NumberPhone { get; set; }   
+}
 
-public record struct GetUserByNumberPhoneResponse(int Id, string FirstName, string LastName, string NumberPhone,
+public record GetUserByNumberPhoneResponse(int Id, string FirstName, string LastName, string NumberPhone,
     string Email);
 
 public class GetUserByNumberPhoneMapperProfile : Mapper<GetUserByNumberPhoneRequest, GetUserByNumberPhoneResponse, User>
 {
     public override GetUserByNumberPhoneResponse FromEntity(User e)
-        => new()
-        {
-            Id = e.Id,
-            FirstName = e.FirstName,
-            LastName = e.LastName,
-            Email = e.Email,
-            NumberPhone = e.NumberPhone,
-        };
+        => new GetUserByNumberPhoneResponse
+        (
+            e.Id,
+            e.FirstName,
+            e.LastName,
+            e.NumberPhone,
+            e.Email
+        );
 }
 public class GetUserByNumberPhoneEndpoint : Endpoint<GetUserByNumberPhoneRequest, GetUserByNumberPhoneResponse, GetUserByNumberPhoneMapperProfile>
 {

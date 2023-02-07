@@ -3,7 +3,7 @@ using FastEndpoints;
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
 public record DeleteUserRequest { public int Id { get; init; } }
-public record struct DeleteUserResponse(string Message);
+public record DeleteUserResponse(string Message);
 
 public class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse>
 {

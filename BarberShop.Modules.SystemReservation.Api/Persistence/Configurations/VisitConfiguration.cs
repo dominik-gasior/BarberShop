@@ -14,7 +14,7 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
         builder.HasIndex(p => p.ServiceIndustryId);
         
         builder.Property(p => p.EmployeeId).IsRequired();
-        builder.Property(p => p.Time).IsRequired();
+        builder.Property(p => p.Date).IsRequired();
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.ServiceIndustryId).IsRequired();
     }
