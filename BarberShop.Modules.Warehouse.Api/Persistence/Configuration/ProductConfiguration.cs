@@ -1,8 +1,8 @@
-using Infrastructure.Domain.Warehouse;
+using BarberShop.Modules.Warehouse.Api.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configuration;
+namespace BarberShop.Modules.Warehouse.Api.Persistence.Configuration;
 
 internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 {

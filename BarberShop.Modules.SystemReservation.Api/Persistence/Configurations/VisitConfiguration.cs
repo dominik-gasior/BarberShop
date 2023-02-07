@@ -11,11 +11,10 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
         builder.HasKey(p => p.Id);
         builder.HasIndex(p => p.UserId);
         builder.HasIndex(p => p.EmployeeId);
-        builder.HasIndex(p => p.VisitTimeId);
         builder.HasIndex(p => p.ServiceIndustryId);
         
         builder.Property(p => p.EmployeeId).IsRequired();
-        builder.Property(p => p.VisitTimeId).IsRequired();
+        builder.Property(p => p.Time).IsRequired();
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.ServiceIndustryId).IsRequired();
     }

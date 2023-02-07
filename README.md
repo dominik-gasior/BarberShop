@@ -7,10 +7,13 @@
 ### Users:
 
 - [ ] Get users
-- [ ] Create new user (client and employee)
-- [ ] Delete user (client and employee)
-- [ ] Update e-mail user
-- [ ] Update number phone user
+- [ ] Get user by ID
+- [ ] Get user by number phone
+- [ ] Create new user (employee)
+- [x] Create new user (client)
+- [x] Delete user (client and employee)
+- [x] Update e-mail user
+- [x] Update number phone user
 
 ### Warehouse:
 

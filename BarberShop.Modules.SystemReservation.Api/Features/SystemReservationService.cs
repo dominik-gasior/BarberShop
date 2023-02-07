@@ -31,9 +31,9 @@ internal class SystemReservationService : ISystemReservationService
         return visit;
     }
 
-    public Task<string> CreateNewVisit(Visit visit, DateTime date,CancellationToken ct)
+    public Task<string> CreateNewVisit(Visit visit, DateTime date, CancellationToken ct)
     {
-        var isFreeEmployee = 
+        throw new NotImplementedException();
     }
 
     public async Task<string> DeleteVisit(int id, CancellationToken ct)

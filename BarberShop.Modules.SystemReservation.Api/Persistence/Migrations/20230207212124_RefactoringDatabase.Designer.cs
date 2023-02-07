@@ -4,6 +4,7 @@ using BarberShop.Modules.SystemReservation.Api.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
 {
     [DbContext(typeof(SystemReservationDbContext))]
-    partial class SystemReservationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230207212124_RefactoringDatabase")]
+    partial class RefactoringDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

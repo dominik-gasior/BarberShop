@@ -1,4 +1,4 @@
-using Infrastructure.Domain.Warehouse;
+using BarberShop.Modules.Warehouse.Api.Entities;
 
 namespace BarberShop.Modules.Warehouse.Api.Persistence.Seeder;
 
@@ -15,6 +15,8 @@ internal static class ProductSeed
                 Description = "Idealny do włosów zniszczonych",
                 PriceProductId = 1,
                 AmountProductId = 1,
+                Price = 20.00m,
+                Amount = 10,
             },
             new Product
             {
@@ -22,6 +24,8 @@ internal static class ProductSeed
                 Description = "Idealny do włosów kręconych",
                 PriceProductId = 2,
                 AmountProductId = 2,
+                Price = 25.49m,
+                Amount = 50,
             },
             new Product
             {
@@ -29,6 +33,8 @@ internal static class ProductSeed
                 Description = "Idealny do włosów zniszczonych",
                 PriceProductId = 3,
                 AmountProductId = 3,
+                Price = 9.99m,
+                Amount = 100,
             },
             new Product
             {
@@ -36,6 +42,8 @@ internal static class ProductSeed
                 Description = "Wykonany z najwyzszej jakosci materialow",
                 PriceProductId = 4,
                 AmountProductId = 4,
+                Price = 49.99m,
+                Amount = 25,
             }
         };
         dbContext.AddRangeAsync(products);

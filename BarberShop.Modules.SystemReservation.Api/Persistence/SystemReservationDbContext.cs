@@ -5,7 +5,6 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence;
 
 public class SystemReservationDbContext : DbContext
 {
-    public DbSet<VisitTime> VisitTimes { get; set; }
     public DbSet<Visit> Visits { get; set; }
     public DbSet<ServiceIndustry> ServiceIndustries { get; set; }
     public SystemReservationDbContext(DbContextOptions<SystemReservationDbContext> options) : base(options){}

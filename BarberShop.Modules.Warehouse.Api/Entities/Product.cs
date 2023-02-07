@@ -1,6 +1,4 @@
-using BarberShop.Modules.Warehouse.Api.Entities;
-
-namespace Infrastructure.Domain.Warehouse;
+namespace BarberShop.Modules.Warehouse.Api.Entities;
 
 public class Product
 {
@@ -10,7 +8,7 @@ public class Product
     public int PriceProductId { get; set; }
     public int AmountProductId { get; set; }
 
-    public PriceProduct PriceProduct { get; set; }
-    public AmountProduct AmountProduct { get; set; }
+    public decimal Price { get; set; }
+    public int Amount { get; set; }
     public List<Order> Orders { get; set; }
 }

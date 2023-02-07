@@ -28,9 +28,9 @@ internal class SystemReservationRepository : ISystemReservationRepository
             .Visits
             .FirstOrDefaultAsync(c => c.Id == id, ct))!;
 
-    public async Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct)
+    public Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct)
     {
-        
+        throw new NotImplementedException();
     }
 
     public async Task Insert(Visit visit, CancellationToken ct)

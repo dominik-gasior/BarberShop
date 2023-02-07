@@ -1,9 +1,8 @@
 using BarberShop.Modules.Warehouse.Api.Entities;
-using Infrastructure.Domain.Warehouse;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Data.Configuration;
+namespace BarberShop.Modules.Warehouse.Api.Persistence.Configuration;
 
 internal class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
@@ -15,5 +14,6 @@ internal class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(p => p.Cost).IsRequired();
         builder.Property(p => p.DeliveryTime).IsRequired();
         builder.Property(p => p.ClientId).IsRequired();
+        builder.Property(p => p.OrderStatus).HasDefaultValue(OrderStatus.Realizacja);
     }
 }
