@@ -15,5 +15,5 @@ public class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse
         AllowAnonymous();
     }
     public override async Task HandleAsync(DeleteUserRequest req, CancellationToken ct)
-        => await SendAsync(new DeleteUserResponse(await _userService.DeleteUser(req.Id, ct)), cancellation: ct);
+        => await SendAsync(new DeleteUserResponse(await _userService.DeleteUser(req.Id)), cancellation: ct);
 }

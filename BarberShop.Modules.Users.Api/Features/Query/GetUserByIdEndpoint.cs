@@ -26,5 +26,5 @@ public class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUserByIdRespo
     }
 
     public override async Task HandleAsync(GetUserByIdRequest req, CancellationToken ct)
-        => await SendAsync(Map.FromEntity(await _userService.GetUserById(req.Id, ct)), cancellation: ct);
+        => await SendAsync(Map.FromEntity(await _userService.GetUserById(req.Id)), cancellation: ct);
 }

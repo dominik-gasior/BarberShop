@@ -34,7 +34,7 @@ internal class SystemReservationService : ISystemReservationService
     public async Task<string> CreateNewVisit(Visit visit)
     {
         var isFree = await _systemReservationRepository.IsFreeEmployee(visit);
-        if (isFree is not null) throw new Exception();
+        if (isFree is not null) throw new BusyVisitException();
 
         await _systemReservationRepository.Insert(visit);
         await _systemReservationRepository.SaveChangesAsync();

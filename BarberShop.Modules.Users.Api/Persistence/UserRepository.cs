@@ -5,10 +5,10 @@ namespace BarberShop.Modules.Users.Api.Persistence;
 
 public interface IUserRepository
 {
-    Task<IEnumerable<User>> GetAllUsers(CancellationToken ct);
-    Task<User> GetUserById(int id, CancellationToken ct);
-    Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct);
-    Task Insert(User user, CancellationToken ct);
+    Task<IEnumerable<User>> GetAllUsers();
+    Task<User> GetUserById(int id);
+    Task<User> GetUserByNumberPhone(string numberPhone);
+    Task Insert(User user);
     Task Delete(User user);
     Task SaveChangesAsync();
 }
@@ -19,16 +19,16 @@ internal class UserRepository : IUserRepository
 
     public UserRepository(UsersDbContext dbContext)
         => _dbContext = dbContext;
-    public async Task<IEnumerable<User>> GetAllUsers(CancellationToken ct)
-        => await _dbContext.Users.ToListAsync(ct);
-    public async Task<User> GetUserById(int id, CancellationToken ct)
+    public async Task<IEnumerable<User>> GetAllUsers()
+        => await _dbContext.Users.ToListAsync();
+    public async Task<User> GetUserById(int id)
         => (await _dbContext
             .Users
-            .FirstOrDefaultAsync(c => c.Id == id, ct))!;
-    public async Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct)
-        => (await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone), ct))!;
-    public async Task Insert(User user, CancellationToken ct)
-        => await _dbContext.Users.AddAsync(user, ct);
+            .FirstOrDefaultAsync(c => c.Id == id))!;
+    public async Task<User> GetUserByNumberPhone(string numberPhone)
+        => (await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone)))!;
+    public async Task Insert(User user)
+        => await _dbContext.Users.AddAsync(user);
 
     public async Task Delete(User user)
         => await Task.FromResult(_dbContext.Users.Remove(user));

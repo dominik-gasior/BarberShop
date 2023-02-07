@@ -27,5 +27,5 @@ public class GetAllUsersEndpoint : EndpointWithoutRequest<IEnumerable<GetAllUser
     }
     
     public override async Task HandleAsync(CancellationToken ct)
-        => await SendAsync(Map.FromEntity(await _userService.GetAllUsers(ct)), cancellation: ct);
+        => await SendAsync(Map.FromEntity(await _userService.GetAllUsers()), cancellation: ct);
 }

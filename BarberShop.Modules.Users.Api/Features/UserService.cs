@@ -7,12 +7,12 @@ namespace BarberShop.Modules.Users.Api.Features;
 
 public interface IUserService
 {
-    Task<IEnumerable<User>> GetAllUsers(CancellationToken ct);
-    Task<User> GetUserById(int id, CancellationToken ct);
-    Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct);
-    Task<string> CreateNewUser(User user, CancellationToken ct);
-    Task<string> DeleteUser(int id, CancellationToken ct);
-    Task<string> UpdateUser(UpdateUserRequest user, CancellationToken ct);
+    Task<IEnumerable<User>> GetAllUsers();
+    Task<User> GetUserById(int id);
+    Task<User> GetUserByNumberPhone(string numberPhone);
+    Task<string> CreateNewUser(User user);
+    Task<string> DeleteUser(int id);
+    Task<string> UpdateUser(UpdateUserRequest user);
 }
 internal class UserService : IUserService
 {
@@ -21,35 +21,35 @@ internal class UserService : IUserService
     public UserService(IUserRepository userRepository)
         => _userRepository = userRepository;
 
-    public async Task<IEnumerable<User>> GetAllUsers(CancellationToken ct)
-        => await _userRepository.GetAllUsers(ct);
+    public async Task<IEnumerable<User>> GetAllUsers()
+        => await _userRepository.GetAllUsers();
     
-    public async Task<User> GetUserById(int id, CancellationToken ct)
+    public async Task<User> GetUserById(int id)
     {
-        var user = await _userRepository.GetUserById(id, ct);
+        var user = await _userRepository.GetUserById(id);
         if (user is null) throw new UserNotFoundByIdException(id);
         return user;
     }
-    public async Task<User> GetUserByNumberPhone(string numberPhone, CancellationToken ct)
+    public async Task<User> GetUserByNumberPhone(string numberPhone)
     {
-        var user = await _userRepository.GetUserByNumberPhone(numberPhone, ct);
+        var user = await _userRepository.GetUserByNumberPhone(numberPhone);
         if (user is null) throw new UserNotFoundByNumberPhoneException(numberPhone);
         return user;
     }
 
-    public async Task<string> CreateNewUser(User user, CancellationToken ct)
+    public async Task<string> CreateNewUser(User user)
     {
-        var isUser = await _userRepository.GetUserByNumberPhone(user.NumberPhone, ct);
+        var isUser = await _userRepository.GetUserByNumberPhone(user.NumberPhone);
         if (isUser is not null) throw new UserIsExistException(user.Id);
 
-        await _userRepository.Insert(user,ct);
+        await _userRepository.Insert(user);
         await _userRepository.SaveChangesAsync();
         return "User was created!";
     }
 
-    public async Task<string> DeleteUser(int id, CancellationToken ct)
+    public async Task<string> DeleteUser(int id)
     {
-        var user = await _userRepository.GetUserById(id, ct);
+        var user = await _userRepository.GetUserById(id);
 
         if (user is null) throw new UserNotFoundByIdException(id);
 
@@ -59,11 +59,11 @@ internal class UserService : IUserService
         return $"User #{id} was removed in database!";
     }
 
-    public async Task<string> UpdateUser(UpdateUserRequest user, CancellationToken ct)
+    public async Task<string> UpdateUser(UpdateUserRequest user)
     {
-        if (user.NumberPhone.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
+        if (user.NumberPhone!.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
         
-        var updateUser = await _userRepository.GetUserById(user.Id, ct);
+        var updateUser = await _userRepository.GetUserById(user.Id);
         if (updateUser is null) throw new UserNotFoundByIdException(user.Id);
 
         if(!user.NumberPhone.Equals("")) updateUser.UpdateNumberPhone(user.NumberPhone);;

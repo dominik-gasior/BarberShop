@@ -16,5 +16,5 @@ public class UpdateUserEndpoint : Endpoint<UpdateUserRequest, UpdateUserResponse
     }
 
     public override async Task HandleAsync(UpdateUserRequest req, CancellationToken ct)
-        => await SendAsync(new UpdateUserResponse(await _userService.UpdateUser(req,ct)), cancellation: ct);
+        => await SendAsync(new UpdateUserResponse(await _userService.UpdateUser(req)), cancellation: ct);
 }

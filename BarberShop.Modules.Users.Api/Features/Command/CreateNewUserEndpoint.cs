@@ -24,5 +24,5 @@ public class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, Crea
         AllowAnonymous();
     }
     public override async Task HandleAsync(CreateNewUserRequest req, CancellationToken ct)
-        => await SendAsync(await _userService.CreateNewUser(Map.ToEntity(req), ct), cancellation: ct);
+        => await SendAsync(await _userService.CreateNewUser(Map.ToEntity(req)), cancellation: ct);
 }

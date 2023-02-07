@@ -35,5 +35,5 @@ public class GetUserByNumberPhoneEndpoint : Endpoint<GetUserByNumberPhoneRequest
     }
     public override async Task HandleAsync(GetUserByNumberPhoneRequest req, CancellationToken ct)
         => await SendAsync(
-            Map.FromEntity(await _userService.GetUserByNumberPhone(req.NumberPhone, ct)), cancellation: ct);
+            Map.FromEntity(await _userService.GetUserByNumberPhone(req.NumberPhone)), cancellation: ct);
 }
