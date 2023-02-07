@@ -7,6 +7,7 @@ public interface ISystemReservationRepository
 {
     Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct);
     Task<Visit> GetVisitById(int id, CancellationToken ct);
+    Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct);
     Task Insert(Visit visit, CancellationToken ct);
     Task Delete(Visit visit);
     Task SaveChangesAsync();
@@ -26,6 +27,11 @@ internal class SystemReservationRepository : ISystemReservationRepository
         => (await _dbContext
             .Visits
             .FirstOrDefaultAsync(c => c.Id == id, ct))!;
+
+    public async Task<bool> IsFreeEmployee(int idEmployee, DateTime date, CancellationToken ct)
+    {
+        
+    }
 
     public async Task Insert(Visit visit, CancellationToken ct)
         => await _dbContext.Visits.AddAsync(visit, ct);

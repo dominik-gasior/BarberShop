@@ -9,7 +9,7 @@ public interface ISystemReservationService
 {
     Task<IEnumerable<Visit>> GetAllVisits(CancellationToken ct);
     Task<Visit> GetVisitById(int id, CancellationToken ct);
-    Task<string> CreateNewVisit(Visit visit, CancellationToken ct);
+    Task<string> CreateNewVisit(Visit visit, DateTime date,CancellationToken ct);
     Task<string> DeleteVisit(int id, CancellationToken ct);
 }
 
@@ -31,9 +31,9 @@ internal class SystemReservationService : ISystemReservationService
         return visit;
     }
 
-    public Task<string> CreateNewVisit(Visit visit, CancellationToken ct)
+    public Task<string> CreateNewVisit(Visit visit, DateTime date,CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var isFreeEmployee = 
     }
 
     public async Task<string> DeleteVisit(int id, CancellationToken ct)
