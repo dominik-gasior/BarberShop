@@ -29,7 +29,7 @@
 
 - [ ] Get visit by ID
 - [ ] Get visit by number phone client
-- [ ] Get not busy time in day
+- [x] Get busy time in day
 - [x] Get all visits
 - [x] Create new visit
 - [x] Delete visit

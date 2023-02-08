@@ -8,6 +8,7 @@ namespace BarberShop.Modules.SystemReservation.Api.Features;
 public interface ISystemReservationService
 {
     Task<IEnumerable<Visit>> GetAllVisits();
+    Task<IEnumerable<string>> GetBusyTime(DateTime date); 
     Task<Visit> GetVisitById(int id);
     Task<string> CreateNewVisit(Visit visit);
     Task<string> DeleteVisit(int id);
@@ -19,10 +20,15 @@ internal class SystemReservationService : ISystemReservationService
 
     public SystemReservationService(ISystemReservationRepository systemReservationRepository) =>
         _systemReservationRepository = systemReservationRepository;
- 
+
     public async Task<IEnumerable<Visit>> GetAllVisits()
         => await _systemReservationRepository.GetAllVisits();
 
+    public async Task<IEnumerable<string>> GetBusyTime(DateTime date)
+    {
+        var busyDates = await _systemReservationRepository.GetBusyTime(date);
+        return busyDates.Select(c => c.ToShortTimeString());
+    }
     public async Task<Visit> GetVisitById(int id)
     {
         var visit = await _systemReservationRepository.GetVisitById(id);
