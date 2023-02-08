@@ -6,9 +6,9 @@
 
 ### Users:
 
-- [x] Get users
 - [ ] Get user by ID
 - [ ] Get user by number phone
+- [x] Get users
 - [x] Create new user (client and employee)
 - [x] Delete user (client and employee)
 - [x] Update e-mail user
@@ -27,11 +27,12 @@
 
 ### System Reservation:
 
-- [x] Get all visits
 - [ ] Get visit by ID
 - [ ] Get visit by number phone client
+- [ ] Get not busy time in day
+- [x] Get all visits
 - [x] Create new visit
-- [ ] Delete visit
+- [x] Delete visit
 
 ## Future:
 - Send e-mail after create new visit or user
