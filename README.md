@@ -6,11 +6,10 @@
 
 ### Users:
 
-- [ ] Get users
+- [x] Get users
 - [ ] Get user by ID
 - [ ] Get user by number phone
-- [ ] Create new user (employee)
-- [x] Create new user (client)
+- [x] Create new user (client and employee)
 - [x] Delete user (client and employee)
 - [x] Update e-mail user
 - [x] Update number phone user
@@ -31,7 +30,7 @@
 - [ ] Get all visits
 - [ ] Get visit by ID
 - [ ] Get visit by number phone client
-- [ ] Create new visit
+- [x] Create new visit
 - [ ] Delete visit
 
 ## Future:

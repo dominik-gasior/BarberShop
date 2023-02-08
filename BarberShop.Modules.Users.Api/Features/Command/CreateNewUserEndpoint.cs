@@ -9,10 +9,11 @@ public record CreateNewUserRequest
     public string LastName { get; init; }
     public string NumberPhone { get; init; }
     public string? Email { get; init; }
+    public Role Role { get; set; }
 }
 public class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRequest, User>
 {
-    public override User ToEntity(CreateNewUserRequest r) => new(0, r.FirstName, r.LastName, r.NumberPhone, r.Email, (int)Role.Klient);
+    public override User ToEntity(CreateNewUserRequest r) => new(0, r.FirstName, r.LastName, r.NumberPhone, r.Email, (int)r.Role);
 }
 public class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewUserMapperProfile>
 {
