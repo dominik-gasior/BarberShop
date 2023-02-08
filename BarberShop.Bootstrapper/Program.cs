@@ -14,6 +14,8 @@ builder.Services.AddSystemReservationModule();
 
 var app = builder.Build();
 
+app.UseSystemReservationModule();
+
 app.UseAuthorization();
 
 app.UseFastEndpoints();
