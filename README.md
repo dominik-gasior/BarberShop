@@ -27,7 +27,7 @@
 
 ### System Reservation:
 
-- [ ] Get all visits
+- [x] Get all visits
 - [ ] Get visit by ID
 - [ ] Get visit by number phone client
 - [x] Create new visit

@@ -21,7 +21,7 @@ internal class SystemReservationRepository : ISystemReservationRepository
         => _dbContext = dbContext;
     
     public async Task<IEnumerable<Visit>> GetAllVisits()
-        => await _dbContext.Visits.ToListAsync();
+        => await _dbContext.Visits.Include(v=>v.ServiceIndustry).ToListAsync();
     
     public async Task<Visit> GetVisitById(int id)
         => (await _dbContext
