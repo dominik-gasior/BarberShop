@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
-public record DeleteUserRequest { public int Id { get; init; } }
+public record DeleteUserRequest { public int UserId { get; init; } }
 public record DeleteUserResponse(string Message);
 
 public class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse>
@@ -11,9 +11,9 @@ public class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse
     public DeleteUserEndpoint(IUserService userService) => _userService = userService;
     public override void Configure()
     {
-        Delete("/api/deleteUser/{Id}");
+        Delete("/api/deleteUser/{UserId}");
         AllowAnonymous();
     }
     public override async Task HandleAsync(DeleteUserRequest req, CancellationToken ct)
-        => await SendAsync(new DeleteUserResponse(await _userService.DeleteUser(req.Id)), cancellation: ct);
+        => await SendAsync(new DeleteUserResponse(await _userService.DeleteUser(req.UserId)), cancellation: ct);
 }

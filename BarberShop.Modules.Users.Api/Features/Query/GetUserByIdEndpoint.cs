@@ -3,10 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-public record GetUserByIdRequest
-{
-    public int Id { get;}
-}
+public record GetUserByIdRequest { public int UserId { get;} }
 public record GetUserByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email);
 
 public class GetUserByIdMapperProfile : Mapper<GetUserByIdRequest, GetUserByIdResponse, User>
@@ -21,10 +18,10 @@ public class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUserByIdRespo
     public GetUserByIdEndpoint(IUserService userService) => _userService = userService;
     public override void Configure()
     {
-        Get("/api/user/{Id}");
+        Get("/api/user/{UserId}");
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(GetUserByIdRequest req, CancellationToken ct)
-        => await SendAsync(Map.FromEntity(await _userService.GetUserById(req.Id)), cancellation: ct);
+        => await SendAsync(Map.FromEntity(await _userService.GetUserById(req.UserId)), cancellation: ct);
 }

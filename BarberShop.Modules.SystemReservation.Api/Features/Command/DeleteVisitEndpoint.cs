@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
-public record DeleteVisitRequest{ public int Id { get; init; }};
+public record DeleteVisitRequest{ public int VisitId { get; init; }};
 
 public class DeleteVisitEndpoint : Endpoint<DeleteVisitRequest>
 {
@@ -13,10 +13,10 @@ public class DeleteVisitEndpoint : Endpoint<DeleteVisitRequest>
 
     public override void Configure()
     {
-        Delete("api/deleteVisit/{Id}");
+        Delete("api/deleteVisit/{VisitId}");
         AllowAnonymous();
     }
 
     public override async Task HandleAsync(DeleteVisitRequest req, CancellationToken ct)
-        => await SendAsync(await _systemReservationService.DeleteVisit(req.Id), cancellation: ct);
+        => await SendAsync(await _systemReservationService.DeleteVisit(req.VisitId), cancellation: ct);
 }
