@@ -17,11 +17,11 @@ public class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
     public override Visit ToEntity(CreateVisitRequest r)
         => new Visit
         {
-            NumberPhone = r.NumberPhone,
             EmployeeId = r.EmployeeId,
             UserId = r.UserId,
             ServiceIndustryId = r.ServiceIndustryId,
-            Date = r.Date
+            Date = r.Date,
+            NumberPhone = r.NumberPhone,
         };
 }
 

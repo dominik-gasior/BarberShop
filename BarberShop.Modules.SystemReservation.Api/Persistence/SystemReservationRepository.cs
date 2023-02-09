@@ -27,6 +27,7 @@ internal class SystemReservationRepository : ISystemReservationRepository
     public async Task<Visit> GetVisitById(int id)
         => (await _dbContext
             .Visits
+            .Include(v => v.ServiceIndustry)
             .FirstOrDefaultAsync(c => c.Id == id))!;
 
     public async Task<IEnumerable<DateTime>> GetBusyTime(DateTime date)
