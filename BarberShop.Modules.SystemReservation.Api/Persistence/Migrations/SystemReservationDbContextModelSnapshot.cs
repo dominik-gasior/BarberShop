@@ -60,6 +60,10 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("NumberPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ServiceIndustryId")
                         .HasColumnType("int");
 

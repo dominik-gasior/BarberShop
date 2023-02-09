@@ -5,6 +5,7 @@ namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
 public record CreateVisitRequest
 {
+    public string NumberPhone { get; set; }
     public int UserId { get; set; }
     public int EmployeeId { get; set; }
     public int ServiceIndustryId { get; set; }
@@ -16,6 +17,7 @@ public class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
     public override Visit ToEntity(CreateVisitRequest r)
         => new Visit
         {
+            NumberPhone = r.NumberPhone,
             EmployeeId = r.EmployeeId,
             UserId = r.UserId,
             ServiceIndustryId = r.ServiceIndustryId,

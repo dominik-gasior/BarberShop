@@ -17,5 +17,7 @@ internal class VisitConfiguration : IEntityTypeConfiguration<Visit>
         builder.Property(p => p.Date).IsRequired();
         builder.Property(p => p.UserId).IsRequired();
         builder.Property(p => p.ServiceIndustryId).IsRequired();
+        builder.Property(p => p.NumberPhone).IsRequired();
+        
     }
 }

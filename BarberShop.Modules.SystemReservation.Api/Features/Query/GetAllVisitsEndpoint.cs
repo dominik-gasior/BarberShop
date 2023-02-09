@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Query;
 
-public record GetAllVisitsResponse(int Id, int UserId, int EmployeeId, string NameService, decimal Price, DateTime Date);
+public record GetAllVisitsResponse(int Id, int UserId, int EmployeeId, string NameService, decimal Price, DateTime Date, string NumberPhone);
 
 public class GetAllVisitsMapperProfile : ResponseMapper<IEnumerable<GetAllVisitsResponse>, IEnumerable<Visit>>
 {
@@ -14,7 +14,8 @@ public class GetAllVisitsMapperProfile : ResponseMapper<IEnumerable<GetAllVisits
                 v.EmployeeId,
                 v.ServiceIndustry.Name,
                 v.ServiceIndustry.Price,
-                v.Date
+                v.Date,
+                v.NumberPhone
             )
         );
 }
