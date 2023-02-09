@@ -7,8 +7,8 @@
 
 ### Users:
 
-- [ ] Get user by ID
-- [ ] Get user by number phone
+- [x] Get user by ID
+- [x] Get user by number phone
 - [x] Get users
 - [x] Create new user (client and employee)
 - [x] Delete user (client and employee)
