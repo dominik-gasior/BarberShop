@@ -1,6 +1,7 @@
 # System Barber Shop
 ## Database:
 ![Database](Files/BarberShopDatabase.png)
+![Flow frontend](Files/frontend.png)
 
 ## Endpoint:
 
@@ -11,8 +12,7 @@
 - [x] Get users
 - [x] Create new user (client and employee)
 - [x] Delete user (client and employee)
-- [x] Update e-mail user
-- [x] Update number phone user
+- [x] Update e-mail or number phone user
 
 ### Warehouse:
 
