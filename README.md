@@ -27,8 +27,8 @@
 
 ### System Reservation:
 
-- [ ] Get visit by ID
-- [ ] Get visit by number phone client
+- [x] Get visit by ID
+- [x] Get visit by number phone client
 - [x] Get busy time in day
 - [x] Get all visits
 - [x] Create new visit
