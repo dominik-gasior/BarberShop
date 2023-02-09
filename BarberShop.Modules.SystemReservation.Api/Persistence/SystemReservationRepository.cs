@@ -7,6 +7,7 @@ public interface ISystemReservationRepository
 {
     Task<IEnumerable<Visit>> GetAllVisits();
     Task<Visit> GetVisitById(int id);
+    Task<Visit> GetVisitByNumberPhone(string numberPhone);
     Task<IEnumerable<DateTime>> GetBusyTime(DateTime date);
     Task<Visit> IsFreeEmployee(Visit visit);
     Task Insert(Visit visit);
@@ -29,6 +30,12 @@ internal class SystemReservationRepository : ISystemReservationRepository
             .Visits
             .Include(v => v.ServiceIndustry)
             .FirstOrDefaultAsync(c => c.Id == id))!;
+
+    public async Task<Visit> GetVisitByNumberPhone(string numberPhone)
+        => (await _dbContext
+            .Visits
+            .Include(v => v.ServiceIndustry)
+            .FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone)))!;
 
     public async Task<IEnumerable<DateTime>> GetBusyTime(DateTime date)
         => await _dbContext.Visits.Where(v => v.Date.Date == date.Date).Select(v=>v.Date).ToListAsync();

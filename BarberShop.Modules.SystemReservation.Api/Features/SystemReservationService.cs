@@ -10,6 +10,7 @@ public interface ISystemReservationService
     Task<IEnumerable<Visit>> GetAllVisits();
     Task<IEnumerable<string>> GetBusyTime(DateTime date); 
     Task<Visit> GetVisitById(int id);
+    Task<Visit> GetVisitByNumberPhone(string numberPhone);
     Task<string> CreateNewVisit(Visit visit);
     Task<string> DeleteVisit(int id);
 }
@@ -33,6 +34,14 @@ internal class SystemReservationService : ISystemReservationService
     {
         var visit = await _systemReservationRepository.GetVisitById(id);
         if (visit is null) throw new NotFoundVisitByIdException(id);
+
+        return visit;
+    }
+
+    public async Task<Visit> GetVisitByNumberPhone(string numberPhone)
+    {
+        var visit = await _systemReservationRepository.GetVisitByNumberPhone(numberPhone);
+        if (visit is null) throw new NotFoundVisitByNumberPhoneException(numberPhone);
 
         return visit;
     }
