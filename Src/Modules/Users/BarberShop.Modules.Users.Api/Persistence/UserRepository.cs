@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Users.Api.Persistence;
 
-public interface IUserRepository
+internal interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllUsers();
     Task<User> GetUserById(int id);
@@ -13,7 +13,7 @@ public interface IUserRepository
     Task SaveChangesAsync();
 }
 
-internal class UserRepository : IUserRepository
+internal sealed class UserRepository : IUserRepository
 {
     private readonly UsersDbContext _dbContext;
 

@@ -3,7 +3,7 @@ using Bogus;
 
 namespace BarberShop.Modules.Warehouse.Api.Persistence.Seeder;
 
-public static class Seeder
+internal static class Seeder
 {
     public static void Seed(WarehouseDbContext dbContext)
     {

@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
-public record CreateVisitRequest
+internal sealed record CreateVisitRequest
 {
     public string NumberPhone { get; set; }
     public int UserId { get; set; }
@@ -12,20 +12,19 @@ public record CreateVisitRequest
     public DateTime Date { get; set; }
 }
 
-public class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
+internal sealed class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
 {
     public override Visit ToEntity(CreateVisitRequest r)
         => new Visit
         {
             EmployeeId = r.EmployeeId,
-            UserId = r.UserId,
+            ClientId = r.UserId,
             ServiceIndustryId = r.ServiceIndustryId,
             Date = r.Date,
-            NumberPhone = r.NumberPhone,
         };
 }
 
-public class CreateVisitEndpoint : EndpointWithMapper<CreateVisitRequest,CreateVisitMapperProfile>
+internal sealed class CreateVisitEndpoint : EndpointWithMapper<CreateVisitRequest,CreateVisitMapperProfile>
 {
     private readonly ISystemReservationService _systemReservationService;
     public CreateVisitEndpoint(ISystemReservationService systemReservationService) =>

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BarberShop.Modules.Warehouse.Api.Persistence.Configuration;
 
-internal class OrderConfiguration : IEntityTypeConfiguration<Order>
+internal sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
 {
     public void Configure(EntityTypeBuilder<Order> builder)
     {

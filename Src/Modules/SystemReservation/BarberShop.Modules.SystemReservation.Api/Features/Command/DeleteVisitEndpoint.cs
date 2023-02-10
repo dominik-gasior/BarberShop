@@ -2,9 +2,9 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
-public record DeleteVisitRequest{ public int VisitId { get; init; }};
+internal sealed record DeleteVisitRequest{ public int VisitId { get; init; }};
 
-public class DeleteVisitEndpoint : Endpoint<DeleteVisitRequest>
+internal sealed class DeleteVisitEndpoint : Endpoint<DeleteVisitRequest>
 {
     private readonly ISystemReservationService _systemReservationService;
 

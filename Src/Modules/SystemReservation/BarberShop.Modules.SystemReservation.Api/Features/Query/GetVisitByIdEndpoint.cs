@@ -3,24 +3,24 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Query;
 
-public record GetVisitByIdRequest{public int VisitId { get; set; }};
+internal sealed record GetVisitByIdRequest{public int VisitId { get; set; }};
 
-public record GetVisitByIdResponse(int Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, int EmployeeId);
+internal sealed record GetVisitByIdResponse(int Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, int EmployeeId);
 
-public class GetVisitByIdMapperProfile : ResponseMapper<GetVisitByIdResponse, Visit>, IRequestMapper
+internal sealed class GetVisitByIdMapperProfile : ResponseMapper<GetVisitByIdResponse, Visit>, IRequestMapper
 {
     public override GetVisitByIdResponse FromEntity(Visit e)
         => new GetVisitByIdResponse
         (
             e.Id,
-            e.NumberPhone,
+            e.Client.NumberPhone,
             e.ServiceIndustry.Name,
             e.ServiceIndustry.Price,
             e.Date,
             e.EmployeeId
         );
 }
-public class GetVisitByIdEndpoint : EndpointWithMapper<GetVisitByIdRequest, GetVisitByIdMapperProfile>
+internal sealed class GetVisitByIdEndpoint : EndpointWithMapper<GetVisitByIdRequest, GetVisitByIdMapperProfile>
 {
     private readonly ISystemReservationService _systemReservationService;
 

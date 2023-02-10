@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.SystemReservation.Api.Entities;
 
-public class ServiceIndustry
+internal sealed class ServiceIndustry
 {
     public int Id { get; set; }
     public string Name { get; set; }

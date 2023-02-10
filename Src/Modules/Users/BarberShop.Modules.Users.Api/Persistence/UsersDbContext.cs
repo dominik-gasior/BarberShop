@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Users.Api.Persistence;
 
-internal class UsersDbContext : DbContext
+internal sealed class UsersDbContext : DbContext
 {
     public DbSet<User> Users { get; set; }
     public UsersDbContext(DbContextOptions<UsersDbContext> options) : base(options) { }

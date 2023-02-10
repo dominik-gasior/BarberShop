@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BarberShop.Modules.SystemReservation.Api.Persistence.Configurations
 {
-    internal class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndustry>
+    internal sealed class ServiceIndustryConfiguration : IEntityTypeConfiguration<ServiceIndustry>
     {
         public void Configure(EntityTypeBuilder<ServiceIndustry> builder)
         {

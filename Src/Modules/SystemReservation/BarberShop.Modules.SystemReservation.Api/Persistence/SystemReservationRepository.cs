@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Persistence;
 
-public interface ISystemReservationRepository
+internal interface ISystemReservationRepository
 {
     Task<IEnumerable<Visit>> GetAllVisits();
     Task<Visit> GetVisitById(int id);
@@ -15,7 +15,7 @@ public interface ISystemReservationRepository
     Task SaveChangesAsync();
 }
 
-internal class SystemReservationRepository : ISystemReservationRepository
+internal sealed class SystemReservationRepository : ISystemReservationRepository
 {
     private readonly SystemReservationDbContext _dbContext;
 
@@ -35,7 +35,8 @@ internal class SystemReservationRepository : ISystemReservationRepository
         => (await _dbContext
             .Visits
             .Include(v => v.ServiceIndustry)
-            .FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone)))!;
+            .Include(v=>v.Client)
+            .FirstOrDefaultAsync(c => c.Client.NumberPhone.Equals(numberPhone)))!;
 
     public async Task<IEnumerable<DateTime>> GetBusyTime(DateTime date)
         => await _dbContext.Visits.Where(v => v.Date.Date == date.Date).Select(v=>v.Date).ToListAsync();

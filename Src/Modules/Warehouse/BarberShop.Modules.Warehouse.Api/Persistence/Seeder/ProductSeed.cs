@@ -13,8 +13,6 @@ internal static class ProductSeed
             {
                 Name = "Żel do włosów",
                 Description = "Idealny do włosów zniszczonych",
-                PriceProductId = 1,
-                AmountProductId = 1,
                 Price = 20.00m,
                 Amount = 10,
             },
@@ -22,8 +20,6 @@ internal static class ProductSeed
             {
                 Name = "Szampon do włosów",
                 Description = "Idealny do włosów kręconych",
-                PriceProductId = 2,
-                AmountProductId = 2,
                 Price = 25.49m,
                 Amount = 50,
             },
@@ -31,8 +27,6 @@ internal static class ProductSeed
             {
                 Name = "Odzywka do włosów",
                 Description = "Idealny do włosów zniszczonych",
-                PriceProductId = 3,
-                AmountProductId = 3,
                 Price = 9.99m,
                 Amount = 100,
             },
@@ -40,8 +34,6 @@ internal static class ProductSeed
             {
                 Name = "Grzebien do włosów",
                 Description = "Wykonany z najwyzszej jakosci materialow",
-                PriceProductId = 4,
-                AmountProductId = 4,
                 Price = 49.99m,
                 Amount = 25,
             }

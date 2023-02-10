@@ -2,10 +2,10 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
-public record DeleteUserRequest { public int UserId { get; init; } }
-public record DeleteUserResponse(string Message);
+internal sealed record DeleteUserRequest { public int UserId { get; init; } }
+internal sealed record DeleteUserResponse(string Message);
 
-public class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse>
+internal sealed class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse>
 {
     private readonly IUserService _userService;
     public DeleteUserEndpoint(IUserService userService) => _userService = userService;

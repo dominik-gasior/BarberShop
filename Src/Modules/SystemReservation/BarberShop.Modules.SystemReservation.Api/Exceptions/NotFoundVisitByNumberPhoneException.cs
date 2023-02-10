@@ -3,7 +3,7 @@ using BarberShop.Shared;
 
 namespace BarberShop.Modules.SystemReservation.Api.Exceptions;
 
-public class NotFoundVisitByNumberPhoneException : BarberShopExceptions
+internal sealed class NotFoundVisitByNumberPhoneException : BarberShopExceptions
 {
     public string NumberPhone { get; }
 

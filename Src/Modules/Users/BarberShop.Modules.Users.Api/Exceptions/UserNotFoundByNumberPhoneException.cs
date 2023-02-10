@@ -3,7 +3,7 @@ using BarberShop.Shared;
 
 namespace BarberShop.Modules.Users.Api.Exceptions;
 
-internal class UserNotFoundByNumberPhoneException : BarberShopExceptions
+internal sealed class UserNotFoundByNumberPhoneException : BarberShopExceptions
 {
     public string NumberPhone { get;}
 

@@ -5,7 +5,7 @@ using BarberShop.Modules.Users.Api.Persistence;
 
 namespace BarberShop.Modules.Users.Api.Features;
 
-public interface IUserService
+internal interface IUserService
 {
     Task<IEnumerable<User>> GetAllUsers();
     Task<User> GetUserById(int id);
@@ -14,7 +14,7 @@ public interface IUserService
     Task<string> DeleteUser(int id);
     Task<string> UpdateUser(UpdateUserRequest user);
 }
-internal class UserService : IUserService
+internal sealed class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
 
@@ -66,8 +66,8 @@ internal class UserService : IUserService
         var updateUser = await _userRepository.GetUserById(user.Id);
         if (updateUser is null) throw new UserNotFoundByIdException(user.Id);
 
-        if(!user.NumberPhone.Equals("")) updateUser.UpdateNumberPhone(user.NumberPhone);;
-        if(!user.Email!.Equals("")) updateUser.UpdateEmail(user.Email);
+        if(!user.NumberPhone.Equals("")) updateUser.NumberPhone = user.NumberPhone;
+        if(!user.Email!.Equals("")) updateUser.NumberPhone = user.Email;
         
         await _userRepository.SaveChangesAsync();
         return $"Client #{user.Id} was updated in database";

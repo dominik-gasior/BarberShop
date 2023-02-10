@@ -3,7 +3,7 @@ using BarberShop.Shared;
 
 namespace BarberShop.Modules.SystemReservation.Api.Exceptions;
 
-public class BusyVisitException : BarberShopExceptions
+internal sealed class BusyVisitException : BarberShopExceptions
 {
     
     public BusyVisitException() : base("Visit is busy in database!") { }

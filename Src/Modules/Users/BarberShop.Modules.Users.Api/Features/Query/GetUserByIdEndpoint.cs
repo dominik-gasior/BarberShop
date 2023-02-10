@@ -3,15 +3,15 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-public record GetUserByIdRequest { public int UserId { get;} }
-public record GetUserByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email);
+internal sealed record GetUserByIdRequest { public int UserId { get;} }
+internal sealed record GetUserByIdResponse(int Id, string FirstName, string LastName, string NumberPhone, string Email);
 
-public class GetUserByIdMapperProfile : Mapper<GetUserByIdRequest, GetUserByIdResponse, User>
+internal sealed class GetUserByIdMapperProfile : Mapper<GetUserByIdRequest, GetUserByIdResponse, User>
 {
     public override GetUserByIdResponse FromEntity(User e)
         => new GetUserByIdResponse(e.Id, e.FirstName, e.LastName, e.NumberPhone, e.Email);
 }
-public class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUserByIdResponse, GetUserByIdMapperProfile>
+internal sealed class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUserByIdResponse, GetUserByIdMapperProfile>
 {
     private readonly IUserService _userService;
 

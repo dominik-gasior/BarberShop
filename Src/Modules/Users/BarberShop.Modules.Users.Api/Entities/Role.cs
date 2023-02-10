@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Users.Api.Entities
 {
-    public enum Role
+    internal enum Role
     {
         Klient = 1,
         Pracownik = 2,

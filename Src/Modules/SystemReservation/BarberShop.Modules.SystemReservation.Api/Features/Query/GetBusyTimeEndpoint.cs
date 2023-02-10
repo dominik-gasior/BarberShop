@@ -3,9 +3,9 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Query;
 
-public record GetBusyTimeRequest{ public DateTime Date { get; init; }}
+internal sealed record GetBusyTimeRequest{ public DateTime Date { get; init; }}
 
-public class GetBusyTimeEndpoint : Endpoint<GetBusyTimeRequest>
+internal sealed class GetBusyTimeEndpoint : Endpoint<GetBusyTimeRequest>
 {
     private readonly ISystemReservationService _systemReservationService;
 

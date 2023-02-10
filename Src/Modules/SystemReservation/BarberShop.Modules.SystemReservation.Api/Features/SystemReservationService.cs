@@ -5,7 +5,7 @@ using BarberShop.Modules.SystemReservation.Api.Persistence;
 namespace BarberShop.Modules.SystemReservation.Api.Features;
 
 
-public interface ISystemReservationService
+internal interface ISystemReservationService
 {
     Task<IEnumerable<Visit>> GetAllVisits();
     Task<IEnumerable<string>> GetBusyTime(DateTime date); 
@@ -15,7 +15,7 @@ public interface ISystemReservationService
     Task<string> DeleteVisit(int id);
 }
 
-internal class SystemReservationService : ISystemReservationService
+internal sealed class SystemReservationService : ISystemReservationService
 {
     private readonly ISystemReservationRepository _systemReservationRepository;
 

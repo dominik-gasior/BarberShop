@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
-public record CreateNewUserRequest
+internal sealed record CreateNewUserRequest
 {
     public string FirstName { get; init; }
     public string LastName { get; init; }
@@ -11,11 +11,20 @@ public record CreateNewUserRequest
     public string? Email { get; init; }
     public Role Role { get; set; }
 }
-public class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRequest, User>
+
+internal sealed class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRequest, User>
 {
-    public override User ToEntity(CreateNewUserRequest r) => new(0, r.FirstName, r.LastName, r.NumberPhone, r.Email, (int)r.Role);
+    public override User ToEntity(CreateNewUserRequest r) => new User
+    {
+        NumberPhone = r.NumberPhone,
+        FirstName = r.FirstName,
+        LastName = r.LastName,
+        Email = r.Email,
+        Role = r.Role
+    };
+
 }
-public class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewUserMapperProfile>
+internal sealed class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewUserMapperProfile>
 {
     private readonly IUserService _userService;
     public CreateNewUserEndpoint(IUserService userService) => _userService = userService;

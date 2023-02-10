@@ -3,7 +3,7 @@ using BarberShop.Shared;
 
 namespace BarberShop.Modules.Users.Api.Exceptions;
 
-internal class UserIsExistException : BarberShopExceptions
+internal sealed class UserIsExistException : BarberShopExceptions
 {
     public int Id { get;}
 
