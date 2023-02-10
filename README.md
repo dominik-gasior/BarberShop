@@ -1,6 +1,8 @@
 # System Barber Shop
 ## Database:
 ![Database](Files/BarberShopDatabase.png)
+
+## Poprawka!
 ![Flow frontend](Files/frontend.png)
 
 ## Endpoint:
