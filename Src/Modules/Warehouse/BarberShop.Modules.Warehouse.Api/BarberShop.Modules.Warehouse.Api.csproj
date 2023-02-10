@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BarberShop.Shared\BarberShop.Shared.csproj" />
+      <ProjectReference Include="..\..\..\Shared\BarberShop.Shared\BarberShop.Shared.csproj" />
     </ItemGroup>
 
 </Project>

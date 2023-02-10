@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Bootstrapper", "BarberShop.Bootstrapper\BarberShop.Bootstrapper.csproj", "{C8FFE050-9B76-4608-86AB-B426A1EB6F0C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Bootstrapper", "Src\Bootstrapper\BarberShop.Bootstrapper\BarberShop.Bootstrapper.csproj", "{C8FFE050-9B76-4608-86AB-B426A1EB6F0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bootstrapper", "Bootstrapper", "{243B0083-3796-49B3-95F1-DF7351CCEA4C}"
 EndProject
@@ -8,7 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{99BC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{6B5DF294-8366-4B00-A70F-D557115639EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Shared", "BarberShop.Shared\BarberShop.Shared.csproj", "{E4CFF498-48F3-48C7-A989-EE038D3E30CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Shared", "Src\Shared\BarberShop.Shared\BarberShop.Shared.csproj", "{E4CFF498-48F3-48C7-A989-EE038D3E30CB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Users", "Users", "{1D181A73-0535-44E6-90B8-3E6A68640B79}"
 EndProject
@@ -18,21 +18,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WareHouse", "WareHouse", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notifications", "{69EE933F-C42C-402E-B9E6-AA3E9B8F9DB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Users.Api", "BarberShop.Modules.Users.Api\BarberShop.Modules.Users.Api.csproj", "{0C5EFB70-BFD3-4B8E-92E8-732A8D7C4247}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Users.Api", "Src\Modules\Users\BarberShop.Modules.Users.Api\BarberShop.Modules.Users.Api.csproj", "{0C5EFB70-BFD3-4B8E-92E8-732A8D7C4247}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Warehouse.Api", "BarberShop.Modules.Warehouse.Api\BarberShop.Modules.Warehouse.Api.csproj", "{2FFFF736-D267-40CB-BCF1-F136DAA00147}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Warehouse.Api", "Src\Modules\Warehouse\BarberShop.Modules.Warehouse.Api\BarberShop.Modules.Warehouse.Api.csproj", "{2FFFF736-D267-40CB-BCF1-F136DAA00147}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.SystemReservation.Api", "BarberShop.Modules.SystemReservation.Api\BarberShop.Modules.SystemReservation.Api.csproj", "{9AF142EE-0877-4CBA-B601-E15588AE8C84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.SystemReservation.Api", "Src\Modules\SystemReservation\BarberShop.Modules.SystemReservation.Api\BarberShop.Modules.SystemReservation.Api.csproj", "{9AF142EE-0877-4CBA-B601-E15588AE8C84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Notifications.Api", "BarberShop.Modules.Notifications.Api\BarberShop.Modules.Notifications.Api.csproj", "{B152C70C-6727-4A6E-8D77-86ABC4F880CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Notifications.Api", "Src\Modules\Notifications\BarberShop.Modules.Notifications.Api\BarberShop.Modules.Notifications.Api.csproj", "{B152C70C-6727-4A6E-8D77-86ABC4F880CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Notifications.Shared", "BarberShop.Modules.Notifications.Shared\BarberShop.Modules.Notifications.Shared.csproj", "{059EE67A-9B71-4110-9D2D-A780B2B3425C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Notifications.Shared", "Src\Modules\Notifications\BarberShop.Modules.Notifications.Shared\BarberShop.Modules.Notifications.Shared.csproj", "{059EE67A-9B71-4110-9D2D-A780B2B3425C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.SystemReservation.Shared", "BarberShop.Modules.SystemReservation.Shared\BarberShop.Modules.SystemReservation.Shared.csproj", "{036FCA9A-5129-4E20-86B8-3D824AB10346}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.SystemReservation.Shared", "Src\Modules\SystemReservation\BarberShop.Modules.SystemReservation.Shared\BarberShop.Modules.SystemReservation.Shared.csproj", "{036FCA9A-5129-4E20-86B8-3D824AB10346}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Users.Shared", "BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj", "{ED0F6EB7-B8C6-47ED-B564-5FF75B4393B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Users.Shared", "Src\Modules\Users\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj", "{ED0F6EB7-B8C6-47ED-B564-5FF75B4393B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Warehouse.Shared", "BarberShop.Modules.Warehouse.Shared\BarberShop.Modules.Warehouse.Shared.csproj", "{AA31F578-F33C-4A22-A80B-367C6502E6BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarberShop.Modules.Warehouse.Shared", "Src\Modules\Warehouse\BarberShop.Modules.Warehouse.Shared\BarberShop.Modules.Warehouse.Shared.csproj", "{AA31F578-F33C-4A22-A80B-367C6502E6BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

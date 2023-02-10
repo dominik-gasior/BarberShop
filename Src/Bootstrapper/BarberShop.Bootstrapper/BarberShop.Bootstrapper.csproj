@@ -24,9 +24,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\BarberShop.Modules.SystemReservation.Api\BarberShop.Modules.SystemReservation.Api.csproj" />
-      <ProjectReference Include="..\BarberShop.Modules.Users.Api\BarberShop.Modules.Users.Api.csproj" />
-      <ProjectReference Include="..\BarberShop.Modules.Warehouse.Api\BarberShop.Modules.Warehouse.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\SystemReservation\BarberShop.Modules.SystemReservation.Api\BarberShop.Modules.SystemReservation.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\Users\BarberShop.Modules.Users.Api\BarberShop.Modules.Users.Api.csproj" />
+      <ProjectReference Include="..\..\Modules\Warehouse\BarberShop.Modules.Warehouse.Api\BarberShop.Modules.Warehouse.Api.csproj" />
     </ItemGroup>
 
 </Project>
