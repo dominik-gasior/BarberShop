@@ -1,7 +1,5 @@
 global using FastEndpoints;
-using System.Reflection;
 using BarberShop.Modules.SystemReservation.Api;
-using BarberShop.Modules.SystemReservation.Api.Consumers;
 using BarberShop.Modules.Users.Api;
 using BarberShop.Modules.Warehouse.Api;
 using FastEndpoints.Swagger;
