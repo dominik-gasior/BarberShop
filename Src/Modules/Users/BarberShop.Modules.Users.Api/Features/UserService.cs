@@ -53,7 +53,7 @@ internal sealed class UserService : IUserService
         
         await _bus.Publish
         (
-            new UserCreated(user.Id, user.FirstName+user.LastName, user.Email, user.NumberPhone)
+            new UserCreated(user.Id, $"{user.FirstName} {user.LastName}", user.Email, user.NumberPhone)
         );
         return "User was created!";
     }
