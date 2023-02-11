@@ -17,10 +17,7 @@ builder.Services.AddSystemReservationModule();
 
 builder.Services.AddMassTransit(x =>
 {
-    var entryAssembly = Assembly.GetEntryAssembly();
-    x.AddConsumer<UserConsumer>();
-    x.AddActivities(entryAssembly);
-    
+    x.AddConsumers(typeof(SystemReservationExtensions).Assembly);
     x.UsingRabbitMq((context,cfg) =>
     {
         cfg.Host("localhost", "/", h => {

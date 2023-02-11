@@ -24,6 +24,5 @@ public sealed class UserConsumer :  IConsumer<UserCreated>
         };
         await _systemReservationRepository.InsertClient(client);
         await _systemReservationRepository.SaveChangesAsync();
-        Console.WriteLine("Udało się");
     }
 }

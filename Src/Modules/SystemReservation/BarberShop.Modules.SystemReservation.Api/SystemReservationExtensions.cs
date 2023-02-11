@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BarberShop.Modules.SystemReservation.Api;
 
-public static class Extensions
+public static class SystemReservationExtensions
 {
     public static IServiceCollection AddSystemReservationModule(this IServiceCollection services)
     {
