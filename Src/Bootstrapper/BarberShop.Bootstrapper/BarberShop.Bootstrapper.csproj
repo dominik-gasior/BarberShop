@@ -9,6 +9,7 @@
     <ItemGroup>
         <PackageReference Include="FastEndpoints" Version="5.7.0.2-beta" />
         <PackageReference Include="FastEndpoints.Swagger" Version="5.7.0.2-beta" />
+        <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
           <PrivateAssets>all</PrivateAssets>

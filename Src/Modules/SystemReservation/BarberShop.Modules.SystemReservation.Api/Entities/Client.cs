@@ -1,11 +1,11 @@
 namespace BarberShop.Modules.SystemReservation.Api.Entities;
 
-internal sealed class Client
+public sealed class Client
 {
-    public int Id { get; set; }
-    public string Fullname { get; set; }
-    public string Email { get; set; }
-    public string NumberPhone { get; set; }
+    public required int Id { get; init; }
+    public required string Fullname { get; init; }
+    public required string Email { get; init; }
+    public required string NumberPhone { get; init; }
 
-    public List<Visit> Visits { get; set; }
+    public List<Visit> Visits { get; init; } = new();
 }

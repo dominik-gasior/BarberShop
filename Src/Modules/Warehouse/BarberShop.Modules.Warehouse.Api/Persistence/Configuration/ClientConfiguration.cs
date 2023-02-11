@@ -10,6 +10,7 @@ internal sealed class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
         builder.HasKey(p => p.Id);
 
+        builder.Property(p => p.Id).ValueGeneratedNever();
         builder.Property(p => p.FullName).IsRequired();
         builder.Property(p => p.Email).IsRequired();
         builder.Property(p => p.NumberPhone).IsRequired();

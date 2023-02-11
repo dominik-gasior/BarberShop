@@ -10,6 +10,7 @@
     <ItemGroup>
       <PackageReference Include="Bogus" Version="34.0.2" />
       <PackageReference Include="FastEndpoints" Version="5.7.0.2-beta" />
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
         <PrivateAssets>all</PrivateAssets>
@@ -19,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\BarberShop.Shared\BarberShop.Shared.csproj" />
+      <ProjectReference Include="..\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj" />
     </ItemGroup>
     
 </Project>

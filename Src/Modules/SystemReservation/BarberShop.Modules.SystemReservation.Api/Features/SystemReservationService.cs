@@ -51,7 +51,7 @@ internal sealed class SystemReservationService : ISystemReservationService
         var isFree = await _systemReservationRepository.IsFreeEmployee(visit);
         if (isFree is not null) throw new BusyVisitException();
 
-        await _systemReservationRepository.Insert(visit);
+        await _systemReservationRepository.InsertVisit(visit);
         await _systemReservationRepository.SaveChangesAsync();
         return $"Visit #{visit.Id}was created in database!";
     }

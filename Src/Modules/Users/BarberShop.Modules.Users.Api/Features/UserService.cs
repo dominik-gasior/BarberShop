@@ -2,6 +2,9 @@ using BarberShop.Modules.Users.Api.Entities;
 using BarberShop.Modules.Users.Api.Exceptions;
 using BarberShop.Modules.Users.Api.Features.Command;
 using BarberShop.Modules.Users.Api.Persistence;
+using BarberShop.Modules.Users.Shared.Event;
+using MassTransit;
+using RabbitMQ.Client.Logging;
 
 namespace BarberShop.Modules.Users.Api.Features;
 
@@ -17,9 +20,12 @@ internal interface IUserService
 internal sealed class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
-
-    public UserService(IUserRepository userRepository)
-        => _userRepository = userRepository;
+    private readonly IBus _bus;
+    public UserService(IUserRepository userRepository, IBus bus)
+    {
+        _userRepository = userRepository;
+        _bus = bus;
+    }
 
     public async Task<IEnumerable<User>> GetAllUsers()
         => await _userRepository.GetAllUsers();
@@ -40,10 +46,15 @@ internal sealed class UserService : IUserService
     public async Task<string> CreateNewUser(User user)
     {
         var isUser = await _userRepository.GetUserByNumberPhone(user.NumberPhone);
-        if (isUser is not null) throw new UserIsExistException(user.Id);
-
+        if (isUser is not null) throw new UserIsExistException(user.NumberPhone);
+        
         await _userRepository.Insert(user);
         await _userRepository.SaveChangesAsync();
+        
+        await _bus.Publish
+        (
+            new UserCreated(user.Id, user.FirstName+user.LastName, user.Email, user.NumberPhone)
+        );
         return "User was created!";
     }
 

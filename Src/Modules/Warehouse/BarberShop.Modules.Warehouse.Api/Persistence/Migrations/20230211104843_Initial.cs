@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BarberShop.Modules.Warehouse.Api.Migrations
+namespace BarberShop.Modules.Warehouse.Api.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -15,48 +15,18 @@ namespace BarberShop.Modules.Warehouse.Api.Migrations
                 name: "BarberShop.Warehouse");
 
             migrationBuilder.CreateTable(
-                name: "AmountProducts",
+                name: "Clients",
                 schema: "BarberShop.Warehouse",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AmountProducts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Orders",
-                schema: "BarberShop.Warehouse",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DeliveryTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PriceProducts",
-                schema: "BarberShop.Warehouse",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    LastPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PriceProducts", x => x.Id);
+                    table.PrimaryKey("PK_Clients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,24 +38,35 @@ namespace BarberShop.Modules.Warehouse.Api.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PriceProductId = table.Column<int>(type: "int", nullable: false),
-                    AmountProductId = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    LastPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                schema: "BarberShop.Warehouse",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DeliveryTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderStatus = table.Column<int>(type: "int", nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_AmountProducts_AmountProductId",
-                        column: x => x.AmountProductId,
+                        name: "FK_Orders_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalSchema: "BarberShop.Warehouse",
-                        principalTable: "AmountProducts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Products_PriceProducts_PriceProductId",
-                        column: x => x.PriceProductId,
-                        principalSchema: "BarberShop.Warehouse",
-                        principalTable: "PriceProducts",
+                        principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -128,20 +109,6 @@ namespace BarberShop.Modules.Warehouse.Api.Migrations
                 schema: "BarberShop.Warehouse",
                 table: "Orders",
                 column: "ClientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_AmountProductId",
-                schema: "BarberShop.Warehouse",
-                table: "Products",
-                column: "AmountProductId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_PriceProductId",
-                schema: "BarberShop.Warehouse",
-                table: "Products",
-                column: "PriceProductId",
-                unique: true);
         }
 
         /// <inheritdoc />
@@ -160,11 +127,7 @@ namespace BarberShop.Modules.Warehouse.Api.Migrations
                 schema: "BarberShop.Warehouse");
 
             migrationBuilder.DropTable(
-                name: "AmountProducts",
-                schema: "BarberShop.Warehouse");
-
-            migrationBuilder.DropTable(
-                name: "PriceProducts",
+                name: "Clients",
                 schema: "BarberShop.Warehouse");
         }
     }

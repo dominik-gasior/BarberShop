@@ -26,10 +26,7 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
             modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()

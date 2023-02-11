@@ -15,6 +15,35 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                 name: "BarberShop.SystemReservation");
 
             migrationBuilder.CreateTable(
+                name: "Clients",
+                schema: "BarberShop.SystemReservation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Fullname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberPhone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clients", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                schema: "BarberShop.SystemReservation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Fullname = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ServiceIndustries",
                 schema: "BarberShop.SystemReservation",
                 columns: table => new
@@ -31,34 +60,34 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VisitTimes",
-                schema: "BarberShop.SystemReservation",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VisitTimes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Visits",
                 schema: "BarberShop.SystemReservation",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    VisitTimeId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ServiceIndustryId = table.Column<int>(type: "int", nullable: false)
+                    ServiceIndustryId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Visits", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Visits_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalSchema: "BarberShop.SystemReservation",
+                        principalTable: "Clients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Visits_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalSchema: "BarberShop.SystemReservation",
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Visits_ServiceIndustries_ServiceIndustryId",
                         column: x => x.ServiceIndustryId,
@@ -68,32 +97,11 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "VisitVisitTime",
+            migrationBuilder.CreateIndex(
+                name: "IX_Visits_ClientId",
                 schema: "BarberShop.SystemReservation",
-                columns: table => new
-                {
-                    VisitTimesId = table.Column<int>(type: "int", nullable: false),
-                    VisitsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VisitVisitTime", x => new { x.VisitTimesId, x.VisitsId });
-                    table.ForeignKey(
-                        name: "FK_VisitVisitTime_VisitTimes_VisitTimesId",
-                        column: x => x.VisitTimesId,
-                        principalSchema: "BarberShop.SystemReservation",
-                        principalTable: "VisitTimes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_VisitVisitTime_Visits_VisitsId",
-                        column: x => x.VisitsId,
-                        principalSchema: "BarberShop.SystemReservation",
-                        principalTable: "Visits",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+                table: "Visits",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Visits_EmployeeId",
@@ -106,39 +114,21 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                 schema: "BarberShop.SystemReservation",
                 table: "Visits",
                 column: "ServiceIndustryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Visits_UserId",
-                schema: "BarberShop.SystemReservation",
-                table: "Visits",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Visits_VisitTimeId",
-                schema: "BarberShop.SystemReservation",
-                table: "Visits",
-                column: "VisitTimeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VisitVisitTime_VisitsId",
-                schema: "BarberShop.SystemReservation",
-                table: "VisitVisitTime",
-                column: "VisitsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "VisitVisitTime",
-                schema: "BarberShop.SystemReservation");
-
-            migrationBuilder.DropTable(
-                name: "VisitTimes",
-                schema: "BarberShop.SystemReservation");
-
-            migrationBuilder.DropTable(
                 name: "Visits",
+                schema: "BarberShop.SystemReservation");
+
+            migrationBuilder.DropTable(
+                name: "Clients",
+                schema: "BarberShop.SystemReservation");
+
+            migrationBuilder.DropTable(
+                name: "Employees",
                 schema: "BarberShop.SystemReservation");
 
             migrationBuilder.DropTable(

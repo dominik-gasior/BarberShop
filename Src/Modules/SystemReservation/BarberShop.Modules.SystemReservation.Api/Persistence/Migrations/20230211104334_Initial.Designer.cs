@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
 {
     [DbContext(typeof(SystemReservationDbContext))]
-    [Migration("20230209193216_ReplaceTypeNumberPhone")]
-    partial class ReplaceTypeNumberPhone
+    [Migration("20230211104334_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,6 +25,45 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Client", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumberPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Clients", "BarberShop.SystemReservation");
+                });
+
+            modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Employee", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Fullname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees", "BarberShop.SystemReservation");
+                });
 
             modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.ServiceIndustry", b =>
                 {
@@ -57,42 +96,64 @@ namespace BarberShop.Modules.SystemReservation.Api.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("NumberPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ServiceIndustryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClientId");
+
                     b.HasIndex("EmployeeId");
 
                     b.HasIndex("ServiceIndustryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Visits", "BarberShop.SystemReservation");
                 });
 
             modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Visit", b =>
                 {
+                    b.HasOne("BarberShop.Modules.SystemReservation.Api.Entities.Client", "Client")
+                        .WithMany("Visits")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BarberShop.Modules.SystemReservation.Api.Entities.Employee", "Employee")
+                        .WithMany("Visits")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BarberShop.Modules.SystemReservation.Api.Entities.ServiceIndustry", "ServiceIndustry")
                         .WithMany("Visits")
                         .HasForeignKey("ServiceIndustryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Client");
+
+                    b.Navigation("Employee");
+
                     b.Navigation("ServiceIndustry");
+                });
+
+            modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Client", b =>
+                {
+                    b.Navigation("Visits");
+                });
+
+            modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.Employee", b =>
+                {
+                    b.Navigation("Visits");
                 });
 
             modelBuilder.Entity("BarberShop.Modules.SystemReservation.Api.Entities.ServiceIndustry", b =>

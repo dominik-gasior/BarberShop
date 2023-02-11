@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BarberShop.Modules.Warehouse.Api.Persistence.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20230210212614_RefactDatabase")]
-    partial class RefactDatabase
+    [Migration("20230211104843_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,10 +29,7 @@ namespace BarberShop.Modules.Warehouse.Api.Persistence.Migrations
             modelBuilder.Entity("BarberShop.Modules.Warehouse.Api.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -94,6 +91,9 @@ namespace BarberShop.Modules.Warehouse.Api.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("LastPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -24,7 +24,6 @@ namespace BarberShop.Modules.Users.Api.Persistence.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberPhone = table.Column<string>(type: "nvarchar(9)", maxLength: 9, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

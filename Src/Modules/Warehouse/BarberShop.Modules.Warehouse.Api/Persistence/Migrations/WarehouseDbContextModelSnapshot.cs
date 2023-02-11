@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BarberShop.Modules.Warehouse.Api.Migrations
+namespace BarberShop.Modules.Warehouse.Api.Persistence.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
     partial class WarehouseDbContextModelSnapshot : ModelSnapshot
@@ -26,10 +26,7 @@ namespace BarberShop.Modules.Warehouse.Api.Migrations
             modelBuilder.Entity("BarberShop.Modules.Warehouse.Api.Entities.Client", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
