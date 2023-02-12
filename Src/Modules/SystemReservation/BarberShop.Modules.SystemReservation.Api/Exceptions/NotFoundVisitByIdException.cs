@@ -5,9 +5,9 @@ namespace BarberShop.Modules.SystemReservation.Api.Exceptions;
 
 internal sealed class NotFoundVisitByIdException : BarberShopExceptions
 {
-    public int Id { get; }
+    public Guid Id { get; }
 
-    public NotFoundVisitByIdException(int id) : base($"Visit id with {id} not found!")
+    public NotFoundVisitByIdException(Guid id) : base($"Visit id with {id} not found!")
         => Id = id;
 
     public override HttpStatusCode StatusCode => HttpStatusCode.NotFound;

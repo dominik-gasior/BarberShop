@@ -3,9 +3,9 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Query;
 
-internal sealed record GetVisitByIdRequest{public int VisitId { get; set; }};
+internal sealed record GetVisitByIdRequest{public Guid VisitId { get; set; }};
 
-internal sealed record GetVisitByIdResponse(int Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, int EmployeeId);
+internal sealed record GetVisitByIdResponse(Guid Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, int EmployeeId);
 
 internal sealed class GetVisitByIdMapperProfile : ResponseMapper<GetVisitByIdResponse, Visit>, IRequestMapper
 {

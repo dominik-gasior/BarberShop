@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
-internal sealed record DeleteVisitRequest{ public int VisitId { get; init; }};
+internal sealed record DeleteVisitRequest{ public Guid VisitId { get; init; }};
 
 internal sealed class DeleteVisitEndpoint : Endpoint<DeleteVisitRequest>
 {

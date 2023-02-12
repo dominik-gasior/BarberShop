@@ -2,7 +2,7 @@ namespace BarberShop.Modules.Warehouse.Api.Entities;
 
 internal sealed class Order
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required int ClientId { get; set; }
     public required decimal Cost { get; set; }
     public required DateTime DeliveryTime { get; set; }

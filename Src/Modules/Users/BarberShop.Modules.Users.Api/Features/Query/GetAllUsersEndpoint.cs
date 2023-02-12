@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-internal sealed record GetAllUsersResponse(int Id, string FirstName, string LastName, string Email, string NumberPhone);
+internal sealed record GetAllUsersResponse(Guid Id, string FirstName, string LastName, string Email, string NumberPhone);
 internal sealed class GetAllUsersMapperProfile : ResponseMapper<IEnumerable<GetAllUsersResponse>, IEnumerable<User>>
 {
     public override IEnumerable<GetAllUsersResponse> FromEntity(IEnumerable<User> c)

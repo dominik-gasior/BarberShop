@@ -2,7 +2,7 @@ namespace BarberShop.Modules.SystemReservation.Api.Entities;
 
 public sealed class Visit
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public required int ClientId { get; set; }
     public required int EmployeeId { get; set; }
     public required int ServiceIndustryId { get; set; }

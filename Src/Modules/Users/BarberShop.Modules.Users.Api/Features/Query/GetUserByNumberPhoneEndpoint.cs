@@ -8,7 +8,7 @@ internal sealed record GetUserByNumberPhoneRequest
     public string NumberPhone { get; set; }   
 }
 
-internal sealed record GetUserByNumberPhoneResponse(int Id, string FirstName, string LastName, string NumberPhone,
+internal sealed record GetUserByNumberPhoneResponse(Guid Id, string FirstName, string LastName, string NumberPhone,
     string Email);
 
 internal sealed class GetUserByNumberPhoneMapperProfile : Mapper<GetUserByNumberPhoneRequest, GetUserByNumberPhoneResponse, User>

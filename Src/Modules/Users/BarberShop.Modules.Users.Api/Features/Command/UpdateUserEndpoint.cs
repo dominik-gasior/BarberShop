@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
-internal sealed record UpdateUserRequest { public int Id { get; init; } public string? Email { get; init; } public string? NumberPhone { get; init; } }
+internal sealed record UpdateUserRequest { public Guid Id { get; init; } public string? Email { get; init; } public string? NumberPhone { get; init; } }
 
 internal sealed record UpdateUserResponse(string Message);
 internal sealed class UpdateUserEndpoint : Endpoint<UpdateUserRequest, UpdateUserResponse>

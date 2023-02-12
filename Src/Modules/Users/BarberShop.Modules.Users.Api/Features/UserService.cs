@@ -11,10 +11,10 @@ namespace BarberShop.Modules.Users.Api.Features;
 internal interface IUserService
 {
     Task<IEnumerable<User>> GetAllUsers();
-    Task<User> GetUserById(int id);
+    Task<User> GetUserById(Guid id);
     Task<User> GetUserByNumberPhone(string numberPhone);
     Task<string> CreateNewUser(User user);
-    Task<string> DeleteUser(int id);
+    Task<string> DeleteUser(Guid id);
     Task<string> UpdateUser(UpdateUserRequest user);
 }
 internal sealed class UserService : IUserService
@@ -30,7 +30,7 @@ internal sealed class UserService : IUserService
     public async Task<IEnumerable<User>> GetAllUsers()
         => await _dbContext.Users.ToListAsync();
     
-    public async Task<User> GetUserById(int id)
+    public async Task<User> GetUserById(Guid id)
     {
         var user = (await _dbContext
             .Users
@@ -62,7 +62,7 @@ internal sealed class UserService : IUserService
         return "User was created!";
     }
 
-    public async Task<string> DeleteUser(int id)
+    public async Task<string> DeleteUser(Guid id)
     {
         var user = await GetUserById(id);
 

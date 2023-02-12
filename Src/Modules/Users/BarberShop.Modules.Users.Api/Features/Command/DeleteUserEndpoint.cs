@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
-internal sealed record DeleteUserRequest { public int UserId { get; init; } }
+internal sealed record DeleteUserRequest { public Guid UserId { get; init; } }
 internal sealed record DeleteUserResponse(string Message);
 
 internal sealed class DeleteUserEndpoint : Endpoint<DeleteUserRequest, DeleteUserResponse>
