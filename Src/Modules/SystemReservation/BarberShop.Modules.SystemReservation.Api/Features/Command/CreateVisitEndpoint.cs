@@ -53,5 +53,6 @@ internal class CreateVisitValidator : Validator<CreateVisitRequest>
             .WithMessage("Number phone is required!")
             .Must(number => number.Length == 9)
             .WithMessage("Number phone should be 9 characters!");
+
     }
 }

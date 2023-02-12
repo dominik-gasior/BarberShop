@@ -1,5 +1,6 @@
 using BarberShop.Modules.Users.Api.Entities;
 using FastEndpoints;
+using FluentValidation;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
@@ -37,4 +38,21 @@ internal sealed class CreateNewUserEndpoint : EndpointWithMapper<CreateNewUserRe
     }
     public override async Task HandleAsync(CreateNewUserRequest req, CancellationToken ct)
         => await SendAsync(await _userService.CreateNewUser(Map.ToEntity(req)), cancellation: ct);
+}
+
+internal sealed class CreateNewUserValidator : Validator<CreateNewUserRequest>
+{
+    public CreateNewUserValidator()
+    {
+        RuleFor(x => x.NumberPhone)
+            .NotEmpty()
+            .WithMessage("Number phone is required!")
+            .Must(number => number.Length == 9)
+            .WithMessage("Number phone should be 9 characters!");
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .WithMessage("E-mail is required!")
+            .EmailAddress()
+            .WithMessage("E-mail is not correct!");
+    }
 }

@@ -1,4 +1,5 @@
 using FastEndpoints;
+using FluentValidation;
 
 namespace BarberShop.Modules.Users.Api.Features.Command;
 
@@ -13,6 +14,7 @@ internal sealed class UpdateUserEndpoint : Endpoint<UpdateUserRequest, UpdateUse
     {
         Put("/api/updateUser");
         AllowAnonymous();
+        Validator<CreateNewUserValidator>();
     }
 
     public override async Task HandleAsync(UpdateUserRequest req, CancellationToken ct)
