@@ -4,10 +4,6 @@ services:
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: rabbitmq
-    #zapis
-#    volumes:
-#      - ../volumes/rabbitmq/data/:/var/lib/rabbitmq
-#      - ../volumes/rabbitmq/log/:/var/log/rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
@@ -16,7 +12,6 @@ services:
   sql-server-db:
     image: mcr.microsoft.com/azure-sql-edge
     container_name: sql
-    restart: always
     ports:
       - "1433:1433"
     environment:
