@@ -7,4 +7,4 @@ sh migration.sh
 cd .. || exit
 cd .. || exit
 cd Src/Bootstrapper/BarberShop.Bootstrapper/ || exit
-dotnet run
+dotnet run 
