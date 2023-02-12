@@ -5,9 +5,6 @@ namespace BarberShop.Modules.Users.Api.Exceptions;
 
 internal sealed class UserIsExistException : BarberShopExceptions
 {
-    public string NumberPhone { get;}
-
-    public UserIsExistException(string numberPhone) : base($"User with {numberPhone} is exist!")
-        => NumberPhone = numberPhone;
+    public UserIsExistException(string numberPhone) : base($"User with {numberPhone} is exist!"){}
     public override HttpStatusCode StatusCode => HttpStatusCode.BadRequest;
 }

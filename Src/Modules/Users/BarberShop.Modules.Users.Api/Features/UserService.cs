@@ -54,10 +54,10 @@ internal sealed class UserService : IUserService
         
         await _dbContext.Users.AddAsync(user);
         await _dbContext.SaveChangesAsync();
-        
+        var isClient = Role.Klient == user.Role;
         await _bus.Publish
         (
-            new UserCreated(user.Id, $"{user.FirstName} {user.LastName}", user.Email, user.NumberPhone)
+            new UserCreated(user.Id, $"{user.FirstName} {user.LastName}", user.Email, user.NumberPhone, isClient)
         );
         return user.Id;
     }
@@ -68,20 +68,31 @@ internal sealed class UserService : IUserService
         
         _dbContext.Users.Remove(user);
         await _dbContext.SaveChangesAsync();
-
+        var isClient = user.Role == Role.Klient;
+        await _bus.Publish
+        (
+            new UserDeleted(user.Id, isClient)
+        );
         return $"User #{id} was removed in database!";
     }
 
     public async Task<string> UpdateUser(UpdateUserRequest user)
     {
-        if (user.NumberPhone!.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
-        
         var updateUser = await GetUserById(user.Id);
-
-        if(!user.NumberPhone.Equals("")) updateUser.NumberPhone = user.NumberPhone;
-        if(!user.Email!.Equals("")) updateUser.NumberPhone = user.Email;
+        
+        var isFreeNumberPhone = await _dbContext.Users.AnyAsync(c => c.NumberPhone.Equals(user.NumberPhone));
+        if (isFreeNumberPhone) throw new NumberPhoneisExistException(user.NumberPhone);
+        
+        updateUser.UpdateNumberPhone(user.NumberPhone);
+        updateUser.UpdateEmail(user.Email);
         
         await _dbContext.SaveChangesAsync();
+        
+        var isClient = updateUser.Role == Role.Klient;
+        await _bus.Publish
+        (
+            new UserUpdated(user.Id, user.NumberPhone, user.Email, isClient)
+        );
         return $"Client #{user.Id} was updated in database";
     }
 }

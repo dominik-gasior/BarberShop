@@ -14,9 +14,21 @@ internal sealed class UpdateUserEndpoint : Endpoint<UpdateUserRequest, UpdateUse
     {
         Put("/api/updateUser");
         AllowAnonymous();
-        Validator<CreateNewUserValidator>();
     }
 
     public override async Task HandleAsync(UpdateUserRequest req, CancellationToken ct)
         => await SendAsync(new UpdateUserResponse(await _userService.UpdateUser(req)), cancellation: ct);
+}
+
+internal sealed class UpdateUserValidator : Validator<UpdateUserRequest>
+{
+    public UpdateUserValidator()
+    {
+        RuleFor(x => x.NumberPhone)
+            .Must(number => number.Length is 9 or 0)
+            .WithMessage("Number phone should be 9 characters!");
+        RuleFor(x => x.Email)
+            .EmailAddress()
+            .WithMessage("E-mail is not correct!");
+    }
 }
