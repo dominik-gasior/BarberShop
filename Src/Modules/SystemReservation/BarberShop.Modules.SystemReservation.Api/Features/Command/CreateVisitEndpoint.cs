@@ -1,13 +1,14 @@
 using BarberShop.Modules.SystemReservation.Api.Entities;
 using FastEndpoints;
+using FluentValidation;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features.Command;
 
 internal sealed record CreateVisitRequest
 {
     public string NumberPhone { get; set; }
-    public int UserId { get; set; }
-    public int EmployeeId { get; set; }
+    public Guid UserId { get; set; }
+    public Guid EmployeeId { get; set; }
     public int ServiceIndustryId { get; set; }
     public DateTime Date { get; set; }
 }
@@ -17,8 +18,8 @@ internal sealed class CreateVisitMapperProfile : Mapper<CreateVisitRequest, Guid
     public override Visit ToEntity(CreateVisitRequest r)
         => new Visit
         {
-            EmployeeId = r.EmployeeId,
-            ClientId = r.UserId,
+            EmployeeGuid = r.EmployeeId,
+            ClientGuid = r.UserId,
             ServiceIndustryId = r.ServiceIndustryId,
             Date = r.Date,
         };
@@ -41,4 +42,16 @@ internal sealed class CreateVisitEndpoint : EndpointWithMapper<CreateVisitReques
 
     public override async Task HandleAsync(CreateVisitRequest req, CancellationToken ct)
         => await _systemReservationService.CreateNewVisit(Map.ToEntity(req));
+}
+
+internal class CreateVisitValidator : Validator<CreateVisitRequest>
+{
+    public CreateVisitValidator()
+    {
+        RuleFor(x => x.NumberPhone)
+            .NotEmpty()
+            .WithMessage("Number phone is required!")
+            .Must(number => number.Length == 9)
+            .WithMessage("Number phone should be 9 characters!");
+    }
 }

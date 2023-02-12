@@ -56,7 +56,7 @@ internal sealed class SystemReservationService : ISystemReservationService
     {
         var isFree = (await _dbContext
             .Visits
-            .FirstOrDefaultAsync(v => v.Date == visit.Date && v.EmployeeId == visit.EmployeeId))!;
+            .FirstOrDefaultAsync(v => v.Date == visit.Date && v.EmployeeGuid == visit.EmployeeGuid))!;
         
         if (isFree is not null) throw new BusyVisitException();
 

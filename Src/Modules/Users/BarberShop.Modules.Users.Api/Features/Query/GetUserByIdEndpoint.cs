@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Users.Api.Features.Query;
 
-internal sealed record GetUserByIdRequest { public Guid UserId { get;} }
+internal sealed record GetUserByIdRequest { public Guid UserId { get; set; } }
 internal sealed record GetUserByIdResponse(Guid Id, string FirstName, string LastName, string NumberPhone, string Email);
 
 internal sealed class GetUserByIdMapperProfile : Mapper<GetUserByIdRequest, GetUserByIdResponse, User>

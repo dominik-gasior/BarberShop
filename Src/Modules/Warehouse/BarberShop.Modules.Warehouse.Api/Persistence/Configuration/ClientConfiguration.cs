@@ -18,6 +18,7 @@ internal sealed class ClientConfiguration : IEntityTypeConfiguration<Client>
         builder
             .HasMany(p => p.Orders)
             .WithOne(p => p.Client)
+            .HasPrincipalKey(p=>p.Id)
             .HasForeignKey(p => p.ClientId)
             .OnDelete(DeleteBehavior.Cascade);
     }

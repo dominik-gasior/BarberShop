@@ -9,13 +9,13 @@ internal sealed class VisitConfiguration : IEntityTypeConfiguration<Visit>
     public void Configure(EntityTypeBuilder<Visit> builder)
     {
         builder.HasKey(p => p.Id);
-        builder.HasIndex(p => p.ClientId);
-        builder.HasIndex(p => p.EmployeeId);
+        builder.HasIndex(p => p.ClientGuid);
+        builder.HasIndex(p => p.EmployeeGuid);
         builder.HasIndex(p => p.ServiceIndustryId);
         
-        builder.Property(p => p.EmployeeId).IsRequired();
+        builder.Property(p => p.EmployeeGuid).IsRequired();
         builder.Property(p => p.Date).IsRequired();
-        builder.Property(p => p.ClientId).IsRequired();
+        builder.Property(p => p.ClientGuid).IsRequired();
         builder.Property(p => p.ServiceIndustryId).IsRequired();
     }
 }

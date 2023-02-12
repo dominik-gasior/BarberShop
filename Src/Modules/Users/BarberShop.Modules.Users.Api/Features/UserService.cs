@@ -34,7 +34,7 @@ internal sealed class UserService : IUserService
     {
         var user = (await _dbContext
             .Users
-            .FirstOrDefaultAsync(c => c.Id == id))!;
+            .FirstOrDefaultAsync(c => c.Id.Equals(id)))!;
         
         if (user is null) throw new UserNotFoundByIdException(id);
         
@@ -49,7 +49,7 @@ internal sealed class UserService : IUserService
 
     public async Task<Guid> CreateNewUser(User user)
     {
-        var isUser = await GetUserByNumberPhone(user.NumberPhone);
+        var isUser = await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(user.NumberPhone));
         if (isUser is not null) throw new UserIsExistException(user.NumberPhone);
         
         await _dbContext.Users.AddAsync(user);
@@ -65,10 +65,8 @@ internal sealed class UserService : IUserService
     public async Task<string> DeleteUser(Guid id)
     {
         var user = await GetUserById(id);
-
-        if (user is null) throw new UserNotFoundByIdException(id);
-
-         _dbContext.Users.Remove(user);
+        
+        _dbContext.Users.Remove(user);
         await _dbContext.SaveChangesAsync();
 
         return $"User #{id} was removed in database!";
@@ -79,7 +77,6 @@ internal sealed class UserService : IUserService
         if (user.NumberPhone!.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
         
         var updateUser = await GetUserById(user.Id);
-        if (updateUser is null) throw new UserNotFoundByIdException(user.Id);
 
         if(!user.NumberPhone.Equals("")) updateUser.NumberPhone = user.NumberPhone;
         if(!user.Email!.Equals("")) updateUser.NumberPhone = user.Email;

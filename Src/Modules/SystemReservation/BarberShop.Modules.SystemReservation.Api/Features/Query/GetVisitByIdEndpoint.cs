@@ -5,7 +5,7 @@ namespace BarberShop.Modules.SystemReservation.Api.Features.Query;
 
 internal sealed record GetVisitByIdRequest{public Guid VisitId { get; set; }};
 
-internal sealed record GetVisitByIdResponse(Guid Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, int EmployeeId);
+internal sealed record GetVisitByIdResponse(Guid Id, string NumberPhone, string NameService, decimal Price, DateTime VisitTime, Guid EmployeeId);
 
 internal sealed class GetVisitByIdMapperProfile : ResponseMapper<GetVisitByIdResponse, Visit>, IRequestMapper
 {
@@ -17,7 +17,7 @@ internal sealed class GetVisitByIdMapperProfile : ResponseMapper<GetVisitByIdRes
             e.ServiceIndustry.Name,
             e.ServiceIndustry.Price,
             e.Date,
-            e.EmployeeId
+            e.EmployeeGuid
         );
 }
 internal sealed class GetVisitByIdEndpoint : EndpointWithMapper<GetVisitByIdRequest, GetVisitByIdMapperProfile>

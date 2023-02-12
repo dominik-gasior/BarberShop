@@ -15,7 +15,8 @@ internal sealed class EmployeeConfiguration : IEntityTypeConfiguration<Employee>
         builder
             .HasMany(p => p.Visits)
             .WithOne(p => p.Employee)
-            .HasForeignKey(p => p.EmployeeId)
+            .HasPrincipalKey(p=>p.Id)
+            .HasForeignKey(p => p.EmployeeGuid)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
