@@ -13,7 +13,7 @@ internal interface IUserService
     Task<IEnumerable<User>> GetAllUsers();
     Task<User> GetUserById(Guid id);
     Task<User> GetUserByNumberPhone(string numberPhone);
-    Task<string> CreateNewUser(User user);
+    Task<Guid> CreateNewUser(User user);
     Task<string> DeleteUser(Guid id);
     Task<string> UpdateUser(UpdateUserRequest user);
 }
@@ -47,7 +47,7 @@ internal sealed class UserService : IUserService
         return user;
     }
 
-    public async Task<string> CreateNewUser(User user)
+    public async Task<Guid> CreateNewUser(User user)
     {
         var isUser = await GetUserByNumberPhone(user.NumberPhone);
         if (isUser is not null) throw new UserIsExistException(user.NumberPhone);
@@ -59,7 +59,7 @@ internal sealed class UserService : IUserService
         (
             new UserCreated(user.Id, $"{user.FirstName} {user.LastName}", user.Email, user.NumberPhone)
         );
-        return "User was created!";
+        return user.Id;
     }
 
     public async Task<string> DeleteUser(Guid id)

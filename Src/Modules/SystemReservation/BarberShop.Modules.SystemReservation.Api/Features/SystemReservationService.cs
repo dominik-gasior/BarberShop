@@ -12,7 +12,7 @@ internal interface ISystemReservationService
     Task<IEnumerable<string>> GetBusyTime(DateTime date); 
     Task<Visit> GetVisitById(Guid id);
     Task<Visit> GetVisitByNumberPhone(string numberPhone);
-    Task<string> CreateNewVisit(Visit visit);
+    Task<Guid> CreateNewVisit(Visit visit);
     Task<string> DeleteVisit(Guid id);
 }
 
@@ -52,7 +52,7 @@ internal sealed class SystemReservationService : ISystemReservationService
         return visit;
     }
 
-    public async Task<string> CreateNewVisit(Visit visit)
+    public async Task<Guid> CreateNewVisit(Visit visit)
     {
         var isFree = (await _dbContext
             .Visits
@@ -62,7 +62,7 @@ internal sealed class SystemReservationService : ISystemReservationService
 
         await _dbContext.Visits.AddAsync(visit);
         await _dbContext.SaveChangesAsync();
-        return $"Visit #{visit.Id}was created in database!";
+        return visit.Id;
     }
 
     public async Task<string> DeleteVisit(Guid id)

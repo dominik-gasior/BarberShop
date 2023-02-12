@@ -12,7 +12,7 @@ internal sealed record CreateNewUserRequest
     public Role Role { get; set; }
 }
 
-internal sealed class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRequest, User>
+internal sealed class CreateNewUserMapperProfile : Mapper<CreateNewUserRequest, Guid, User>, IRequestMapper
 {
     public override User ToEntity(CreateNewUserRequest r) => new User
     {
@@ -23,8 +23,10 @@ internal sealed class CreateNewUserMapperProfile : RequestMapper<CreateNewUserRe
         Role = r.Role
     };
 
+    public override Guid FromEntity(User e)
+        => e.Id;
 }
-internal sealed class CreateNewUserEndpoint : Endpoint<CreateNewUserRequest, string, CreateNewUserMapperProfile>
+internal sealed class CreateNewUserEndpoint : EndpointWithMapper<CreateNewUserRequest, CreateNewUserMapperProfile>
 {
     private readonly IUserService _userService;
     public CreateNewUserEndpoint(IUserService userService) => _userService = userService;

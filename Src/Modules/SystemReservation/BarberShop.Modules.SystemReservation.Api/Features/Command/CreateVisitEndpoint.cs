@@ -12,7 +12,7 @@ internal sealed record CreateVisitRequest
     public DateTime Date { get; set; }
 }
 
-internal sealed class CreateVisitMapperProfile : RequestMapper<CreateVisitRequest, Visit>
+internal sealed class CreateVisitMapperProfile : Mapper<CreateVisitRequest, Guid, Visit>, IRequestMapper
 {
     public override Visit ToEntity(CreateVisitRequest r)
         => new Visit
@@ -22,6 +22,9 @@ internal sealed class CreateVisitMapperProfile : RequestMapper<CreateVisitReques
             ServiceIndustryId = r.ServiceIndustryId,
             Date = r.Date,
         };
+
+    public override Guid FromEntity(Visit e)
+        => e.Id;
 }
 
 internal sealed class CreateVisitEndpoint : EndpointWithMapper<CreateVisitRequest,CreateVisitMapperProfile>
