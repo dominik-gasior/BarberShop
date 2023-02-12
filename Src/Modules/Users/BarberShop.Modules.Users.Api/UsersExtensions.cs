@@ -7,14 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BarberShop.Modules.Users.Api;
 
-public static class Extensions
+public static class UsersExtensions
 {
     public static IServiceCollection AddUsersModule(this IServiceCollection services)
     {
         services.AddDbContext<UsersDbContext>(
             options => options.UseSqlServer(ConnectionString.ConnString));
         services.AddScoped<IUserService, UserService>();
-        services.AddScoped<IUserRepository, UserRepository>();
 
         return services;
     }

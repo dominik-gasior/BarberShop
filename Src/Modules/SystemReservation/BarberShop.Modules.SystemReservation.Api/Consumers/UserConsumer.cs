@@ -7,10 +7,10 @@ namespace BarberShop.Modules.SystemReservation.Api.Consumers;
 
 public sealed class UserConsumer :  IConsumer<UserCreated>
 {
-    private readonly ISystemReservationRepository _systemReservationRepository;
+    private readonly SystemReservationDbContext _dbContext;
     
-    public UserConsumer(ISystemReservationRepository systemReservationRepository)
-        => _systemReservationRepository  = systemReservationRepository;
+    public UserConsumer(SystemReservationDbContext dbContext)
+        => _dbContext = dbContext;
     
     public async Task Consume(ConsumeContext<UserCreated> context)
     {
@@ -22,7 +22,7 @@ public sealed class UserConsumer :  IConsumer<UserCreated>
             Email = data.Email,
             NumberPhone = data.NumberPhone
         };
-        await _systemReservationRepository.InsertClient(client);
-        await _systemReservationRepository.SaveChangesAsync();
+        await _dbContext.Clients.AddAsync(client);
+        await _dbContext.SaveChangesAsync();
     }
 }

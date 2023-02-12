@@ -4,7 +4,7 @@ using BarberShop.Modules.Users.Api.Features.Command;
 using BarberShop.Modules.Users.Api.Persistence;
 using BarberShop.Modules.Users.Shared.Event;
 using MassTransit;
-using RabbitMQ.Client.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Users.Api.Features;
 
@@ -19,37 +19,41 @@ internal interface IUserService
 }
 internal sealed class UserService : IUserService
 {
-    private readonly IUserRepository _userRepository;
+    private readonly UsersDbContext _dbContext;
     private readonly IBus _bus;
-    public UserService(IUserRepository userRepository, IBus bus)
+    public UserService(UsersDbContext dbContext, IBus bus)
     {
-        _userRepository = userRepository;
+        _dbContext = dbContext;
         _bus = bus;
     }
 
     public async Task<IEnumerable<User>> GetAllUsers()
-        => await _userRepository.GetAllUsers();
+        => await _dbContext.Users.ToListAsync();
     
     public async Task<User> GetUserById(int id)
     {
-        var user = await _userRepository.GetUserById(id);
+        var user = (await _dbContext
+            .Users
+            .FirstOrDefaultAsync(c => c.Id == id))!;
+        
         if (user is null) throw new UserNotFoundByIdException(id);
+        
         return user;
     }
     public async Task<User> GetUserByNumberPhone(string numberPhone)
     {
-        var user = await _userRepository.GetUserByNumberPhone(numberPhone);
+        var user = (await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone)))!;
         if (user is null) throw new UserNotFoundByNumberPhoneException(numberPhone);
         return user;
     }
 
     public async Task<string> CreateNewUser(User user)
     {
-        var isUser = await _userRepository.GetUserByNumberPhone(user.NumberPhone);
+        var isUser = await GetUserByNumberPhone(user.NumberPhone);
         if (isUser is not null) throw new UserIsExistException(user.NumberPhone);
         
-        await _userRepository.Insert(user);
-        await _userRepository.SaveChangesAsync();
+        await _dbContext.Users.AddAsync(user);
+        await _dbContext.SaveChangesAsync();
         
         await _bus.Publish
         (
@@ -60,12 +64,12 @@ internal sealed class UserService : IUserService
 
     public async Task<string> DeleteUser(int id)
     {
-        var user = await _userRepository.GetUserById(id);
+        var user = await GetUserById(id);
 
         if (user is null) throw new UserNotFoundByIdException(id);
 
-        await _userRepository.Delete(user);
-        await _userRepository.SaveChangesAsync();
+         _dbContext.Users.Remove(user);
+        await _dbContext.SaveChangesAsync();
 
         return $"User #{id} was removed in database!";
     }
@@ -74,13 +78,13 @@ internal sealed class UserService : IUserService
     {
         if (user.NumberPhone!.Equals("") && user.Email!.Equals("")) throw new NumberPhoneOrEmailEmptyException();
         
-        var updateUser = await _userRepository.GetUserById(user.Id);
+        var updateUser = await GetUserById(user.Id);
         if (updateUser is null) throw new UserNotFoundByIdException(user.Id);
 
         if(!user.NumberPhone.Equals("")) updateUser.NumberPhone = user.NumberPhone;
         if(!user.Email!.Equals("")) updateUser.NumberPhone = user.Email;
         
-        await _userRepository.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
         return $"Client #{user.Id} was updated in database";
     }
 }

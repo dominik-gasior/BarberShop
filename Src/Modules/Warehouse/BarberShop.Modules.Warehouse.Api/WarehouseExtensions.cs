@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BarberShop.Modules.Warehouse.Api;
 
-public static class Extensions
+public static class WarehouseExtensions
 {
     public static IServiceCollection AddWarehouseModule(this IServiceCollection services)
     {

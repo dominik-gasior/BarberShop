@@ -15,7 +15,6 @@ public static class SystemReservationExtensions
         services.AddDbContext<SystemReservationDbContext>(
             options =>
                 options.UseSqlServer(ConnectionString.ConnString));
-        services.AddScoped<ISystemReservationRepository, SystemReservationRepository>();
         services.AddScoped<ISystemReservationService, SystemReservationService>();
         return services;
     }

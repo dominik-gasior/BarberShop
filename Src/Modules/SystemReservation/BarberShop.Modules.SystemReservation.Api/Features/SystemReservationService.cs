@@ -1,6 +1,7 @@
 using BarberShop.Modules.SystemReservation.Api.Entities;
 using BarberShop.Modules.SystemReservation.Api.Exceptions;
 using BarberShop.Modules.SystemReservation.Api.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features;
 
@@ -17,22 +18,23 @@ internal interface ISystemReservationService
 
 internal sealed class SystemReservationService : ISystemReservationService
 {
-    private readonly ISystemReservationRepository _systemReservationRepository;
+    private readonly SystemReservationDbContext _dbContext;
+    public SystemReservationService(SystemReservationDbContext dbContext) => _dbContext = dbContext;
 
-    public SystemReservationService(ISystemReservationRepository systemReservationRepository) =>
-        _systemReservationRepository = systemReservationRepository;
-
-    public async Task<IEnumerable<Visit>> GetAllVisits()
-        => await _systemReservationRepository.GetAllVisits();
+    public async Task<IEnumerable<Visit>> GetAllVisits() 
+        => await _dbContext.Visits.Include(v=>v.ServiceIndustry).ToListAsync();
 
     public async Task<IEnumerable<string>> GetBusyTime(DateTime date)
     {
-        var busyDates = await _systemReservationRepository.GetBusyTime(date);
+        var busyDates = await _dbContext.Visits.Where(v => v.Date.Date == date.Date).Select(v=>v.Date).ToListAsync();
         return busyDates.Select(c => c.ToShortTimeString());
     }
     public async Task<Visit> GetVisitById(int id)
     {
-        var visit = await _systemReservationRepository.GetVisitById(id);
+        var visit = (await _dbContext
+            .Visits
+            .Include(v => v.ServiceIndustry)
+            .FirstOrDefaultAsync(c => c.Id == id))!;
         if (visit is null) throw new NotFoundVisitByIdException(id);
 
         return visit;
@@ -40,7 +42,11 @@ internal sealed class SystemReservationService : ISystemReservationService
 
     public async Task<Visit> GetVisitByNumberPhone(string numberPhone)
     {
-        var visit = await _systemReservationRepository.GetVisitByNumberPhone(numberPhone);
+        var visit =  (await _dbContext
+            .Visits
+            .Include(v => v.ServiceIndustry)
+            .Include(v=>v.Client)
+            .FirstOrDefaultAsync(c => c.Client.NumberPhone.Equals(numberPhone)))!;
         if (visit is null) throw new NotFoundVisitByNumberPhoneException(numberPhone);
 
         return visit;
@@ -48,19 +54,22 @@ internal sealed class SystemReservationService : ISystemReservationService
 
     public async Task<string> CreateNewVisit(Visit visit)
     {
-        var isFree = await _systemReservationRepository.IsFreeEmployee(visit);
+        var isFree = (await _dbContext
+            .Visits
+            .FirstOrDefaultAsync(v => v.Date == visit.Date && v.EmployeeId == visit.EmployeeId))!;
+        
         if (isFree is not null) throw new BusyVisitException();
 
-        await _systemReservationRepository.InsertVisit(visit);
-        await _systemReservationRepository.SaveChangesAsync();
+        await _dbContext.Visits.AddAsync(visit);
+        await _dbContext.SaveChangesAsync();
         return $"Visit #{visit.Id}was created in database!";
     }
 
     public async Task<string> DeleteVisit(int id)
     {
         var visit = await GetVisitById(id);
-        await _systemReservationRepository.Delete(visit);
-        await _systemReservationRepository.SaveChangesAsync();
+        _dbContext.Visits.Remove(visit);
+        await _dbContext.SaveChangesAsync();
         return $"Visit #{id} was removed in database!";
     }
 }

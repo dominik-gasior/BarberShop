@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Persistence;
 
-internal sealed class SystemReservationDbContext : DbContext
+public sealed class SystemReservationDbContext : DbContext
 {
     public DbSet<Visit> Visits { get; set; }
     public DbSet<Client> Clients { get; set; }
