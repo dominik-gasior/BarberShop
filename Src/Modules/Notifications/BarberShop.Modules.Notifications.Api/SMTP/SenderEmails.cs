@@ -1,20 +1,22 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace BarberShop.Modules.Notifications.Api.SenderEmail;
+namespace BarberShop.Modules.Notifications.Api.SMTP;
 
-public class SenderEmails
+public sealed class SenderEmails
 {
+    //TEST VERSION
     //TODO send custom mail
-    public void SendEmail()
+    public void SendEmail(string subject, string body)
     {
         try
         {
             using MailMessage mail = new MailMessage();
             mail.From = new MailAddress("barbershopsender@onet.pl");
-            mail.To.Add("kontotestowedominik@gmail.com");
-            mail.Subject = "Test";
-            mail.Body = "<p>Test</p>";
+            
+            mail.To.Add("barbershopsender@onet.pl");
+            mail.Subject = subject;
+            mail.Body = body;
             mail.IsBodyHtml = true;
             using (SmtpClient smtpClient = new SmtpClient("smtp.poczta.onet.pl", 587))
             {
@@ -22,7 +24,7 @@ public class SenderEmails
                 smtpClient.Credentials = new NetworkCredential(LoginSenderData.LoginEmail, LoginSenderData.PasswordEmail);
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(mail);
-                Console.WriteLine("Udało się");
+                Console.WriteLine("Email sent to user!");
             }
         }
         catch (Exception e)

@@ -8,4 +8,4 @@ riderModule.iml
 Src/Modules/SystemReservation/BarberShop.Modules.SystemReservation.Api/Persistence/Migrations
 Src/Modules/Users/BarberShop.Modules.Users.Api/Persistence/Migrations
 Src/Modules/Warehouse/BarberShop.Modules.Warehouse.Api/Persistence/Migrations
-Src/Modules/Notifications/BarberShop.Modules.Notifications.Api/LoginSenderData.cs
+/Src/Modules/Notifications/BarberShop.Modules.Notifications.Api/SMTP/LoginSenderData.cs

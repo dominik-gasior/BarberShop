@@ -1,0 +1,2 @@
+<h1>Hello {name}!</h1>
+<p>Thank you for interested in our service! I hope that you stay in our of a long time!</p>

@@ -1,6 +1,8 @@
 global using FastEndpoints;
+using BarberShop.Modules.Notifications.Api.Customers;
 using BarberShop.Modules.SystemReservation.Api;
 using BarberShop.Modules.Users.Api;
+using BarberShop.Modules.Users.Shared.Event;
 using BarberShop.Modules.Warehouse.Api;
 using FastEndpoints.Swagger;
 using MassTransit;
@@ -15,7 +17,9 @@ builder.Services.AddSystemReservationModule();
 
 builder.Services.AddMassTransit(x =>
 {
+    
     x.AddConsumers(typeof(SystemReservationExtensions).Assembly);
+    x.AddConsumer<EmailCustomer>();
     x.UsingRabbitMq((context,cfg) =>
     {
         cfg.Host("localhost", "/", h => {
