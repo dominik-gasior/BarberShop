@@ -6,4 +6,12 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MassTransit.RabbitMQ" Version="8.0.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Users\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj" />
+    </ItemGroup>
+    
 </Project>
