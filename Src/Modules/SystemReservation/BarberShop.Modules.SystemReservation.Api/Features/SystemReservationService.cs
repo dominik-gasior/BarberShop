@@ -29,7 +29,11 @@ internal sealed class SystemReservationService : ISystemReservationService
     }
 
     public async Task<IEnumerable<Visit>> GetAllVisits() 
-        => await _dbContext.Visits.Include(v=>v.ServiceIndustry).ToListAsync();
+        => await _dbContext
+            .Visits
+            .Include(v=>v.ServiceIndustry)
+            .Include(v=>v.Client)
+            .ToListAsync();
 
     public async Task<IEnumerable<string>> GetBusyTime(DateTime date)
     {
