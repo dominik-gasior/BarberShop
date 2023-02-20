@@ -14,6 +14,6 @@ public sealed class VisitCustomer : IConsumer<VisitCreated>
         var sender = new SenderEmails();
         var template = new EmailTemplate();
         var body = await template.GetBodyEmail(context.Message.Fullname, context.Message.Date);
-        sender.SendEmail("Thank you for register our services!", body);
+        sender.SendEmail("Thank you for reservation visit!", body);
     }
 }

@@ -5,7 +5,7 @@ using MassTransit;
 
 namespace BarberShop.Modules.Notifications.Api.Customers;
 
-public sealed class EmailCustomer : IConsumer<UserCreated>
+public sealed class UserCustomer : IConsumer<UserCreated>
 {
     //TODO Do a email sender for visit/order/deleted etc.
     //This customer is example.

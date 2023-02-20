@@ -18,14 +18,14 @@ public sealed class SenderEmails
             mail.Subject = subject;
             mail.Body = body;
             mail.IsBodyHtml = true;
-            using (SmtpClient smtpClient = new SmtpClient("smtp.poczta.onet.pl", 587))
-            {
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = new NetworkCredential(LoginSenderData.LoginEmail, LoginSenderData.PasswordEmail);
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(mail);
-                Console.WriteLine("Email sent to user!");
-            }
+            
+            using SmtpClient smtpClient = new SmtpClient("smtp.poczta.onet.pl", 587);
+            
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(LoginSenderData.LoginEmail, LoginSenderData.PasswordEmail);
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(mail);
+            Console.WriteLine("Email sent!");
         }
         catch (Exception e)
         {

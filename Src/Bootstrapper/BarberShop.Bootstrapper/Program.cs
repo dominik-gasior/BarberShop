@@ -20,7 +20,7 @@ builder.Services.AddMassTransit(x =>
     
     x.AddConsumers(typeof(SystemReservationExtensions).Assembly);
     //todo refactor consumer
-    x.AddConsumer<EmailCustomer>();
+    x.AddConsumer<UserCustomer>();
     x.AddConsumer<VisitCustomer>();
     x.UsingRabbitMq((context,cfg) =>
     {
