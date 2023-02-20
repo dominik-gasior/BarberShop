@@ -20,6 +20,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\BarberShop.Shared\BarberShop.Shared.csproj" />
       <ProjectReference Include="..\..\Users\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj" />
+      <ProjectReference Include="..\BarberShop.Modules.SystemReservation.Shared\BarberShop.Modules.SystemReservation.Shared.csproj" />
     </ItemGroup>
 
 </Project>

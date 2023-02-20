@@ -1,6 +1,8 @@
 using BarberShop.Modules.SystemReservation.Api.Entities;
 using BarberShop.Modules.SystemReservation.Api.Exceptions;
 using BarberShop.Modules.SystemReservation.Api.Persistence;
+using BarberShop.Modules.SystemReservation.Shared.Event;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Features;
@@ -19,7 +21,12 @@ internal interface ISystemReservationService
 internal sealed class SystemReservationService : ISystemReservationService
 {
     private readonly SystemReservationDbContext _dbContext;
-    public SystemReservationService(SystemReservationDbContext dbContext) => _dbContext = dbContext;
+    private readonly IBus _bus;
+    public SystemReservationService(SystemReservationDbContext dbContext, IBus bus)
+    {
+        _dbContext = dbContext;
+        _bus = bus;
+    }
 
     public async Task<IEnumerable<Visit>> GetAllVisits() 
         => await _dbContext.Visits.Include(v=>v.ServiceIndustry).ToListAsync();
@@ -62,6 +69,10 @@ internal sealed class SystemReservationService : ISystemReservationService
 
         await _dbContext.Visits.AddAsync(visit);
         await _dbContext.SaveChangesAsync();
+        await _bus.Publish
+            (
+              new VisitCreated(visit.Client.Fullname, visit.Date)   
+            );
         return visit.Id;
     }
 
