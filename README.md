@@ -37,7 +37,7 @@
 - [x] Delete visit
 
 ## Future:
-- Send e-mail after create new visit or user
+- [x] Send e-mail after create new visit or user
 - Employee will login to system
 - Order status (Change status after use endpoint)
 
