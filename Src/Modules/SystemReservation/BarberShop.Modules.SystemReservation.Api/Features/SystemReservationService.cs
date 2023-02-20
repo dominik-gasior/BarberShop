@@ -63,17 +63,24 @@ internal sealed class SystemReservationService : ISystemReservationService
     {
         var isFree = (await _dbContext
             .Visits
-            .FirstOrDefaultAsync(v => v.Date == visit.Date && v.EmployeeGuid == visit.EmployeeGuid))!;
+            .FirstOrDefaultAsync(v => v.Date.Equals(visit.Date) && v.EmployeeGuid.Equals(visit.EmployeeGuid)))!;
         
         if (isFree is not null) throw new BusyVisitException();
 
         await _dbContext.Visits.AddAsync(visit);
         await _dbContext.SaveChangesAsync();
+        
+        var visitCreated = (await _dbContext
+            .Visits
+            .Include(v => v.Client)
+            .FirstOrDefaultAsync(v => v.Id.Equals(visit.Id)))!;
+        
         await _bus.Publish
             (
-              new VisitCreated(visit.Client.Fullname, visit.Date)   
+              new VisitCreated(visitCreated.Client.Fullname, visitCreated.Date)   
             );
-        return visit.Id;
+        
+        return visitCreated.Id;
     }
 
     public async Task<string> DeleteVisit(Guid id)
