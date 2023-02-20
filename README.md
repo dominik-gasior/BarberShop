@@ -50,6 +50,7 @@
 * [Git](https://git-scm.com/)
 * [Vertical Slice Architecture](https://code-maze.com/vertical-slice-architecture-aspnet-core/)
 * [RabbitMQ](https://www.rabbitmq.com/)
+* [MassTransit](https://masstransit.io/)
 * [REST API](https://www.ibm.com/pl-pl/cloud/learn/rest-apis)
 * [Docker](https://www.docker.com/)
 * [Bogus](https://github.com/bchavez/Bogus)
