@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Warehouse.Api.Entities;
 
-internal sealed class Order
+public sealed class Order
 {
     public Guid Id { get; set; }
     public required Guid ClientId { get; set; }

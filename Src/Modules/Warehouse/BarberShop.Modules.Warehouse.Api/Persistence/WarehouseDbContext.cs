@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Warehouse.Api.Persistence;
 
-internal sealed class WarehouseDbContext : DbContext 
+public sealed class WarehouseDbContext : DbContext 
 {
     public DbSet<Client> Clients { get; set; }
     public DbSet<Order> Orders { get; set; }

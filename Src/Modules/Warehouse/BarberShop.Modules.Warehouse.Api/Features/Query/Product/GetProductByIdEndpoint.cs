@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Warehouse.Api.Features.Query.Product;
 
-public class GetProductByIdEndpoint
+internal sealed class GetProductByIdEndpoint
 {
     
 }

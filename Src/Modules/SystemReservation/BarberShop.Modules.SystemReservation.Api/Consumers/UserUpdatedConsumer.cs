@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Consumers;
 
-public class UserUpdatedConsumer : IConsumer<UserUpdated>
+public sealed class UserUpdatedConsumer : IConsumer<UserUpdated>
 {
     private readonly SystemReservationDbContext _dbContext;
 

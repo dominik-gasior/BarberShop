@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.SystemReservation.Api.Consumers;
 
-public class UserDeletedConsumer : IConsumer<UserDeleted>
+public sealed class UserDeletedConsumer : IConsumer<UserDeleted>
 {
     private readonly SystemReservationDbContext _dbContext;
 

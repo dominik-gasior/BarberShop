@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Notifications.Api.Template;
 
-public class EmailTemplate 
+internal sealed class EmailTemplate 
 {
     public async Task<string> GetBodyEmail(string fullName)
     {

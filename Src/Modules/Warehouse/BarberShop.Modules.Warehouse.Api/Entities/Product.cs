@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Warehouse.Api.Entities;
 
-internal sealed class Product
+public sealed class Product
 {
     public int Id { get; set; }
     public required string Name { get; set; }

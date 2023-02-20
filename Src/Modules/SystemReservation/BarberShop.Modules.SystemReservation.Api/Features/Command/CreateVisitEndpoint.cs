@@ -44,7 +44,7 @@ internal sealed class CreateVisitEndpoint : EndpointWithMapper<CreateVisitReques
         => await _systemReservationService.CreateNewVisit(Map.ToEntity(req));
 }
 
-internal class CreateVisitValidator : Validator<CreateVisitRequest>
+internal sealed class CreateVisitValidator : Validator<CreateVisitRequest>
 {
     public CreateVisitValidator()
     {
