@@ -35,6 +35,8 @@ builder.Services.AddMassTransit(x =>
 var app = builder.Build();
 
 app.UseSystemReservationModule();
+app.UseWarehouseModule();
+
 app.UseDefaultExceptionHandler();
 app.UseAuthorization();
 
