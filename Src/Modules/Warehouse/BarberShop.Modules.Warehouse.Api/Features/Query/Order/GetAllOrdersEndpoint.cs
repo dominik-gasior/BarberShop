@@ -3,7 +3,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Warehouse.Api.Features.Query.Order;
 
-internal sealed record GetAllOrdersResponse(Guid Id, Guid ClientId, string Fullname,decimal Cost, DateTime DeliveryTime, OrderStatus OrderStatus);
+internal sealed record GetAllOrdersResponse(Guid Id, Guid ClientId, string ClientFullname,string ClientNumberPhone, decimal Cost, DateTime DeliveryTime, OrderStatus OrderStatus);
 
 internal sealed class GetAllOrdersMapperProfile : ResponseMapper<IEnumerable<GetAllOrdersResponse>, IEnumerable<Entities.Order>>
 {
@@ -12,6 +12,7 @@ internal sealed class GetAllOrdersMapperProfile : ResponseMapper<IEnumerable<Get
             o.Id,
             o.ClientId,
             o.Client.FullName,
+            o.Client.NumberPhone,
             o.Cost,
             o.DeliveryTime,
             o.OrderStatus

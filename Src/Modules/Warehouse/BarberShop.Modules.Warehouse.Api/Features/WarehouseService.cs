@@ -12,12 +12,14 @@ internal interface IWarehouseService
 {
     //Orders
     Task<IEnumerable<Order>> GetAllOrders();
+    Task<IEnumerable<Order>> GetAllOrdersByClientId(Guid id);
     Task<Order> GetOrderById(Guid id);
     Task<Order> GetOrderByNumberPhone(string numberPhone);
     Task<Guid> CreateNewOrder(Order order);
     Task<string> DeleteOrder(Guid id);
     //Products
     Task<IEnumerable<Product>> GetAllProducts();
+    Task<IEnumerable<Product>> GetAllProductsByOrderId(Guid id);
     Task<Product> GetProductById(int id);
     Task<int> CreateNewProduct(Product product);
     Task<string> DeleteProduct(int id);
@@ -40,7 +42,14 @@ internal sealed class WarehouseService : IWarehouseService
             .Include(o=>o.Client)
             .ToListAsync();
 
-    public async Task<Order> GetOrderById(Guid id)
+    public async Task<IEnumerable<Order>> GetAllOrdersByClientId(Guid id)
+        => await _dbContext
+            .Orders
+            .Include(o => o.Products)
+            .Where(o => o.Id.Equals(id))
+            .ToListAsync();
+
+        public async Task<Order> GetOrderById(Guid id)
     {
         var order = await _dbContext
             .Orders
@@ -85,6 +94,15 @@ internal sealed class WarehouseService : IWarehouseService
 
     public async Task<IEnumerable<Product>> GetAllProducts()
         => await _dbContext.Products.ToListAsync();
+
+    public async Task<IEnumerable<Product>> GetAllProductsByOrderId(Guid id)
+    {
+        var orders = await _dbContext
+            .Orders
+            .FirstOrDefaultAsync(o => o.Id.Equals(id));
+
+        return orders.Products;
+    }
 
     public async Task<Product> GetProductById(int id)
     {
