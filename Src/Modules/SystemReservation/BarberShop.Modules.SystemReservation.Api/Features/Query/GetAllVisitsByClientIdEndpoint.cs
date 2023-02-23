@@ -30,7 +30,7 @@ internal sealed class GetAllVisitsByClientIdEndpoint : EndpointWithMapper<GetAll
 
     public override void Configure()
     {
-        Get("/api/{ClientId}/getAllVisits");
+        Get("/api/{ClientId}/getAllVisitsForClient");
         AllowAnonymous();
     }
 

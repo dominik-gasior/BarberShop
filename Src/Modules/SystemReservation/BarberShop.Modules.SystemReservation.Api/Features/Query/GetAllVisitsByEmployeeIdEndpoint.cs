@@ -28,7 +28,7 @@ internal sealed class GetAllVisitsByEmployeeIdEndpoint : EndpointWithMapper<GetA
 
     public override void Configure()
     {
-        Get("/api/{EmployeeId}/getAllVisits");
+        Get("/api/{EmployeeId}/getAllVisitsForEmployee");
         AllowAnonymous();
     }
 

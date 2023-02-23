@@ -21,7 +21,7 @@ internal sealed class GetAllEmployeesEndpoint : EndpointWithoutRequest<IEnumerab
     public GetAllEmployeesEndpoint(IUserService userService) => _userService = userService;
     public override void Configure()
     {
-        Get("/api/getAllClients");
+        Get("/api/getAllEmployees");
         AllowAnonymous();
     }
     
