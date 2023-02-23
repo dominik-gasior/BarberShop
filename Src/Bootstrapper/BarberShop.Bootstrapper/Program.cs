@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder();
 builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDoc();
 builder.Services.AddUsersModule();
-builder.Services.AddWarehouseModule();
+// builder.Services.AddWarehouseModule();
 builder.Services.AddSystemReservationModule();
 
 builder.Services.AddMassTransit(x =>
@@ -35,7 +35,7 @@ builder.Services.AddMassTransit(x =>
 var app = builder.Build();
 
 app.UseSystemReservationModule();
-app.UseWarehouseModule();
+// app.UseWarehouseModule();
 
 app.UseDefaultExceptionHandler();
 app.UseAuthorization();

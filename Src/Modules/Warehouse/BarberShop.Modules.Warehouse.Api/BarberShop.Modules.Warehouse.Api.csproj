@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Bogus" Version="34.0.2" />
+      <PackageReference Include="FastEndpoints" Version="5.7.0.2-beta" />
       <PackageReference Include="MassTransit.Abstractions" Version="8.0.12" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />

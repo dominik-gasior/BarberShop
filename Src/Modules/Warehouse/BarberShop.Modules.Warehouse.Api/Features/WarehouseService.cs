@@ -3,6 +3,7 @@ using BarberShop.Modules.Warehouse.Api.Exceptions.Orders;
 using BarberShop.Modules.Warehouse.Api.Exceptions.Products;
 using BarberShop.Modules.Warehouse.Api.Persistence;
 using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Warehouse.Api.Features;
@@ -12,7 +13,6 @@ internal interface IWarehouseService
     //Orders
     Task<IEnumerable<Order>> GetAllOrders();
     Task<Order> GetOrderById(Guid id);
-    Task<IEnumerable<Order>> GetAllProductsByOrderId(Guid orderId);
     Task<Order> GetOrderByNumberPhone(string numberPhone);
     Task<Guid> CreateNewOrder(Order order);
     Task<string> DeleteOrder(Guid id);
@@ -35,7 +35,10 @@ internal sealed class WarehouseService : IWarehouseService
     }
 
     public async Task<IEnumerable<Order>> GetAllOrders()
-        => await _dbContext.Orders.ToListAsync();
+        => await _dbContext
+            .Orders
+            .Include(o=>o.Client)
+            .ToListAsync();
 
     public async Task<Order> GetOrderById(Guid id)
     {
@@ -50,17 +53,6 @@ internal sealed class WarehouseService : IWarehouseService
         return order;
     }
     
-    public async Task<IEnumerable<Order>> GetAllProductsByOrderId(Guid orderId)
-    {
-        var products = await _dbContext
-            .Orders
-            .Include(o => o.Products)
-            .Where(o => o.Id.Equals(orderId))
-            .ToListAsync();
-        
-        return products;
-    }
-
     public async Task<Order> GetOrderByNumberPhone(string numberPhone)
     {
         var order = await _dbContext
