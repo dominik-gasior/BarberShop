@@ -10,9 +10,9 @@ namespace BarberShop.Modules.Users.Api.Features;
 
 internal interface IUserService
 {
-    Task<IEnumerable<User>> GetAllUsers();
+    Task<IEnumerable<User>> GetAllClients();
+    Task<IEnumerable<User>> GetAllEmployees();
     Task<User> GetUserById(Guid id);
-    Task<User> GetUserByNumberPhone(string numberPhone);
     Task<Guid> CreateNewUser(User user);
     Task<string> DeleteUser(Guid id);
     Task<string> UpdateUser(UpdateUserRequest user);
@@ -27,9 +27,12 @@ internal sealed class UserService : IUserService
         _bus = bus;
     }
 
-    public async Task<IEnumerable<User>> GetAllUsers()
-        => await _dbContext.Users.ToListAsync();
-    
+    public async Task<IEnumerable<User>> GetAllClients()
+        => await _dbContext.Users.Where(c=>c.Role == Role.Klient).ToListAsync();
+
+    public async Task<IEnumerable<User>> GetAllEmployees()
+        => await _dbContext.Users.Where(e=>e.Role !=Role.Klient).ToListAsync();
+
     public async Task<User> GetUserById(Guid id)
     {
         var user = (await _dbContext
@@ -40,13 +43,6 @@ internal sealed class UserService : IUserService
         
         return user;
     }
-    public async Task<User> GetUserByNumberPhone(string numberPhone)
-    {
-        var user = (await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(numberPhone)))!;
-        if (user is null) throw new UserNotFoundByNumberPhoneException(numberPhone);
-        return user;
-    }
-
     public async Task<Guid> CreateNewUser(User user)
     {
         var isUser = await _dbContext.Users.FirstOrDefaultAsync(c => c.NumberPhone.Equals(user.NumberPhone));

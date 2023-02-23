@@ -2,15 +2,11 @@
 ## Database:
 ![Database](Files/BarberShopDatabase.png)
 
-## Poprawka!
-![Flow frontend](Files/frontend.png)
-
 ## Endpoint:
 
 ### Users:
 
 - [x] Get user by ID
-- [x] Get user by number phone
 - [x] Get users
 - [x] Create new user (client and employee)
 - [x] Delete user (client and employee)
@@ -20,7 +16,6 @@
 
 - [ ] Get all orders
 - [ ] Get order by ID
-- [ ] Get order by number phone
 - [ ] Create new order
 - [ ] Create new product
 - [ ] Delete product
@@ -30,7 +25,6 @@
 ### System Reservation:
 
 - [x] Get visit by ID
-- [x] Get visit by number phone client
 - [x] Get busy time in day
 - [x] Get all visits
 - [x] Create new visit
