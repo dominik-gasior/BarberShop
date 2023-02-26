@@ -14,7 +14,6 @@ internal interface IWarehouseService
     Task<IEnumerable<Order>> GetAllOrders();
     Task<IEnumerable<Order>> GetAllOrdersByClientId(Guid id);
     Task<Order> GetOrderById(Guid id);
-    Task<Order> GetOrderByNumberPhone(string numberPhone);
     Task<Guid> CreateNewOrder(Order order);
     Task<string> DeleteOrder(Guid id);
     //Products
@@ -23,6 +22,7 @@ internal interface IWarehouseService
     Task<Product> GetProductById(int id);
     Task<int> CreateNewProduct(Product product);
     Task<string> DeleteProduct(int id);
+    Task<string> UpdateProduct(Product product);
 }
 
 internal sealed class WarehouseService : IWarehouseService
@@ -61,21 +61,7 @@ internal sealed class WarehouseService : IWarehouseService
 
         return order;
     }
-    
-    public async Task<Order> GetOrderByNumberPhone(string numberPhone)
-    {
-        var order = await _dbContext
-            .Orders
-            .Include(o => o.Products)
-            .Include(o => o.Client)
-            .FirstOrDefaultAsync(c => c.Client.NumberPhone.Equals(numberPhone));
-
-        if (order is null) throw new NotFoundOrderByNumberPhoneException(numberPhone);
-        
-        return order;
-    }
-
-    public async Task<Guid> CreateNewOrder(Order order)
+        public async Task<Guid> CreateNewOrder(Order order)
     {
         await _dbContext.Orders.AddAsync(order);
         await _dbContext.SaveChangesAsync();
@@ -131,5 +117,21 @@ internal sealed class WarehouseService : IWarehouseService
         _dbContext.Products.Remove(product);
         await _dbContext.SaveChangesAsync();
         return $"Product #{id} was removed in database!";
+    }
+
+    public async Task<string> UpdateProduct(Product product)
+    {
+        var oldProduct = await GetProductById(product.Id);
+
+        if (product.Price != 0)
+        {
+            oldProduct.LastPrice = oldProduct.Price;
+            oldProduct.Price = product.Price;
+        }
+        if(product.Amount != 0) oldProduct.Amount = product.Amount;
+
+        _dbContext.Products.Update(oldProduct);
+        await _dbContext.SaveChangesAsync();
+        return $"Product #{product.Id} was updated in database";
     }
 }

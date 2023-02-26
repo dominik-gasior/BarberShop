@@ -2,7 +2,7 @@ using FastEndpoints;
 
 namespace BarberShop.Modules.Warehouse.Api.Features.Query.Product;
 
-internal sealed record GetAllProductsResponse(int Id, string Name, string Description, decimal Price, decimal LastPrice, int Amount);
+internal sealed record GetAllProductsResponse(int Id, string Name, string Description, decimal Price, decimal LastPrice, bool IsAvailable,int Amount);
 
 internal sealed class GetAllProductsMapperProfile : ResponseMapper<IEnumerable<GetAllProductsResponse>, IEnumerable<Entities.Product>>
 {
@@ -14,6 +14,7 @@ internal sealed class GetAllProductsMapperProfile : ResponseMapper<IEnumerable<G
                 p.Description,
                 p.Price,
                 p.LastPrice,
+                p.IsAvailable,
                 p.Amount
             ));
 }

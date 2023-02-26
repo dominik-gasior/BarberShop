@@ -4,7 +4,7 @@ using MassTransit.Transports;
 namespace BarberShop.Modules.Warehouse.Api.Features.Query.Product;
 
 internal sealed record GetProductByIdRequest{ public int Id { get; set; }}
-internal sealed record GetProductByIdResponse(int Id, string Name, string Description, decimal Price, decimal LastPrice, int Amount);
+internal sealed record GetProductByIdResponse(int Id, string Name, string Description, decimal Price, decimal LastPrice, bool IsAvailable,int Amount);
 
 internal sealed class GetProductByIdMapperProfile : ResponseMapper<GetProductByIdResponse, Entities.Product>, IRequestMapper
 {
@@ -16,6 +16,7 @@ internal sealed class GetProductByIdMapperProfile : ResponseMapper<GetProductByI
                 e.Description,
                 e.Price,
                 e.LastPrice,
+                e.IsAvailable,
                 e.Amount
             );
 }

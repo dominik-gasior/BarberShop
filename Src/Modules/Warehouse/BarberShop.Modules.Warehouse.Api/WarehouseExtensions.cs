@@ -1,3 +1,4 @@
+using BarberShop.Modules.Warehouse.Api.Features;
 using BarberShop.Modules.Warehouse.Api.Persistence;
 using BarberShop.Modules.Warehouse.Api.Persistence.Seeder;
 using BarberShop.Shared;
@@ -13,7 +14,7 @@ public static class WarehouseExtensions
     {
         services.AddDbContext<WarehouseDbContext>(
             options => options.UseSqlServer(ConnectionString.ConnString));
-        
+        services.AddScoped<IWarehouseService, WarehouseService>();
         return services;
     }
     public static IApplicationBuilder UseWarehouseModule(this IApplicationBuilder app)

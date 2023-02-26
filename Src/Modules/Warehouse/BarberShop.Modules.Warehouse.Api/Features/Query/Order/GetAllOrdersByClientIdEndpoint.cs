@@ -4,7 +4,7 @@ using FastEndpoints;
 namespace BarberShop.Modules.Warehouse.Api.Features.Query.Order;
 
 internal sealed record GetAllOrdersByClientIdRequest{ public Guid ClientId { get; set; }}
-internal sealed record GetAllOrdersByClientIdResponseProducts(int Id, string Name, string Description, decimal Price, decimal LastPrice, int AmountProductsInOrder);
+internal sealed record GetAllOrdersByClientIdResponseProducts(int Id, string Name, string Description, decimal Price, decimal LastPrice, bool IsAvailable, int AmountProductsInOrder);
 internal sealed record GetAllOrdersByClientIdResponse(Guid OrderId, DateTime DeliveryTime, OrderStatus OrderStatus, decimal Cost, IEnumerable<GetAllOrdersByClientIdResponseProducts> Products);
 
 internal sealed class GetAllOrdersByClientIdMapperProfile : ResponseMapper<IEnumerable<GetAllOrdersByClientIdResponse>, IEnumerable<Entities.Order>>, IRequestMapper
@@ -22,6 +22,7 @@ internal sealed class GetAllOrdersByClientIdMapperProfile : ResponseMapper<IEnum
                 p.Description,
                 p.Price,
                 p.LastPrice,
+                p.IsAvailable,
                 o.Products.Count(c => c.Id == p.Id)
             ))));
 
