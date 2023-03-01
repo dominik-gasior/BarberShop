@@ -10,19 +10,22 @@ namespace BarberShop.Modules.Warehouse.Api.Features;
 
 internal interface IWarehouseService
 {
-    //Orders
+    //ORDERS
     Task<IEnumerable<Order>> GetAllOrders();
     Task<IEnumerable<Order>> GetAllOrdersByClientId(Guid id);
     Task<Order> GetOrderById(Guid id);
-    Task<Guid> CreateNewOrder(Order order);
+    Task<Guid> CreateNewOrder(Order order,List<int> orderProducts);
     Task<string> DeleteOrder(Guid id);
-    //Products
+    Task<string> ChangeStatusOrder(Guid id);
+    
+    //PRODUCTS
     Task<IEnumerable<Product>> GetAllProducts();
     Task<IEnumerable<Product>> GetAllProductsByOrderId(Guid id);
     Task<Product> GetProductById(int id);
     Task<int> CreateNewProduct(Product product);
     Task<string> DeleteProduct(int id);
     Task<string> UpdateProduct(Product product);
+    
 }
 
 internal sealed class WarehouseService : IWarehouseService
@@ -60,10 +63,20 @@ internal sealed class WarehouseService : IWarehouseService
         if (order is null) throw new NotFoundOrderByIdException(id);
 
         return order;
-    }
-        public async Task<Guid> CreateNewOrder(Order order)
-    {
-        await _dbContext.Orders.AddAsync(order);
+    } 
+        public async Task<Guid> CreateNewOrder(Order order, List<int> orderProducts)
+        {
+            var products = await _dbContext
+                .Products
+                .Where(p => p.Id == orderProducts.Find(r => r == p.Id))
+                .ToListAsync();
+            
+            var cost = products.Select(p => p.Price).Sum();
+            
+            order.Products = products;
+            order.Cost = cost;
+            
+            await _dbContext.Orders.AddAsync(order);
         await _dbContext.SaveChangesAsync();
         
         //TODO publish event
@@ -78,15 +91,23 @@ internal sealed class WarehouseService : IWarehouseService
         return $"Order #{id} was removed in database!";
     }
 
+    public async Task<string> ChangeStatusOrder(Guid id)
+    {
+        var order = await GetOrderById(id);
+        
+        order.OrderStatus = OrderStatus.Odbiór;
+        //TODO publish event send email
+        _dbContext.Orders.Update(order);
+        await _dbContext.SaveChangesAsync();
+        return $"Order {order.Id} was updated status to {order.OrderStatus}.";
+    }
+
     public async Task<IEnumerable<Product>> GetAllProducts()
         => await _dbContext.Products.ToListAsync();
 
     public async Task<IEnumerable<Product>> GetAllProductsByOrderId(Guid id)
     {
-        var orders = await _dbContext
-            .Orders
-            .FirstOrDefaultAsync(o => o.Id.Equals(id));
-
+        var orders = await GetOrderById(id);
         return orders.Products;
     }
 

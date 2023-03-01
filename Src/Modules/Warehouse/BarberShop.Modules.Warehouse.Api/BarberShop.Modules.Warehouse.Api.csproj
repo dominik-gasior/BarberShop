@@ -16,6 +16,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\BarberShop.Shared\BarberShop.Shared.csproj" />
+      <ProjectReference Include="..\..\Users\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
