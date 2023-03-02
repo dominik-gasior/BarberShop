@@ -16,8 +16,5 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.Amount).IsRequired();
         builder.Property(p => p.LastPrice).IsRequired();
         builder.Property(p => p.IsAvailable).IsRequired().HasDefaultValue(true);
-
-        builder.HasMany(p => p.Orders)
-            .WithMany(p => p.Products);
     }
 }

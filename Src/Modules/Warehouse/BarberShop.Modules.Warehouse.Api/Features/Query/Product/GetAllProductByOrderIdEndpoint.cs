@@ -16,7 +16,7 @@ internal sealed class GetAllProductByOrderIdMapperProfile : ResponseMapper<IEnum
                 p.Price,
                 p.LastPrice,
                 p.IsAvailable,
-                e.Count(c=>c.Id == p.Id)
+                p.Amount
             ));
 }
 internal sealed class GetAllProductByOrderIdEndpoint : EndpointWithMapper<GetAllProductByOrderIdRequest,GetAllProductByOrderIdMapperProfile>

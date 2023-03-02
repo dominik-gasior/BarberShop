@@ -48,7 +48,6 @@ internal sealed class WarehouseService : IWarehouseService
     public async Task<IEnumerable<Order>> GetAllOrdersByClientId(Guid id)
         => await _dbContext
             .Orders
-            .Include(o => o.Products)
             .Where(o => o.Id.Equals(id))
             .ToListAsync();
 
@@ -56,7 +55,8 @@ internal sealed class WarehouseService : IWarehouseService
     {
         var order = await _dbContext
             .Orders
-            .Include(o => o.Products)
+            .Include(o => o.OrderProducts)
+            .ThenInclude(o=>o.Product)
             .Include(o => o.Client)
             .FirstOrDefaultAsync(c => c.Id.Equals(id));
 
@@ -66,16 +66,32 @@ internal sealed class WarehouseService : IWarehouseService
     } 
         public async Task<Guid> CreateNewOrder(Order order, List<int> orderProducts)
         {
+            //TODO REFACTOR!!!
             var products = await GetAllProducts();
+            order.Cost = orderProducts.Sum(orderProduct => products.FirstOrDefault(p => p.Id == orderProduct)!.Price);
             
-            var productsOrders = products.Where(p => orderProducts.Any(o=>o == p.Id)).ToList();
+            //1,1,2,2,3
+            var amountLists = orderProducts.Distinct().ToList();
+
+            var listProduct =
+                (from amountList in amountLists
+                    let amount = orderProducts.Count(o => o == amountList)
+                    select new OrderProduct { ProductId = amountList, Amount = amount }).ToList();
+
+            var reduceAmountProducts = products
+                .Where(p => p.Id == amountLists
+                    .FirstOrDefault(a => a == p.Id))
+                        .ToList();
             
-            var cost = productsOrders.Select(p => p.Price).Sum();
+            foreach (var reduceAmountProduct in reduceAmountProducts)
+            {
+                reduceAmountProduct.Amount -= orderProducts.Count(o=> o == reduceAmountProduct.Id);
+            }
             
-            order.Products = productsOrders;
-            order.Cost = cost;
+            order.OrderProducts = listProduct;
             
             await _dbContext.Orders.AddAsync(order);
+            _dbContext.UpdateRange(reduceAmountProducts);
         await _dbContext.SaveChangesAsync();
         await _bus.Publish
             (
@@ -112,8 +128,20 @@ internal sealed class WarehouseService : IWarehouseService
 
     public async Task<IEnumerable<Product>> GetAllProductsByOrderId(Guid id)
     {
-        var orders = await GetOrderById(id);
-        return orders.Products;
+        var products = await _dbContext.Orders
+            .Where(p => p.Id.Equals(id))
+            .SelectMany(p=>p.OrderProducts.Select(a=>a.Product))
+            .ToListAsync();
+        
+        var orderProducts = await _dbContext.OrderProducts
+            .Where(p => p.OrderId.Equals(id)).ToListAsync();
+
+        foreach (var product in products)
+        {
+            product.Amount = orderProducts.FirstOrDefault(p => p.ProductId == product.Id)!.Amount;
+        }
+        
+        return products;
     }
 
     public async Task<Product> GetProductById(int id)

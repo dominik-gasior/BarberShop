@@ -8,6 +8,6 @@ public sealed class Order
     public required DateTime DeliveryTime { get; set; }
     public required OrderStatus OrderStatus { get; set; }
     
-    public List<Product> Products { get; set; }
+    public List<OrderProduct> OrderProducts { get; set; }
     public Client Client { get; set; }
 }

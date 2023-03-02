@@ -9,5 +9,5 @@ public sealed class Product
     public required decimal LastPrice { get; set; }
     public required int Amount { get; set; }
     public required bool IsAvailable { get; set; }
-    public List<Order> Orders { get; set; }
+    public List<OrderProduct> OrderProducts { get; set; }
 }

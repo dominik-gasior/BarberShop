@@ -8,6 +8,7 @@ public sealed class WarehouseDbContext : DbContext
     public DbSet<Client> Clients { get; set; }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<OrderProduct> OrderProducts { get; set; }
     public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : base(options){}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
