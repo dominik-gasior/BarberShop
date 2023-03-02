@@ -74,6 +74,7 @@ internal sealed class UserService : IUserService
 
     public async Task<string> UpdateUser(UpdateUserRequest user)
     {
+        //TODO zmienić to na to ze aktualizujesz calego usera a nie tylko email i numer telefonu
         var updateUser = await GetUserById(user.Id);
         
         var isFreeNumberPhone = await _dbContext.Users.AnyAsync(c => c.NumberPhone.Equals(user.NumberPhone));

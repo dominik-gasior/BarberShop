@@ -1,4 +1,5 @@
 using FastEndpoints;
+using FluentValidation;
 
 namespace BarberShop.Modules.Warehouse.Api.Features.Command.Product;
 
@@ -41,7 +42,24 @@ internal sealed class CreateProductEndpoint : Endpoint<CreateProductRequest,int,
     public override async Task HandleAsync(CreateProductRequest req, CancellationToken ct)
         => await SendAsync(await _warehouseService.CreateNewProduct(Map.ToEntity(req)), cancellation: ct);
 }
-
+internal sealed class CreateProductValidator : Validator<CreateProductRequest>
+{
+    public CreateProductValidator()
+    {
+        RuleFor(x => x.Name)
+            .NotEmpty()
+            .WithMessage("Product name is empty!");
+        RuleFor(x => x.Description)
+            .NotEmpty()
+            .WithMessage("Product description is empty!");
+        RuleFor(x => x.Price)
+            .NotEmpty()
+            .WithMessage("Price is empty!");
+        RuleFor(x => x.Amount)
+            .NotEmpty()
+            .WithMessage("Amount is empty!");
+    }
+}
 
 
 

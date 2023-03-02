@@ -13,6 +13,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\SystemReservation\BarberShop.Modules.SystemReservation.Shared\BarberShop.Modules.SystemReservation.Shared.csproj" />
       <ProjectReference Include="..\..\Users\BarberShop.Modules.Users.Shared\BarberShop.Modules.Users.Shared.csproj" />
+      <ProjectReference Include="..\..\Warehouse\BarberShop.Modules.Warehouse.Shared\BarberShop.Modules.Warehouse.Shared.csproj" />
     </ItemGroup>
     
 </Project>

@@ -46,13 +46,19 @@ internal sealed class CreateNewUserValidator : Validator<CreateNewUserRequest>
     {
         RuleFor(x => x.NumberPhone)
             .NotEmpty()
-            .WithMessage("Number phone is required!")
+            .WithMessage("Number phone is empty!")
             .Must(number => number.Length == 9)
             .WithMessage("Number phone should be 9 characters!");
         RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("E-mail is required!")
+            .WithMessage("E-mail is empty!")
             .EmailAddress()
             .WithMessage("E-mail is not correct!");
+        RuleFor(x => x.FirstName)
+            .NotEmpty()
+            .WithMessage("First name is empty!");
+        RuleFor(x => x.LastName)
+            .NotEmpty()
+            .WithMessage("Last name is empty!");
     }
 }

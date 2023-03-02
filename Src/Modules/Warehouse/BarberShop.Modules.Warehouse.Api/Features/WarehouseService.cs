@@ -2,6 +2,7 @@ using BarberShop.Modules.Warehouse.Api.Entities;
 using BarberShop.Modules.Warehouse.Api.Exceptions.Orders;
 using BarberShop.Modules.Warehouse.Api.Exceptions.Products;
 using BarberShop.Modules.Warehouse.Api.Persistence;
+using BarberShop.Modules.Warehouse.Shared.Event;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -66,20 +67,21 @@ internal sealed class WarehouseService : IWarehouseService
     } 
         public async Task<Guid> CreateNewOrder(Order order, List<int> orderProducts)
         {
-            var products = await _dbContext
-                .Products
-                .Where(p => p.Id == orderProducts.Find(r => r == p.Id))
-                .ToListAsync();
+            var products = await GetAllProducts();
             
-            var cost = products.Select(p => p.Price).Sum();
+            var productsOrders = products.Where(p => orderProducts.Any(o=>o == p.Id)).ToList();
             
-            order.Products = products;
+            var cost = productsOrders.Select(p => p.Price).Sum();
+            
+            order.Products = productsOrders;
             order.Cost = cost;
             
             await _dbContext.Orders.AddAsync(order);
         await _dbContext.SaveChangesAsync();
-        
-        //TODO publish event
+        await _bus.Publish
+            (
+                new OrderCreated(order.Id, order.DeliveryTime)
+            );
         return order.Id;
     }
 
@@ -94,7 +96,6 @@ internal sealed class WarehouseService : IWarehouseService
     public async Task<string> ChangeStatusOrder(Guid id)
     {
         var order = await GetOrderById(id);
-        
         order.OrderStatus = OrderStatus.Odbiór;
         //TODO publish event send email
         _dbContext.Orders.Update(order);
@@ -144,12 +145,12 @@ internal sealed class WarehouseService : IWarehouseService
     {
         var oldProduct = await GetProductById(product.Id);
 
-        if (product.Price != 0)
+        if (product.Price <= 0)
         {
             oldProduct.LastPrice = oldProduct.Price;
             oldProduct.Price = product.Price;
         }
-        if(product.Amount != 0) oldProduct.Amount = product.Amount;
+        if(product.Amount <= 0) oldProduct.Amount = product.Amount;
 
         _dbContext.Products.Update(oldProduct);
         await _dbContext.SaveChangesAsync();

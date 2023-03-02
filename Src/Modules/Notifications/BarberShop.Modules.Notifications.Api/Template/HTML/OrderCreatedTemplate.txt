@@ -1,0 +1,2 @@
+<h1>Order {orderId}!</h1>
+<p>Thank you for ordered our products. Date delivered: {date}</p>

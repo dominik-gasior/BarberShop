@@ -17,7 +17,7 @@ public class UsersServiceTests
     public async Task GetAllUsers_FetchUsers_ReturnStatusOk()
     {
         //act
-        var response = await _client.GetAsync("/api/getAllUsers");
+        var response = await _client.GetAsync("/api/getAllClients");
 
         //assert
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);

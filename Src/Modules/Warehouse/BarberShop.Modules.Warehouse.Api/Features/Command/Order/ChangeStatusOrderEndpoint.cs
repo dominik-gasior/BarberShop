@@ -13,7 +13,7 @@ internal sealed class ChangeStatusOrderEndpoint : Endpoint<ChangeStatusOrderRequ
 
     public override void Configure()
     {
-        Put("/api/changeStatusOrder/{OrderId}");
+        Put("/api/changeStatusOrder");
         AllowAnonymous();
     }
 
