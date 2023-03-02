@@ -1,20 +1,20 @@
 using BarberShop.Modules.SystemReservation.Api.Features;
 using BarberShop.Modules.SystemReservation.Api.Persistence;
 using BarberShop.Modules.SystemReservation.Api.Persistence.Seeder;
-using BarberShop.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BarberShop.Modules.SystemReservation.Api;
 
 public static class SystemReservationExtensions
 {
-    public static IServiceCollection AddSystemReservationModule(this IServiceCollection services)
+    public static IServiceCollection AddSystemReservationModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<SystemReservationDbContext>(
             options =>
-                options.UseSqlServer(ConnectionString.ConnString));
+                options.UseSqlServer(configuration.GetConnectionString("dbConnString")));
         services.AddScoped<ISystemReservationService, SystemReservationService>();
         return services;
     }

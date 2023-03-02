@@ -1,6 +1,6 @@
 namespace BarberShop.Modules.Notifications.Api.Template;
 
-internal abstract class EmailTemplate
+public abstract class EmailTemplate
 {
     public abstract Task<string> GetBodyEmail();
     protected string GetPath()

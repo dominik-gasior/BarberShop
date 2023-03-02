@@ -4,7 +4,6 @@ using BarberShop.Modules.Warehouse.Api.Exceptions.Products;
 using BarberShop.Modules.Warehouse.Api.Persistence;
 using BarberShop.Modules.Warehouse.Shared.Event;
 using MassTransit;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarberShop.Modules.Warehouse.Api.Features;
@@ -97,9 +96,14 @@ internal sealed class WarehouseService : IWarehouseService
     {
         var order = await GetOrderById(id);
         order.OrderStatus = OrderStatus.Odbiór;
-        //TODO publish event send email
+        
         _dbContext.Orders.Update(order);
         await _dbContext.SaveChangesAsync();
+        //TODO publish event send email
+        await _bus.Publish
+            (
+                new OrderStatusChanged(order.Id, order.OrderStatus.ToString())    
+            );
         return $"Order {order.Id} was updated status to {order.OrderStatus}.";
     }
 
@@ -127,9 +131,6 @@ internal sealed class WarehouseService : IWarehouseService
     {
         await _dbContext.Products.AddAsync(product);
         await _dbContext.SaveChangesAsync();
-        
-        //TODO publish event
-
         return product.Id;
     }
 

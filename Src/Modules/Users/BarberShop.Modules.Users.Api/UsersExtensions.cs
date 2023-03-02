@@ -1,18 +1,18 @@
 using BarberShop.Modules.Users.Api.Features;
 using BarberShop.Modules.Users.Api.Persistence;
-using BarberShop.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BarberShop.Modules.Users.Api;
 
 public static class UsersExtensions
 {
-    public static IServiceCollection AddUsersModule(this IServiceCollection services)
+    public static IServiceCollection AddUsersModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDbContext<UsersDbContext>(
-            options => options.UseSqlServer(ConnectionString.ConnString));
+            options => options.UseSqlServer(configuration.GetConnectionString("dbConnString")));
         services.AddScoped<IUserService, UserService>();
 
         return services;

@@ -2,7 +2,6 @@ global using FastEndpoints;
 using BarberShop.Modules.Notifications.Api.Customers;
 using BarberShop.Modules.SystemReservation.Api;
 using BarberShop.Modules.Users.Api;
-using BarberShop.Modules.Users.Shared.Event;
 using BarberShop.Modules.Warehouse.Api;
 using FastEndpoints.Swagger;
 using MassTransit;
@@ -11,9 +10,9 @@ var builder = WebApplication.CreateBuilder();
 
 builder.Services.AddFastEndpoints();
 builder.Services.AddSwaggerDoc();
-builder.Services.AddUsersModule();
-builder.Services.AddWarehouseModule();
-builder.Services.AddSystemReservationModule();
+builder.Services.AddUsersModule(builder.Configuration);
+builder.Services.AddWarehouseModule(builder.Configuration);
+builder.Services.AddSystemReservationModule(builder.Configuration);
 
 builder.Services.AddMassTransit(x =>
 {
