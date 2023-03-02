@@ -20,9 +20,8 @@ builder.Services.AddMassTransit(x =>
     
     x.AddConsumers(typeof(SystemReservationExtensions).Assembly);
     x.AddConsumers(typeof(WarehouseExtensions).Assembly);
-    //todo refactor consumer
-    x.AddConsumer<UserCustomer>();
-    x.AddConsumer<VisitCustomer>();
+    x.AddConsumers(typeof(INotificationConsumer).Assembly);
+    
     x.UsingRabbitMq((context,cfg) =>
     {
         cfg.Host("localhost", "/", h => {

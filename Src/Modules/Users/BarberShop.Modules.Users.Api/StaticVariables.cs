@@ -1,6 +1,4 @@
-namespace BarberShop.Shared;
-
-//TODO dać do modułu users
+namespace BarberShop.Modules.Users.Api;
 public static class StaticVariables
 {
     public const int Seed = 100;
