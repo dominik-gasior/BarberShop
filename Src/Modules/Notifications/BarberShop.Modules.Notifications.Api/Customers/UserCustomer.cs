@@ -1,5 +1,6 @@
 using BarberShop.Modules.Notifications.Api.SMTP;
 using BarberShop.Modules.Notifications.Api.Template;
+using BarberShop.Modules.Notifications.Api.Template.Factory;
 using BarberShop.Modules.Users.Shared.Event;
 using MassTransit;
 
@@ -11,9 +12,9 @@ public sealed class UserCustomer : IConsumer<UserCreated>, INotificationConsumer
     //This customer is example.
     public async Task Consume(ConsumeContext<UserCreated> context)
     {
+        var template = new UserCreatedTemplate(context.Message.Fullname);
+        var body = await template.GetBodyEmail();
         var sender = new SenderEmails();
-        var template = new EmailTemplate();
-        var body = await template.GetBodyEmail(context.Message.Fullname);
         sender.SendEmail("Thank you for register our services!", body);
     }
 }
