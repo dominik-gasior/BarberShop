@@ -20,6 +20,7 @@ internal sealed class GetUserByIdEndpoint : Endpoint<GetUserByIdRequest, GetUser
     {
         Get("/api/user/{UserId}");
         AllowAnonymous();
+        
     }
 
     public override async Task HandleAsync(GetUserByIdRequest req, CancellationToken ct)

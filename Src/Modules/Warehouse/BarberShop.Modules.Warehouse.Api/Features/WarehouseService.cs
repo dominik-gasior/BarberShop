@@ -115,7 +115,6 @@ internal sealed class WarehouseService : IWarehouseService
         
         _dbContext.Orders.Update(order);
         await _dbContext.SaveChangesAsync();
-        //TODO publish event send email
         await _bus.Publish
             (
                 new OrderStatusChanged(order.Id, order.OrderStatus.ToString())    
