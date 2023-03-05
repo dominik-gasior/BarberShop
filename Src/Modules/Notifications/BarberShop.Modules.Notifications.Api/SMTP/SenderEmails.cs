@@ -11,7 +11,7 @@ public sealed class SenderEmails
     {
         try
         {
-            using MailMessage mail = new MailMessage();
+            using var mail = new MailMessage();
             mail.From = new MailAddress("barbershopsender@onet.pl");
             
             mail.To.Add("barbershopsender@onet.pl");
@@ -19,17 +19,19 @@ public sealed class SenderEmails
             mail.Body = body;
             mail.IsBodyHtml = true;
             
-            using SmtpClient smtpClient = new SmtpClient("smtp.poczta.onet.pl", 587);
+            using var smtpClient = new SmtpClient("smtp.poczta.onet.pl", 587);
             
             smtpClient.UseDefaultCredentials = false;
-            smtpClient.Credentials = new NetworkCredential(LoginSenderData.LoginEmail, LoginSenderData.PasswordEmail);
+
+
+            smtpClient.Credentials = new NetworkCredential(SmtpAccount.Email, SmtpAccount.Password);
             smtpClient.EnableSsl = true;
             smtpClient.Send(mail);
             Console.WriteLine("Email sent!");
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Console.WriteLine("You have to change email and password in SMTPAccount.cs");
             throw;
         }
 
