@@ -66,7 +66,6 @@ internal sealed class WarehouseService : IWarehouseService
     } 
         public async Task<Guid> CreateNewOrder(Order order, List<int> orderProducts)
         {
-            //TODO REFACTOR!!!
             var products = await GetAllProducts();
             order.Cost = orderProducts.Sum(orderProduct => products.FirstOrDefault(p => p.Id == orderProduct)!.Price);
             
