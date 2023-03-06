@@ -2,6 +2,7 @@
 
 ## Description:
 
+System for manage your business. This application offer system reservation, management warehouse and database your clients. Also this system have emails sender. The project was used to newest technologies.
 
 ## WARNING:
 If you would use smtp client (sender emails) you should change e-mail and password in project in file SMTPAccount.cs (Modules/Notifications/BarberShop.Modules.Notifications.Api/SMTP)
