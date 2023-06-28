@@ -1,15 +1,14 @@
 services:
-  
-  # general
   rabbitmq:
     image: rabbitmq:3.11-management
     container_name: rabbitmq
     ports:
       - 5672:5672
       - 15672:15672
-        
-  
-  sql-server-db:
+    networks:
+      - barbershop-network
+
+  sqlserverdb:
     image: mcr.microsoft.com/azure-sql-edge
     container_name: sql
     ports:
@@ -17,3 +16,21 @@ services:
     environment:
       SA_PASSWORD: "zaq1@WSX"
       ACCEPT_EULA: "Y"
+    networks:
+      - barbershop-network
+    depends_on: 
+      - rabbitmq
+
+  api:
+    build: ../.
+    container_name: api
+    ports:
+      - "80:80"
+    networks:
+      - barbershop-network
+    depends_on:
+      - sqlserverdb
+
+
+networks:
+  barbershop-network:

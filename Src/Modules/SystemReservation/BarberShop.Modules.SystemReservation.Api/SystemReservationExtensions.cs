@@ -21,9 +21,11 @@ public static class SystemReservationExtensions
 
     public static IApplicationBuilder UseSystemReservationModule(this IApplicationBuilder app)
     {
-        var scope = app.ApplicationServices.CreateScope();
+        using var scope = app.ApplicationServices.CreateScope();
         var services = scope.ServiceProvider;
+        services.GetRequiredService<SystemReservationDbContext>().Database.Migrate();
         services.GetRequiredService<SystemReservationDbContext>().Seed();
+        
         return app;
     }
 }

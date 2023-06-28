@@ -7,5 +7,4 @@ public static class StaticVariables
     public const int ClientsGeneratorCount = 15;
     public const int MinNumberPhone = 100000000;
     public const int MaxNumberPhone = 999999999;
-    
 }

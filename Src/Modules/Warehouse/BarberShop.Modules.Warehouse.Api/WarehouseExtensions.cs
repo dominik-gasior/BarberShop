@@ -15,12 +15,14 @@ public static class WarehouseExtensions
         services.AddDbContext<WarehouseDbContext>(
             options => options.UseSqlServer(configuration.GetConnectionString("dbConnString")));
         services.AddScoped<IWarehouseService, WarehouseService>();
+        
         return services;
     }
     public static IApplicationBuilder UseWarehouseModule(this IApplicationBuilder app)
     {
-        var scope = app.ApplicationServices.CreateScope();
+        using var scope = app.ApplicationServices.CreateScope();
         var services = scope.ServiceProvider;
+        services.GetRequiredService<WarehouseDbContext>().Database.Migrate();
         services.GetRequiredService<WarehouseDbContext>().Seed();
         return app;
     }

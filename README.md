@@ -1,5 +1,19 @@
 # System Barber Shop
 
+## New feature!
+If you want to install my app you can use only docker.
+How to do it?
+- install **Docker desktop**
+- run **powershell** or **terminal**
+- go to project in terminal ex. **cd desktop/BarberShop**
+- go to folder **Tools**
+- run command: **docker-compose up -d**
+- wait and should be running
+- go to page: **https://localhost:5267/swagger/index.html**
+
+## IMPORTANT
+If you build my app, you should change connection string in appsettings. Replace servername to **localhost**
+
 ## Description:
 
 System for manage your business. This application offer system reservation, management warehouse and database your clients. Also this system have emails sender. The project was used to newest technologies.
