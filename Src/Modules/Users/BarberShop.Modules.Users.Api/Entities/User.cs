@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BarberShop.Modules.Users.Api.Entities;

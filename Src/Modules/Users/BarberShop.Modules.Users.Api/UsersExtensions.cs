@@ -19,6 +19,9 @@ public static class UsersExtensions
     }
     public static IApplicationBuilder UseUsersModule(this IApplicationBuilder app)
     {
+        using var scope = app.ApplicationServices.CreateScope();
+        var dataContext = scope.ServiceProvider.GetRequiredService<UsersDbContext>();
+        dataContext.Database.Migrate();
         return app;
     }
 }
